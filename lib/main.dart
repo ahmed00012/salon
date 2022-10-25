@@ -1,4 +1,5 @@
-import 'package:beauty_center/view/ui/auth_page.dart';
+
+import 'package:beauty_center/view/ui/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:  AuthPage(),
+      home:  LoginScreen(),
     );
   }
 }

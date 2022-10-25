@@ -11,18 +11,22 @@ import '../repository/auth_repository.dart';
 
 
 final authFuture =
-ChangeNotifierProvider.autoDispose<AuthProvider>((ref) => AuthProvider());
+ChangeNotifierProvider.autoDispose.family<AuthProvider,double>((ref,height) => AuthProvider(height));
 class AuthProvider extends ChangeNotifier {
   AuthRepo followersRepo =AuthRepo();
   bool phoneLoginFocus = false;
   bool passwordLoginFocus = false;
+  bool phoneSignupFocus = false;
+  bool passwordSignupFocus = false;
+  bool nameSignupFocus = false;
+ double animatedHeight2 = 0;
+ double screenHeight;
 
 
 
+  AuthProvider(this.screenHeight){
 
-  AuthProvider(){
-
-
+    resizeButton(screenHeight);
   }
 
 
@@ -34,10 +38,29 @@ class AuthProvider extends ChangeNotifier {
     else if(field=='passwordLoginFocus'){
       passwordLoginFocus = focus;
     }
+    else if(field=='passwordLoginFocus'){
+      passwordLoginFocus = focus;
+    }
+    else if(field=='phoneSignupFocus'){
+      phoneSignupFocus = focus;
+    }
+    else if(field=='passwordSignupFocus'){
+      passwordSignupFocus = focus;
+    }
+    else if(field=='nameSignupFocus'){
+      nameSignupFocus = focus;
+    }
+
 
     notifyListeners();
   }
 
+  resizeButton(double height){
+    Future.delayed(Duration(milliseconds: 1200),(){
+      animatedHeight2 = height*0.07;
+      notifyListeners();
+    });
+  }
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {
     showTopSnackBar(

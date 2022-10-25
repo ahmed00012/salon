@@ -1,61 +1,92 @@
 import 'package:beauty_center/constants.dart';
 import 'package:beauty_center/provider/auth_provider.dart';
+import 'package:beauty_center/view/ui/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginScreen extends ConsumerWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+   LoginScreen({Key? key}) : super(key: key);
+
+  double animatedHeight = 600;
+
+  Widget widget = Container();
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     double height = MediaQuery.of(context).size.height<600?800:MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    final controller = ref.watch(authFuture);
+    final controller = ref.watch(authFuture(height));
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
           height: height,
           width: width,
           child: Stack(
             children: [
 
-              ListView.builder(
-                  itemCount: 5,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context,i){
-                    return   Image.asset('assets/images/61776-OA5CQN-776.jpg',fit: BoxFit.cover,
-                      height: height*0.2,
-                      width: width,
+              Image.asset('assets/images/handsome-man-barbershop-shaving-beard.jpg',fit: BoxFit.cover,
+                height: height,
+                width: width,
 
-                    );
-
-              }),
+              ),
 
               Container(
                 height: height,
                 width: width,
-                color: Colors.white.withOpacity(0.8),
+                color: Colors.black.withOpacity(0.8),
               ),
 
-              Center(
+              SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+
+
 
                   children: [
-                    SizedBox(height: height*0.1,),
-                   Image.asset('assets/images/Black_and_White_Minimalist_Illustration_Company_Logo-removebg-preview.png',
-                   color: Color(0xffce6a85),
 
-                   width: width*0.8,),
+                    StatefulBuilder(
+
+                        builder: (context,setState){
+
+
+                          Future.delayed(Duration(seconds: 1),(){
+                            setState((){
+                              animatedHeight = height*0.1;
+                            });
+                          });
+
+                          Future.delayed(Duration(microseconds: 100),(){
+                            setState((){
+                              widget =  Image.asset('assets/images/Black_and_White_Minimalist'
+                                  '_Illustration_Company_Logo-removebg-preview.png',
+                                color: Color(0xffce6a85),
+                                width: width*0.8,);
+                            });
+                          });
+
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          AnimatedContainer(
+
+                            width: width,
+                            height: animatedHeight,
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeInOut,
+                          ),
+                          widget,
+
+
+                        ],
+                      );
+                    }),
+                    SizedBox(height: height*0.05,),
+
 
                     Container(
 
                       width: width*0.8,
                       decoration: BoxDecoration(
-                        color:
-                        controller.phoneLoginFocus?
-                        Constants.mainColor2.withOpacity(0.2):
-                        Colors.grey.withOpacity(0.2),
+                        color:  Colors.white,
                         borderRadius: BorderRadius.circular(10),
 
                       ),
@@ -91,10 +122,7 @@ class LoginScreen extends ConsumerWidget {
                     Container(
                       width: width*0.8,
                       decoration: BoxDecoration(
-                        color:
-                        controller.passwordLoginFocus?
-                        Constants.mainColor2.withOpacity(0.2):
-                        Colors.grey.withOpacity(0.2),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
 
                       ),
@@ -123,18 +151,20 @@ class LoginScreen extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    
-                    SizedBox(height: 25,),
+
+                    SizedBox(height: 35,),
                     Text('Forgot Password ?',
                       style: TextStyle(
                           fontSize: height*0.018,
                           color: Constants.mainColor2,
                           fontWeight: FontWeight.w500
                       ),),
-                    SizedBox(height: 25,),
-                    Container(
-                      height: height*0.07,
+                    SizedBox(height: 35,),
+                    AnimatedContainer(
+                      height:controller.animatedHeight2,
                       width: width*0.5,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.bounceInOut,
                       decoration: BoxDecoration(
                         color: Constants.mainColor2,
                         borderRadius: BorderRadius.circular(20)
@@ -151,12 +181,17 @@ class LoginScreen extends ConsumerWidget {
                       ),
                     ),
                     SizedBox(height: 40,),
-                  Text('Create New Account',
-                  style: TextStyle(
-                    fontSize: height*0.018,
-                    color: Constants.mainColor2,
-                    fontWeight: FontWeight.w500
-                  ),),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>SignUpScreen()));
+                      },
+                    child: Text('Create New Account',
+                    style: TextStyle(
+                      fontSize: height*0.018,
+                      color: Constants.mainColor2,
+                      fontWeight: FontWeight.w500
+                    ),),
+                  ),
 
                   ],
                 ),
