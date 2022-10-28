@@ -19,8 +19,12 @@ class AuthProvider extends ChangeNotifier {
   bool phoneSignupFocus = false;
   bool passwordSignupFocus = false;
   bool nameSignupFocus = false;
+  bool phoneForgotPasswordFocus = false;
+  bool passwordResetPasswordFocus = false;
+  bool passwordResetPasswordFocus2 = false;
  double animatedHeight2 = 0;
  double screenHeight;
+static String? imageBackGround;
 
 
 
@@ -28,6 +32,8 @@ class AuthProvider extends ChangeNotifier {
 
     resizeButton(screenHeight);
   }
+
+
 
 
 
@@ -49,6 +55,15 @@ class AuthProvider extends ChangeNotifier {
     }
     else if(field=='nameSignupFocus'){
       nameSignupFocus = focus;
+    }
+    else if(field=='phoneForgotPasswordFocus'){
+      phoneForgotPasswordFocus = focus;
+    }
+    else if(field=='passwordResetPasswordFocus'){
+      passwordResetPasswordFocus = focus;
+    }
+    else if(field=='passwordResetPasswordFocus2'){
+      passwordResetPasswordFocus2 = focus;
     }
 
 

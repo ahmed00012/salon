@@ -3,7 +3,7 @@ import 'dart:ui';
 class Constants{
 
   static const Color mainColor = Color(0xfffec326);
-  static const Color mainColor2 = Color(0xffED9121);
+  static const Color mainColor2 = Color(0xfffc9b00);
   static const Color secondaryColor = Color(0xff0268CF);
   static const Color colorRed = Color(0xfffe6d73);
   static const Color scaffoldColor = Color(0xffF8F8F8);
