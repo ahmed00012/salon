@@ -427,6 +427,42 @@ class CenterInfo extends ConsumerWidget {
                            ),
                          ),
 
+                         SizedBox(height: 20,),
+
+                         InkWell(
+                           onTap: (){
+                             controller.determinePosition(googleMapController);
+                           },
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
+                               Icon(Icons.my_location_outlined,color: Constants.mainColor2,),
+                               SizedBox(width: 10,),
+                               Text('Use Your Current Location',style: TextStyle(
+                                 color: Constants.mainColor2,
+                                 fontSize: height*0.018
+                               ),)
+                             ],
+                           ),
+                         ),
+
+
+                         SizedBox(height: 20,),
+
+                         Row(
+                           children: [
+                             Expanded(child: Divider()),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                child: Text('OR Pick Your Location',
+                             style: TextStyle(
+                                 color: Colors.black38
+                             )),
+                              ),
+                             Expanded(child: Divider()),
+                           ],
+                         ),
+                         SizedBox(height: 20,),
                          Container(
                            height: height * 0.4,
                            decoration: BoxDecoration(
@@ -457,6 +493,29 @@ class CenterInfo extends ConsumerWidget {
                              ),
                            ),
                          ),
+                         SizedBox(height: 50,),
+
+
+                         Row(
+                           children: [
+                             Spacer(),
+                             InkWell(
+                               child: Container(
+                                 height: height*0.06,
+                                 width: width*0.2,
+                                 decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(15),
+                                   color: Constants.mainColor2
+                                 ),
+                                 child: Center(
+                                   child: Text('NEXT',style: TextStyle(color: Colors.white),),
+                                 ),
+                               ),
+                             )
+                           ],
+                         ),
+                         SizedBox(height: 50,),
+
                        ],
                      ),
                    ),
