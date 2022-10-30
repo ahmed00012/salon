@@ -45,6 +45,7 @@ dependencies:
   top_snackbar_flutter: ^2.1.1
   animate_do: ^2.1.0
   pin_code_fields: ^7.4.0
+  dropdown_button2: ^1.8.1
 
 
 dev_dependencies:

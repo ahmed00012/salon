@@ -1,13 +1,13 @@
 
 
 
-import 'package:beauty_center/view/ui/reset_password.dart';
+import 'package:beauty_center/view/ui/authentication/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../constants.dart';
-import '../../provider./auth_provider.dart';
+import '../../../constants.dart';
+import '../../../provider./auth_provider.dart';
 
 class OTPScreen extends ConsumerWidget {
   const OTPScreen({Key? key}) : super(key: key);

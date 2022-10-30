@@ -1,12 +1,12 @@
 
 
 
-import 'package:beauty_center/view/ui/otp.dart';
+import 'package:beauty_center/view/ui/authentication/otp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants.dart';
-import '../../provider./auth_provider.dart';
+import '../../../constants.dart';
+import '../../../provider./auth_provider.dart';
 
 class ForgotPasswordScreen extends ConsumerWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);

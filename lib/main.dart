@@ -1,7 +1,6 @@
 
-import 'package:beauty_center/view/ui/choose_tybe.dart';
-import 'package:beauty_center/view/ui/intro.dart';
-import 'package:beauty_center/view/ui/login_screen.dart';
+import 'package:beauty_center/view/ui/authentication/choose_tybe.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

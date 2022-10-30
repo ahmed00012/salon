@@ -1,10 +1,12 @@
 
 
 import 'package:animate_do/animate_do.dart';
+import 'package:beauty_center/local_storage.dart';
 import 'package:flutter/material.dart';
 
-import '../../provider./auth_provider.dart';
-import '../widgets/default_button.dart';
+import '../../../provider./auth_provider.dart';
+import '../../widgets/default_button.dart';
+
 import 'intro.dart';
 
 class ChooseTypeScreen extends StatelessWidget {
@@ -89,7 +91,7 @@ class ChooseTypeScreen extends StatelessWidget {
                       textColor: Colors.black,
                       width: size.width * .35,
                       function: (){
-
+                        LocalStorage.saveData(key: 'gender', value: 'men');
 
 
 
@@ -106,7 +108,7 @@ class ChooseTypeScreen extends StatelessWidget {
                       width: size.width * .35,
                       borderColor: Colors.white,
                       function: (){
-
+                        LocalStorage.saveData(key: 'gender', value: 'women');
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) => OnboardingScreen(gender: 1,)));
                       //  push(context, OnboardPage());

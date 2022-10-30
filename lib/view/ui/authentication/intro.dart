@@ -1,11 +1,13 @@
 
 import 'package:beauty_center/constants.dart';
 import 'package:beauty_center/provider/auth_provider.dart';
-import 'package:beauty_center/view/ui/login_screen.dart';
+import 'package:beauty_center/view/ui/authentication/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../models/onbording.dart';
+import '../../../models/onbording.dart';
+
+
 
 class OnboardingScreen extends StatefulWidget {
   final int gender;

@@ -1,9 +1,11 @@
 import 'package:beauty_center/constants.dart';
 import 'package:beauty_center/provider/auth_provider.dart';
-import 'package:beauty_center/view/ui/forgot_password.dart';
-import 'package:beauty_center/view/ui/signup_screen.dart';
+import 'package:beauty_center/view/ui/authentication/forgot_password.dart';
+import 'package:beauty_center/view/ui/authentication/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../center_info.dart';
 
 class LoginScreen extends ConsumerWidget {
    LoginScreen({Key? key,this.gender}) : super(key: key);
@@ -163,22 +165,27 @@ class LoginScreen extends ConsumerWidget {
                   ),),
               ),
               SizedBox(height: 35,),
-              AnimatedContainer(
-                height:controller.animatedHeight2,
-                width: width*0.5,
-                duration: Duration(seconds: 1),
-                curve: Curves.bounceInOut,
-                decoration: BoxDecoration(
-                    color: Constants.mainColor2,
-                    borderRadius: BorderRadius.circular(20)
-                ),
-                child: Center(
-                  child: Text(
-                    'LOGIN',
-                    style: TextStyle(
-                        color: Colors.white,
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>CenterInfo()));
+                },
+                child: AnimatedContainer(
+                  height:controller.animatedHeight2,
+                  width: width*0.5,
+                  duration: Duration(seconds: 1),
+                  curve: Curves.bounceInOut,
+                  decoration: BoxDecoration(
+                      color: Constants.mainColor2,
+                      borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Center(
+                    child: Text(
+                      'LOGIN',
+                      style: TextStyle(
+                          color: Colors.white,
 
-                        fontSize: height*0.02
+                          fontSize: height*0.02
+                      ),
                     ),
                   ),
                 ),
