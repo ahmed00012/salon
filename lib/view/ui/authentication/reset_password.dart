@@ -74,7 +74,7 @@ class ResetPassword extends ConsumerWidget {
                             width: 1, color: Constants.mainColor2),
                       ),
 
-                      hintText: 'PASSWORD',
+                      hintText: 'Password',
                       hintStyle: TextStyle(color:controller.passwordResetPasswordFocus?
                       Constants.mainColor2:Colors.black45,
 
@@ -115,7 +115,7 @@ class ResetPassword extends ConsumerWidget {
                             width: 1, color: Constants.mainColor2),
                       ),
 
-                      hintText: 'RETYPE PASSWORD',
+                      hintText: 'Retype Password',
                       hintStyle: TextStyle(color:controller.passwordResetPasswordFocus2?
                       Constants.mainColor2:Colors.black45,
 

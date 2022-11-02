@@ -63,7 +63,7 @@ int? gender;
                               borderSide: BorderSide(
                                   width: 1, color: Constants.mainColor2),
                             ),
-                            hintText: 'NAME',
+                            hintText: 'Name',
                             hintStyle: TextStyle(color:controller.nameSignupFocus?
                             Constants.mainColor2:Colors.black26,
                                 fontWeight: FontWeight.bold,fontSize: 14),
@@ -99,7 +99,7 @@ int? gender;
                             borderSide: BorderSide(
                                 width: 1, color: Constants.mainColor2),
                           ),
-                          hintText: 'PHONE',
+                          hintText: 'Phone',
                           hintStyle: TextStyle(color:controller.phoneSignupFocus?
                           Constants.mainColor2:Colors.black26,
                               fontWeight: FontWeight.bold,fontSize: 14),
@@ -132,7 +132,7 @@ int? gender;
                             borderSide: BorderSide(
                                 width: 1, color: Constants.mainColor2),
                           ),
-                          hintText: 'PASSWORD',
+                          hintText: 'Password',
                           hintStyle: TextStyle(color:controller.passwordSignupFocus?
                           Constants.mainColor2:Colors.black26,
                               fontWeight: FontWeight.bold,fontSize: 14),

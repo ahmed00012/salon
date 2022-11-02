@@ -74,7 +74,7 @@ class ForgotPasswordScreen extends ConsumerWidget {
                             width: 1, color: Constants.mainColor2),
                       ),
 
-                      hintText: 'PHONE',
+                      hintText: 'Phone',
                       hintStyle: TextStyle(color:controller.phoneForgotPasswordFocus?
                       Constants.mainColor2:Colors.black45,
 
@@ -105,7 +105,7 @@ class ForgotPasswordScreen extends ConsumerWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'CONTINUE',
+                    'Continue',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: height*0.02
