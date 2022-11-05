@@ -54,7 +54,7 @@ class ChooseTypeScreen extends StatelessWidget {
              //  ),
             //  Spacer(),
               FadeInUp(
-                delay: Duration(microseconds: 3000),
+                delay: Duration(milliseconds: 3000),
                 from: 200,
 
                 child: Text(

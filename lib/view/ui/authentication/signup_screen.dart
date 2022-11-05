@@ -4,6 +4,9 @@ import 'package:beauty_center/view/ui/authentication/otp.dart';
 import 'package:beauty_center/view/ui/authentication/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:keyboard_attachable/keyboard_attachable.dart';
+
+import '../../widgets/default_text_field.dart';
 
 class SignUpScreen extends ConsumerWidget {
   SignUpScreen({Key? key,this.gender}) : super(key: key);
@@ -17,180 +20,325 @@ int? gender;
     return Container(
       width: width,
       height: height,
-
       decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(gender==1?'assets/images/woman-hairdresser-salon.jpg':
-            'assets/images/handsome-man-barbershop-shaving-beard.jpg'),
+            image: AssetImage(gender == 1
+                ? 'assets/images/beauty-portrait-ginger-woman-with-long-hair-posing-with-green-leaf.jpg'
+                : 'assets/images/handsome-man-barbershop-shaving-beard.jpg'),
             fit: BoxFit.cover,
           )),
-
       child: Scaffold(
         backgroundColor: Colors.black.withOpacity(0.6),
+        body: FooterLayout(
+          footer: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: Container(
+                width: width,
 
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(40),
+                      topLeft: Radius.circular(40),
+                    )),
+                child: Column(
+                  children: [
 
-          Padding(
-            padding:  EdgeInsets.only(top: height*0.1),
-            child: Image.asset('assets/images/FullLogo-removebg-preview.png',
+                    SizedBox(height: 25,),
 
-              width: width*0.8,),
-          ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        children: [
+
+                          InkWell(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: Icon(Icons.arrow_back_ios,size: 30,)),
+                          SizedBox(width: 40,),
 
 
-
-                Container(
-
-                  width: width*0.8,
-                  decoration: BoxDecoration(
-                    color:  Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-
-                  ),
-                  child: FocusScope(
-                    child: Focus(
-                      onFocusChange: (focus) => controller.switchFocus(focus,'nameSignupFocus'),
-                      child: TextFormField(
-                        cursorColor: Constants.mainColor2,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(
-                                  width: 1, color: Constants.mainColor2),
+                          Text(
+                            'Reset Password',
+                            style: TextStyle(
+                                fontSize: height*0.022
                             ),
-                            hintText: 'Name',
-                            hintStyle: TextStyle(color:controller.nameSignupFocus?
-                            Constants.mainColor2:Colors.black26,
-                                fontWeight: FontWeight.bold,fontSize: 14),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Icon(Icons.person,
-                                  color: Constants.mainColor2),
-                            )
-                        ),
-
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 25,),
-                Container(
-                  width: width*0.8,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-
-                  ),
-                  child: FocusScope(
-                    child: Focus(
-                      onFocusChange: (focus) => controller.switchFocus(focus,'phoneSignupFocus'),
-                      child: TextFormField(
-                        cursorColor: Constants.mainColor2,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(
-                                width: 1, color: Constants.mainColor2),
                           ),
-                          hintText: 'Phone',
-                          hintStyle: TextStyle(color:controller.phoneSignupFocus?
-                          Constants.mainColor2:Colors.black26,
-                              fontWeight: FontWeight.bold,fontSize: 14),
-                          prefixIcon: Icon(Icons.phone,
-                              color: Constants.mainColor2),
-                        ),
 
+                        ],
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(height: 25,),
-                Container(
-                  width: width*0.8,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    SizedBox(height: 50,),
 
-                  ),
-                  child: FocusScope(
-                    child: Focus(
-                      onFocusChange: (focus) => controller.switchFocus(focus,'passwordSignupFocus'),
-                      child: TextFormField(
-                        cursorColor: Constants.mainColor2,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(
-                                width: 1, color: Constants.mainColor2),
+                    DefaultTextField(label: 'Name',icon: Icons.person),
+                    SizedBox(height: 25,),
+                    DefaultTextField(label: 'Phone',icon: Icons.phone),
+                    SizedBox(height: 25,),
+                    DefaultTextField(label: 'Password',icon: Icons.security),
+
+                    SizedBox(height: 50,),
+
+
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>OTPScreen()));
+                      },
+                      child: Container(
+                        height:height*0.07,
+                        width: width*0.5,
+
+                        decoration: BoxDecoration(
+                            color: Constants.mainColor2,
+                            borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: Center(
+                          child: Text(
+                            'SIGNUP',
+                            style: TextStyle(
+                                color: Colors.white,
+
+                                fontSize: height*0.02
+                            ),
                           ),
-                          hintText: 'Password',
-                          hintStyle: TextStyle(color:controller.passwordSignupFocus?
-                          Constants.mainColor2:Colors.black26,
-                              fontWeight: FontWeight.bold,fontSize: 14),
-                          prefixIcon: Icon(Icons.security,
-                              color: Constants.mainColor2),
                         ),
-
                       ),
                     ),
-                  ),
-                ),
-
-                SizedBox(height: 70,),
-
-
-                InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>OTPScreen()));
-                  },
-                  child: Container(
-                    height:height*0.07,
-                    width: width*0.5,
-
-                    decoration: BoxDecoration(
-                        color: Constants.mainColor2,
-                        borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: Center(
-                      child: Text(
-                        'SIGNUP',
+                    SizedBox(height: 40,),
+                    InkWell(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text('Already Have Account ?',
                         style: TextStyle(
-                            color: Colors.white,
-
-                            fontSize: height*0.02
-                        ),
-                      ),
+                            fontSize: height*0.018,
+                            color: Constants.mainColor2,
+                            fontWeight: FontWeight.w500
+                        ),),
                     ),
-                  ),
-                ),
-                SizedBox(height: 40,),
-                InkWell(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  child: Text('Already Have Account ?',
-                    style: TextStyle(
-                        fontSize: height*0.018,
-                        color: Constants.mainColor2,
-                        fontWeight: FontWeight.w500
-                    ),),
-                ),
 
-                SizedBox(height: height*0.1,)
+                    SizedBox(height: 40 ,)
 
-              ],
+                  ],
+                ),
+              ),
+            ),
+          ),
+          child:  Center(
+            child: Image.asset(
+              'assets/images/FullLogo-removebg-preview.png',
+              width: width * 0.8,
+
             ),
           ),
         ),
+
+        // SingleChildScrollView(
+        //   child: Column(
+        //     children: [
+        //
+        //       StatefulBuilder(
+        //
+        //           builder: (context,setState){
+        //
+        //
+        //             Future.delayed(Duration(seconds: 1),(){
+        //               setState((){
+        //                 animatedHeight = height*0.1;
+        //               });
+        //             });
+        //
+        //             Future.delayed(Duration(microseconds: 100),(){
+        //               setState((){
+        //                 widget =  Padding(
+        //                   padding:  EdgeInsets.only(top: height*0.1),
+        //                   child: Image.asset('assets/images/FullLogo-removebg-preview.png',
+        //
+        //                     width: width*0.8,),
+        //                 );
+        //               });
+        //             });
+        //
+        //             return Stack(
+        //               alignment: Alignment.center,
+        //               children: [
+        //                 AnimatedContainer(
+        //
+        //                   width: width,
+        //                   height: animatedHeight,
+        //                   duration: const Duration(seconds: 1),
+        //                   curve: Curves.easeInOut,
+        //                 ),
+        //                 widget,
+        //
+        //
+        //               ],
+        //             );
+        //           }),
+        //
+        //
+        //       SizedBox(height: height*0.05,),
+        //
+        //
+        //       KeyboardAttachable(
+        //         transitionBuilder: _buildTransition,
+        //
+        //         child: Container(
+        //              width: width,
+        //              decoration: BoxDecoration(
+        //                  color: Colors.white,
+        //                  borderRadius: BorderRadius.only(
+        //                    topRight: Radius.circular(40),
+        //                    topLeft: Radius.circular(40),
+        //                  )
+        //              ),
+        //              child: Column(
+        //                children: [
+        //                  SizedBox(height: height*0.05,),
+        //
+        //                  Container(
+        //
+        //                    width: width*0.8,
+        //                    decoration: BoxDecoration(
+        //                      color:  Colors.white,
+        //                      borderRadius: BorderRadius.circular(10),
+        //
+        //                    ),
+        //                    child: FocusScope(
+        //                      child: Focus(
+        //                        onFocusChange: (focus) => controller.switchFocus(focus,'phoneLoginFocus'),
+        //                        child: TextFormField(
+        //                          cursorColor: Constants.mainColor2,
+        //                          decoration: InputDecoration(
+        //                              border: OutlineInputBorder(
+        //                                borderRadius:
+        //                                BorderRadius.all(Radius.circular(8)),
+        //                                borderSide: BorderSide(
+        //                                    width: 1, color: Colors.black26),
+        //                              ),
+        //                              focusedBorder: OutlineInputBorder(
+        //                                borderRadius:
+        //                                BorderRadius.all(Radius.circular(8)),
+        //                                borderSide: BorderSide(
+        //                                    width: 1, color: Constants.mainColor2),
+        //                              ),
+        //                              labelText: 'Phone',
+        //                              labelStyle: TextStyle(color:controller.phoneLoginFocus?
+        //                              Constants.mainColor2:Colors.black26,
+        //                                  fontWeight: FontWeight.bold,fontSize: 14),
+        //                              prefixIcon: Padding(
+        //                                padding: const EdgeInsets.only(right: 10),
+        //                                child: Icon(Icons.phone,
+        //                                    color: Constants.mainColor2),
+        //                              )
+        //                          ),
+        //
+        //                        ),
+        //                      ),
+        //                    ),
+        //                  ),
+        //                  SizedBox(height: 25,),
+        //                  Container(
+        //                    width: width*0.8,
+        //                    decoration: BoxDecoration(
+        //                      color: Colors.white,
+        //                      borderRadius: BorderRadius.circular(10),
+        //
+        //                    ),
+        //                    child: FocusScope(
+        //                      child: Focus(
+        //                        onFocusChange: (focus) => controller.switchFocus(focus,'passwordLoginFocus'),
+        //                        child: TextFormField(
+        //                          cursorColor: Constants.mainColor2,
+        //                          decoration: InputDecoration(
+        //                            border: OutlineInputBorder(
+        //                                borderRadius:
+        //                                BorderRadius.all(Radius.circular(8)),
+        //                                borderSide: BorderSide(
+        //                                    width: 1, color: Colors.black26)),
+        //                            focusedBorder: OutlineInputBorder(
+        //                              borderRadius:
+        //                              BorderRadius.all(Radius.circular(8)),
+        //                              borderSide: BorderSide(
+        //                                  width: 1, color: Constants.mainColor2),
+        //                            ),
+        //                            labelText: 'Password',
+        //                            labelStyle: TextStyle(color:controller.passwordLoginFocus?
+        //                            Constants.mainColor2:Colors.black26,
+        //
+        //                                fontWeight: FontWeight.bold,fontSize: 14),
+        //                            prefixIcon: Icon(Icons.security,
+        //                                color: Constants.mainColor2),
+        //                          ),
+        //
+        //                        ),
+        //                      ),
+        //                    ),
+        //                  ),
+        //
+        //                  SizedBox(height: 35,),
+        //                  InkWell(
+        //                    onTap: (){
+        //                      Navigator.push(context, MaterialPageRoute(builder: (_)=>ForgotPasswordScreen()));
+        //                    },
+        //                    child: Text('Forgot Password ?',
+        //                      style: TextStyle(
+        //                          fontSize: height*0.018,
+        //                          color: Constants.mainColor2,
+        //                          fontWeight: FontWeight.w500
+        //                      ),),
+        //                  ),
+        //                  SizedBox(height: 35,),
+        //                  InkWell(
+        //                    onTap: (){
+        //                      Navigator.push(context, MaterialPageRoute(builder: (_)=>CenterInfo()));
+        //                    },
+        //                    child: AnimatedContainer(
+        //                      height:controller.animatedHeight2,
+        //                      width: width*0.5,
+        //                      duration: Duration(seconds: 1),
+        //                      curve: Curves.bounceInOut,
+        //                      decoration: BoxDecoration(
+        //                          color: Constants.mainColor2,
+        //                          borderRadius: BorderRadius.circular(20)
+        //                      ),
+        //                      child: Center(
+        //                        child: Text(
+        //                          'LOGIN',
+        //                          style: TextStyle(
+        //                              color: Colors.white,
+        //
+        //                              fontSize: height*0.02
+        //                          ),
+        //                        ),
+        //                      ),
+        //                    ),
+        //                  ),
+        //                  SizedBox(height: 35,),
+        //                  InkWell(
+        //                    onTap: (){
+        //                      Navigator.push(context, MaterialPageRoute(builder: (_)=>SignUpScreen(gender: gender,)));
+        //                    },
+        //                    child: Text('Create New Account',
+        //                      style: TextStyle(
+        //                          fontSize: height*0.018,
+        //                          color: Constants.mainColor2,
+        //
+        //                          fontWeight: FontWeight.w500
+        //                      ),),
+        //                  ),
+        //
+        //                  SizedBox(height: height*0.1,)
+        //                ],
+        //              ),
+        //            ),
+        //       ),
+        //
+        //
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

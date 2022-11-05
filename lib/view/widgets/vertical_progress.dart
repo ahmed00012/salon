@@ -8,7 +8,8 @@ class VerticalProgress extends StatelessWidget {
 
   double ?height;
   double ?progressHeight;
-  VerticalProgress({this.height,this.progressHeight});
+  int? index;
+  VerticalProgress({this.height,this.progressHeight,this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +29,43 @@ class VerticalProgress extends StatelessWidget {
                     shape: BoxShape.circle
                 ),
                 child: Center(
-                  child: Text(
+                  child:
+                  index==1?
+                  Text(
                     '1',
                     style: TextStyle(color: Colors.white),
-                  ),
+                  ):Icon(Icons.check,color: Colors.white,),
                 ),
               ),
+              if(index==2)
+
+                Column(
+                  children: [
+                    Container(
+                      height: 10,
+                      width: 2,
+                      color:Constants.mainColor2,
+                    ),
+                    Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                          color: Constants.mainColor2,
+                          shape: BoxShape.circle
+                      ),
+                      child: Center(
+                        child: index==2?
+                        Text(
+                          '2',
+                          style: TextStyle(color: Colors.white),
+                        ):Icon(Icons.check,color: Colors.white,),
+                      ),
+                    ),
+                  ],
+                ),
+
+
+
               Expanded(
                 child: Container(
                   width: 5,

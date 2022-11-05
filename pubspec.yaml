@@ -49,6 +49,8 @@ dependencies:
   google_maps_flutter: ^2.2.0
   geolocator: ^9.0.1
   keyboard_attachable: ^2.1.0
+  flutter_time_picker_spinner: ^2.0.0
+  image_picker: ^0.8.4+4
 
 
 dev_dependencies:

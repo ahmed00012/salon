@@ -13,7 +13,7 @@ import '../repository/auth_repository.dart';
 final authFuture =
 ChangeNotifierProvider.autoDispose.family<AuthProvider,double>((ref,height) => AuthProvider(height));
 class AuthProvider extends ChangeNotifier {
-  AuthRepo followersRepo =AuthRepo();
+  AuthRepo authRepo =AuthRepo();
   bool phoneLoginFocus = false;
   bool passwordLoginFocus = false;
   bool phoneSignupFocus = false;

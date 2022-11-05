@@ -3,7 +3,9 @@
 import 'dart:async';
 
 import 'package:beauty_center/constants.dart';
+import 'package:beauty_center/view/ui/salon_registeration/time_opening_info.dart';
 import 'package:beauty_center/view/widgets/app_bar.dart';
+import 'package:beauty_center/view/widgets/default_text_field.dart';
 import 'package:beauty_center/view/widgets/horizontal_progress.dart';
 import 'package:beauty_center/view/widgets/vertical_progress.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -13,7 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../provider/center_registration_provider.dart';
+import '../../../provider/center_registration_provider.dart';
+
 
 class CenterInfo extends ConsumerWidget {
   bool nameFocus = false;
@@ -483,13 +486,11 @@ class CenterInfo extends ConsumerWidget {
                                onMapCreated: (GoogleMapController controller) {
                                  googleMapController.complete(controller);
                                },
+                               gestureRecognizers: Set()
+                                 ..add( Factory<PanGestureRecognizer>(() => PanGestureRecognizer())),
 
                                markers: Set<Marker>.of(controller.markers),
-                               gestureRecognizers: {
-                                 Factory<OneSequenceGestureRecognizer>(
-                                       () => EagerGestureRecognizer(),
-                                 ),
-                               },
+
                              ),
                            ),
                          ),
@@ -500,6 +501,9 @@ class CenterInfo extends ConsumerWidget {
                            children: [
                              Spacer(),
                              InkWell(
+                               onTap: (){
+                                 Navigator.push(context, MaterialPageRoute(builder: (_)=>TimeOpeningInfo()));
+                               },
                                child: Container(
                                  height: height*0.06,
                                  width: width*0.2,
@@ -520,7 +524,7 @@ class CenterInfo extends ConsumerWidget {
                      ),
                    ),
                  ),
-                 VerticalProgress(height: height,progressHeight: height/2),
+                 VerticalProgress(height: height,progressHeight: height/2,index: 1,),
                ],
              );
            }),

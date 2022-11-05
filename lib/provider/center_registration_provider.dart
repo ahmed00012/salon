@@ -1,10 +1,12 @@
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -26,7 +28,15 @@ String? cityValue = 'Cairo';
 String? areaValue = 'Moharam Bek';
 double zoom = 7.0;
 List<Marker> markers = <Marker>[];
-
+List<String> recommendedPics = [
+'assets/images/hair-salon.png',
+  'assets/images/hairstyle.png',
+  'assets/images/nail-polish.png',
+  'assets/images/barbershop.png'
+];
+File? salonImage;
+final ImagePicker _picker = ImagePicker();
+String? pickedSalonLogo;
 
 
   RegisterProvider(){
@@ -56,6 +66,19 @@ void addMarker(LatLng latLng) {
 }
 
 
+pickImage(bool recommended,{int ?index}) async {
+
+    if(recommended) {
+      pickedSalonLogo = recommendedPics[index!];
+    } else
+  {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      salonImage = File(image!.path);
+    }
+    notifyListeners();
+}
+
+
 determinePosition(Completer<GoogleMapController> googleMapController,) async {
   bool serviceEnabled;
   LocationPermission permission;
@@ -65,6 +88,8 @@ determinePosition(Completer<GoogleMapController> googleMapController,) async {
 
     return Future.error('Location services are disabled.');
   }
+
+
 
   permission = await Geolocator.checkPermission();
   if (permission == LocationPermission.denied) {
