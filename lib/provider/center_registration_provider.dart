@@ -38,24 +38,33 @@ File? salonImage;
 final ImagePicker _picker = ImagePicker();
 String? pickedSalonLogo;
 
+List<int> openingTimes = [];
+
 
   RegisterProvider(){
     addMarker(LatLng(30.044611387091066, 31.231687873506743));
 
   }
 
-
+addDay(){
+ openingTimes.add(1);
+ notifyListeners();
+}
+removeDay(){
+ openingTimes.removeAt(1);
+ notifyListeners();
+}
 
 
 void addMarker(LatLng latLng) {
   markers=[];
   markers.add(
       Marker(
-          markerId: const MarkerId('موقعي'),
+          markerId: const MarkerId('My Location'),
           draggable: true,
           position: latLng,
           infoWindow: const InfoWindow(
-              title: 'موقعي'
+              title: 'My Location'
           ),
           onDragEnd: ((newPosition) {
             print(newPosition.latitude);
