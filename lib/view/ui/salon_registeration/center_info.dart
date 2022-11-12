@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../provider/center_registration_provider.dart';
+import '../../../provider/center_registration_provider1.dart';
 
 
 class CenterInfo extends ConsumerWidget {
@@ -506,7 +506,7 @@ class CenterInfo extends ConsumerWidget {
                                },
                                child: Container(
                                  height: height*0.06,
-                                 width: width*0.2,
+                                 width: width*0.25,
                                  decoration: BoxDecoration(
                                    borderRadius: BorderRadius.circular(15),
                                    color: Constants.mainColor2

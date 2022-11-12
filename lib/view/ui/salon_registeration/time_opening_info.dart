@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 
-import '../../../provider/center_registration_provider.dart';
+import '../../../provider/center_registration_provider1.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/horizontal_progress.dart';
 import '../../widgets/time_picker_theme.dart';
 import '../../widgets/vertical_progress.dart';
+import 'documentations.dart';
 
 class TimeOpeningInfo extends ConsumerWidget {
   const TimeOpeningInfo({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class TimeOpeningInfo extends ConsumerWidget {
     final controller = ref.watch(registerFuture);
     double height = MediaQuery.of(context).size.height<600?800:MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final localizations = MaterialLocalizations.of(context);
     return Scaffold(
       body: Column(
           children: [
@@ -167,383 +169,89 @@ class TimeOpeningInfo extends ConsumerWidget {
                               SizedBox(height: 30,),
                               Center(child: Text('Pick Your Opening Times')),
                               SizedBox(height: 20,),
-                              InkWell(
-                                onTap: (){
-                                  showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                    helpText: 'Opening Time',
-                                    builder: (BuildContext context, child) {
-                                      return MyTimePickerTheme(child: child,);
-                                    },
-                                  ).then((value) {
-                                    print(value);
-                                    showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.now(),
-                                      helpText: 'Close Time',
-                                      builder: (BuildContext context, child) {
-                                        return MyTimePickerTheme(child: child,);
-                                      },
-                                    ).then((value) {
-                                      print(value);
-                                    });
-                                  });
 
+                              ListView.builder(
+                                  itemCount: controller.days.length,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context,i){
+                                    return Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: InkWell(
+                                        onTap: (){
+                                          controller.timePickerDialog(context, i);
+                                        },
+                                        child: Container(
+                                          height: height*0.08,
+                                          decoration: BoxDecoration(
+                                              color:
+                                              controller.days[i].choosed!?
+                                              Constants.mainColor2.withOpacity(0.2):
+                                              Colors.white,
+                                              borderRadius: BorderRadius.circular(10),
+                                              border: Border.all(color:
+                                              controller.days[i].choosed!?
+                                              Constants.mainColor2:
+                                              Colors.black38,)
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Checkbox(value: controller.days[i].choosed,
+                                                  activeColor: Constants.mainColor2,
+                                                  onChanged: (value){
+                                                    controller.timePickerDialog(context, i);
+                                                    },
 
-                                },
-                                child: Container(
-                                  height: height*0.08,
+                                              ),
+                                              Text(controller.days[i].day!,style: TextStyle(
+                                                  fontSize: 16
+                                              ),),
+                                              Spacer(),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  if(controller.days[i].opening!=null)
+                                                  Text('From '+localizations.formatTimeOfDay(controller.days[i].opening!),
+                                                    style: TextStyle(fontSize: 12),),
+                                                  SizedBox(height: 5,),
 
-                                  
-                                  decoration: BoxDecoration(
-                                    color: Constants.mainColor2.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Constants.mainColor2)
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Checkbox(value: true,
-                                          activeColor: Constants.mainColor2,
-                                          onChanged: (value){
-
-                                          }),
-                                      Text('Sat',style: TextStyle(
-                                       fontSize: 16
-                                      ),),
-                                      Spacer(),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('From 09:00 AM',style: TextStyle(
-                                              fontSize: 12
-                                          ),),
-                                          SizedBox(height: 5,),
-                                          Text('To    09:00 PM',style: TextStyle(
-                                              fontSize: 12
-                                          ),)
-                                        ],
+                                                  if(controller.days[i].closing!=null)
+                                                  Text('To     '+localizations.formatTimeOfDay(controller.days[i].closing!),
+                                                    style: TextStyle(fontSize: 12),)
+                                                ],
+                                              ),
+                                              SizedBox(width: 10,)
+                                            ],
+                                          ),
+                                        ),
                                       ),
-                                      SizedBox(width: 10,)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 15,),
-                              InkWell(
-                                onTap: (){
-                                  showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                    helpText: 'Opening Time',
-                                    builder: (BuildContext context, child) {
-                                      return MyTimePickerTheme(child: child,);
+                                    );
+                                  }),
+                              SizedBox(height: 50,),
+
+
+                              Row(
+                                children: [
+                                  Spacer(),
+                                  InkWell(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>AddDocumentations()));
                                     },
-                                  ).then((value) {
-                                    print(value);
-                                    showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.now(),
-                                      helpText: 'Close Time',
-                                      builder: (BuildContext context, child) {
-                                        return MyTimePickerTheme(child: child,);
-                                      },
-                                    ).then((value) {
-                                      print(value);
-                                    });
-                                  });
-
-
-                                },
-                                child: Container(
-                                  height: height*0.08,
-
-
-                                  decoration: BoxDecoration(
-                                      color: Constants.mainColor2.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: Constants.mainColor2)
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Checkbox(value: true,
-                                          activeColor: Constants.mainColor2,
-                                          onChanged: (value){
-
-                                          }),
-                                      Text('Sun',style: TextStyle(
-                                          fontSize: 16
-                                      ),),
-                                      Spacer(),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('From 09:00 AM',style: TextStyle(
-                                              fontSize: 12
-                                          ),),
-                                          SizedBox(height: 5,),
-                                          Text('To    09:00 PM',style: TextStyle(
-                                              fontSize: 12
-                                          ),)
-                                        ],
+                                    child: Container(
+                                      height: height*0.06,
+                                      width: width*0.25,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Constants.mainColor2
                                       ),
-                                      SizedBox(width: 10,)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 15,),
-                              InkWell(
-                                onTap: (){
-                                  showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                    builder: (BuildContext context, child) {
-                                      return MyTimePickerTheme(child: child,);
-                                    },
-                                  ).then((value) {
-                                    print(value);
-                                  });
-                                },
-                                child: Container(
-                                  height: height*0.08,
-
-
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: Colors.black38)
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Checkbox(value: false,
-                                          activeColor: Constants.mainColor2,
-                                          onChanged: (value){
-
-                                          }),
-                                      Text('Mon',style: TextStyle(
-                                          fontSize: 16
-                                      ),),
-                                      Spacer(),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('From 09:00 AM',style: TextStyle(
-                                              fontSize: 12
-                                          ),),
-                                          SizedBox(height: 5,),
-                                          Text('To    09:00 PM',style: TextStyle(
-                                              fontSize: 12
-                                          ),)
-                                        ],
+                                      child: Center(
+                                        child: Text('NEXT',style: TextStyle(color: Colors.white),),
                                       ),
-                                      SizedBox(width: 10,)
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
-                              SizedBox(height: 15,),
-                              InkWell(
-                                onTap: (){
-                                  showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                    builder: (BuildContext context, child) {
-                                      return MyTimePickerTheme(child: child,);
-                                    },
-                                  ).then((value) {
-                                    print(value);
-                                  });
-                                },
-                                child: Container(
-                                  height: height*0.08,
-
-
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: Colors.black38)
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Checkbox(value: false,
-                                          activeColor: Constants.mainColor2,
-                                          onChanged: (value){
-
-                                          }),
-                                      Text('Tue',style: TextStyle(
-                                          fontSize: 16
-                                      ),),
-                                      Spacer(),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('From 09:00 AM',style: TextStyle(
-                                              fontSize: 12
-                                          ),),
-                                          SizedBox(height: 5,),
-                                          Text('To    09:00 PM',style: TextStyle(
-                                              fontSize: 12
-                                          ),)
-                                        ],
-                                      ),
-                                      SizedBox(width: 10,)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 15,),
-                              InkWell(
-                                onTap: (){
-                                  showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                    builder: (BuildContext context, child) {
-                                      return MyTimePickerTheme(child: child,);
-                                    },
-                                  ).then((value) {
-                                    print(value);
-                                  });
-                                },
-                                child: Container(
-                                  height: height*0.08,
-
-
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: Colors.black38)
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Checkbox(value: false,
-                                          activeColor: Constants.mainColor2,
-                                          onChanged: (value){
-
-                                          }),
-                                      Text('Wed',style: TextStyle(
-                                          fontSize: 16
-                                      ),),
-                                      Spacer(),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('From 09:00 AM',style: TextStyle(
-                                              fontSize: 12
-                                          ),),
-                                          SizedBox(height: 5,),
-                                          Text('To    09:00 PM',style: TextStyle(
-                                              fontSize: 12
-                                          ),)
-                                        ],
-                                      ),
-                                      SizedBox(width: 10,)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 15,),
-                              InkWell(
-                                onTap: (){
-                                  showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                    builder: (BuildContext context, child) {
-                                      return MyTimePickerTheme(child: child,);
-                                    },
-                                  ).then((value) {
-                                    print(value);
-                                  });
-                                },
-                                child: Container(
-                                  height: height*0.08,
-
-
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: Colors.black38)
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Checkbox(value: false,
-                                          activeColor: Constants.mainColor2,
-                                          onChanged: (value){
-
-                                          }),
-                                      Text('Thu',style: TextStyle(
-                                          fontSize: 16
-                                      ),),
-                                      Spacer(),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('From 09:00 AM',style: TextStyle(
-                                              fontSize: 12
-                                          ),),
-                                          SizedBox(height: 5,),
-                                          Text('To    09:00 PM',style: TextStyle(
-                                              fontSize: 12
-                                          ),)
-                                        ],
-                                      ),
-                                      SizedBox(width: 10,)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 15,),
-                              InkWell(
-                                onTap: (){
-                                  showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                    builder: (BuildContext context, child) {
-                                      return MyTimePickerTheme(child: child,);
-                                    },
-                                  ).then((value) {
-                                    print(value);
-                                  });
-                                },
-                                child: Container(
-                                  height: height*0.08,
-
-
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: Colors.black38)
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Checkbox(value: false,
-                                          activeColor: Constants.mainColor2,
-                                          onChanged: (value){
-
-                                          }),
-                                      Text('Fri',style: TextStyle(
-                                          fontSize: 16
-                                      ),),
-                                      Spacer(),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('From 09:00 AM',style: TextStyle(
-                                              fontSize: 12
-                                          ),),
-                                          SizedBox(height: 5,),
-                                          Text('To    09:00 PM',style: TextStyle(
-                                              fontSize: 12
-                                          ),)
-                                        ],
-                                      ),
-                                      SizedBox(width: 10,)
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-
+                              SizedBox(height: 50,),
 
                             ],
                           ),

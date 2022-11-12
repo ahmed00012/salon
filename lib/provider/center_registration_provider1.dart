@@ -13,7 +13,9 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../constants.dart';
 import '../local_storage.dart';
+import '../models/opening_day_model.dart';
 import '../repository/auth_repository.dart';
+import '../view/widgets/time_picker_theme.dart';
 
 
 final registerFuture =
@@ -38,9 +40,12 @@ File? salonImage;
 final ImagePicker _picker = ImagePicker();
 String? pickedSalonLogo;
 
+List<OpeningDayModel> days = [];
+
 
   RegisterProvider(){
     addMarker(LatLng(30.044611387091066, 31.231687873506743));
+    getOpeningTimes();
 
   }
 
@@ -119,6 +124,81 @@ moveCamera(Completer<GoogleMapController> googleMapController,LatLng latLng)asyn
     zoom: 17,
   )));
   notifyListeners();
+}
+
+
+getOpeningTimes(){
+    days = [
+      OpeningDayModel(
+        id: 1,
+        day: 'Sat',
+        choosed: false
+      ),
+      OpeningDayModel(
+          id: 2,
+          day: 'Sun',
+          choosed: false
+      ),
+      OpeningDayModel(
+          id: 3,
+          day: 'Mon',
+          choosed: false
+      ),
+      OpeningDayModel(
+          id: 4,
+          day: 'Tue',
+          choosed: false
+      ),
+      OpeningDayModel(
+          id: 5,
+          day: 'Wed',
+          choosed: false
+      ),
+      OpeningDayModel(
+          id: 6,
+          day: 'Thu',
+          choosed: false
+      ),
+      OpeningDayModel(
+          id: 7,
+          day: 'Fri',
+          choosed: false
+      ),
+    ];
+    notifyListeners();
+}
+
+setOpeningDays(int i, {TimeOfDay? opening, TimeOfDay? closing}){
+    if(opening!=null)
+    days[i].opening = opening;
+    if(closing!=null)
+      days[i].closing = closing;
+    if(days[i].opening!=null &&  days[i].closing!=null)
+      days[i].choosed=true;
+    notifyListeners();
+}
+
+timePickerDialog(BuildContext context,int i){
+  showTimePicker(
+    context: context,
+    initialTime: TimeOfDay.now(),
+    helpText: 'Opening Time',
+    builder: (BuildContext context, child) {
+      return MyTimePickerTheme(child: child,);
+    },
+  ).then((value) {
+    setOpeningDays(i,opening: value);
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+      helpText: 'Close Time',
+      builder: (BuildContext context, child) {
+        return MyTimePickerTheme(child: child,);
+      },
+    ).then((value) {
+     setOpeningDays(i,closing: value);
+    });
+  });
 }
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {

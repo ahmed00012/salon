@@ -33,7 +33,15 @@ class MyTimePickerTheme extends StatelessWidget {
                 primary: Constants.mainColor2,
               ),
             ),
+            textTheme: TextTheme(
 
+              overline: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+
+              ),
+            ),
           ),
           child: child!,
         )
