@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../provider/center_registration_provider.dart';
+import '../../provider/center_registration_provider1.dart';
+
+
 
 class ChooseLogoDialog extends ConsumerWidget {
   const ChooseLogoDialog({Key? key}) : super(key: key);

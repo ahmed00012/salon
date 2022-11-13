@@ -3,11 +3,9 @@
 import 'package:beauty_center/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 
-import '../../../provider/center_registration_provider1.dart';
 import '../../../provider/center_registration_provider2.dart';
-import '../../widgets/add_licence.dart';
+
 import '../../widgets/add_works_picture.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/horizontal_progress.dart';
@@ -39,85 +37,129 @@ class AddDocumentations extends ConsumerWidget {
 
                     Expanded(
                         child: ListView(
+                          shrinkWrap: true,
                       children: [
 
-                        Center(child: Text('pick your licences and cirtifications')),
+                        Center(child: Text('pick the licence')),
                         SizedBox(height: 20,),
-                        GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1.2,
-                        ),
-                            itemCount: controller.licenceLength,
-
-                            itemBuilder: (context,i){
-
-                          return Stack(
-                            fit: StackFit.expand,
-                            children: [
-
-                              InkWell(
-                                  onTap: (){
-                                    if(controller.licences.length==i)
-                                    controller.pickLicence();
-                                  },
-                                  child: AddLicence(licence:controller.licences.length!=i?
-                                  controller.licences[i]:null ,)),
-
-                              if(controller.licences.length!=i)
-                              Positioned(
-                                bottom: 5,
-                                right: 5,
-                                child: InkWell(
-                                  onTap: (){
-                                    controller.removeLicence(i);
-                                  },
-                                  child: Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: BoxDecoration(
-                                        color: Constants.mainColor2,
-                                        shape: BoxShape.circle
-                                    ),
-                                    child: Center(
-                                      child: Icon(Icons.delete_forever,color: Colors.white,),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                            child:
+                            controller.licence!=null?
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.file(controller.licence!,fit: BoxFit.fill,
+                                      height: height*0.15,
+                                      width: width*0.4,)),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: InkWell(
+                                    onTap: (){
+                                      controller.removeLicence();
+                                    },
+                                    child: Container(
+                                      height: 35,
+                                      width: 35,
+                                      decoration: BoxDecoration(
+                                          color: Constants.mainColor2,
+                                          shape: BoxShape.circle
+                                      ),
+                                      child: Center(
+                                        child: Icon(Icons.delete_forever,color: Colors.white,),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          );
-                            }),
-                        SizedBox(height: 20,),
+                              ],
+                            ):
+                            InkWell(
+                              onTap: (){
+                                controller.pickLicence();
+                              },
+                              child: Container(
+                                height: height*0.15,
+                                width: width*0.4,
 
-                        Row(children: [
-                          Spacer(),
-                          InkWell(
-                            onTap:(){
-
-                              controller.addLicence();
-
-                },
-                            child: Container(
-                              height: height*0.06,
-                              width:height*0.06,
-                              decoration: BoxDecoration(
-                                color: Constants.mainColor2,
-                                shape: BoxShape.circle
-                              ),
-                              child: Center(
-                                child: Icon(Icons.add,color: Colors.white,size: 30,),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.black38)
+                                ),
+                                child: Center(
+                                  child: Icon(Icons.add,size: 30,color: Colors.black38,),
+                                ),
                               ),
                             ),
-                          )
-                        ],),
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Center(child: Text('pick your Certification')),
+                        SizedBox(height: 20,),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                            child:
+                            controller.certification!=null?
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.file(controller.certification!,fit: BoxFit.fill,
+                                      height: height*0.15,
+                                      width: width*0.4,)),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: InkWell(
+                                    onTap: (){
+                                      controller.removeCertification();
+                                    },
+                                    child: Container(
+                                      height: 35,
+                                      width: 35,
+                                      decoration: BoxDecoration(
+                                          color: Constants.mainColor2,
+                                          shape: BoxShape.circle
+                                      ),
+                                      child: Center(
+                                        child: Icon(Icons.delete_forever,color: Colors.white,),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+
+                              ],
+                            ):
+                            InkWell(
+                              onTap: (){
+                                controller.pickCertification();
+                              },
+                              child: Container(
+                                height: height*0.15,
+                                width: width*0.4,
+
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.black38)
+                                ),
+                                child: Center(
+                                  child: Icon(Icons.add,size: 30,color: Colors.black38,),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
 
                         SizedBox(height: 20,),
-
-                        Divider(),
-                        SizedBox(height: 10,),
                         Center(child: Text('Add your previous works')),
                         SizedBox(height: 20,),
                         GridView.builder(
@@ -137,8 +179,10 @@ class AddDocumentations extends ConsumerWidget {
 
                                   InkWell(
                                       onTap: (){
+
                                         if(controller.images.length==i)
                                           controller.pickImage();
+
                                       },
                                       child: AddWorksPic(image:controller.images.length!=i?
                                       controller.images[i]:null ,)),
@@ -167,30 +211,6 @@ class AddDocumentations extends ConsumerWidget {
                                 ],
                               );
                             }),
-                        SizedBox(height: 20,),
-
-                        Row(children: [
-                          Spacer(),
-                          InkWell(
-                            onTap:(){
-
-                              controller.addImage();
-
-                            },
-                            child: Container(
-                              height: height*0.06,
-                              width:height*0.06,
-                              decoration: BoxDecoration(
-                                  color: Constants.mainColor2,
-                                  shape: BoxShape.circle
-                              ),
-                              child: Center(
-                                child: Icon(Icons.add,color: Colors.white,size: 30,),
-                              ),
-                            ),
-                          )
-                        ],),
-
                         SizedBox(height: 50,),
 
 

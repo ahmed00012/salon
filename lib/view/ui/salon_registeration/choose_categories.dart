@@ -1,14 +1,12 @@
 import 'package:beauty_center/constants.dart';
 import 'package:beauty_center/models/another_category_model.dart';
+import 'package:beauty_center/view/ui/salon_registeration/categories_specification.dart';
 import 'package:beauty_center/view/widgets/another_category.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-
-import '../../../provider/center_registration_provider1.dart';
 import '../../../provider/center_registration_provider2.dart';
-import '../../widgets/add_licence.dart';
+
 import '../../widgets/add_works_picture.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/default_text_field.dart';
@@ -101,14 +99,63 @@ class ChooseCategories extends ConsumerWidget {
                                                     .subcategory![j].name!,style: TextStyle(
                                                     fontSize: height*0.02
                                                 ),),
+                                                Spacer(),
+
+                                                Visibility(
+                                                  visible: controller.categories[i].subcategory![j].choose!,
+                                                  child: Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal: 10),
+                                                    child: Container(
+                                                      width: width*0.2,
+                                                      height: height*0.05,
+
+                                                      decoration: BoxDecoration(
+                                                        color:  Colors.white,
+                                                        borderRadius: BorderRadius.circular(10),
+
+                                                      ),
+                                                      child: TextFormField(
+                                                        cursorColor: Constants.mainColor2,
+                                                        initialValue: '00.00',
+
+                                                        decoration: InputDecoration(
+                                                          border: OutlineInputBorder(
+                                                            borderRadius:
+                                                            BorderRadius.all(Radius.circular(8)),
+                                                            borderSide: BorderSide(
+                                                                width: 1, color: Constants.mainColor2),
+                                                          ),
+                                                          focusedBorder: OutlineInputBorder(
+                                                            borderRadius:
+                                                            BorderRadius.all(Radius.circular(8)),
+                                                            borderSide: BorderSide(
+                                                                width: 1, color: Constants.mainColor2),
+                                                          ),
+                                                          label: Text(
+                                                            'Price',style: TextStyle(
+                                                            color: Constants.mainColor2
+                                                          ),
+                                                          ),
+                                                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                                                        ),
+                                                        onChanged: (value){
+
+                                                        },
+
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Visibility(
+                                                    visible: controller.categories[i].subcategory![j].choose!,
+                                                    child: Text('EGP'))
+
                                               ],
                                             );
                                           }),
                                       SizedBox(
                                         height: 20,
                                       ),
-
-
                                     ],
                                   );
                                 }),
@@ -133,29 +180,9 @@ class ChooseCategories extends ConsumerWidget {
                             },
                         );
                         }),
-                          SizedBox(height: 10,),
-                          Row(children: [
-                            Spacer(),
-                            InkWell(
-                              onTap:(){
-                                controller.addAnotherCategory();
 
-                              },
-                              child: Container(
-                                height: height*0.06,
-                                width:height*0.06,
-                                decoration: BoxDecoration(
-                                    color: Constants.mainColor2,
-                                    shape: BoxShape.circle
-                                ),
-                                child: Center(
-                                  child: Icon(Icons.add,color: Colors.white,size: 30,),
-                                ),
-                              ),
-                            )
-                          ],),
 
-                          SizedBox(height: 60,),
+                          SizedBox(height: 50,),
 
 
                           Row(
@@ -164,6 +191,7 @@ class ChooseCategories extends ConsumerWidget {
                               InkWell(
                                 onTap: (){
 
+                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>CategoriesSpecification()));
                                 },
                                 child: Container(
                                   height: height*0.06,
