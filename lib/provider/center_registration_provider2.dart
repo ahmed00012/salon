@@ -88,10 +88,10 @@ class RegisterProvider2 extends ChangeNotifier {
         name: 'Hair',
         choose: false,
         subcategory: [
-          CategoriesModel(name: 'cut',choose: false),
-          CategoriesModel(name: 'straight',choose: false),
-          CategoriesModel(name:  'iron',choose: false),
-          CategoriesModel(name: 'burn',choose: false),
+          CategoriesModel(name: 'cut',choose: false,inHome: false,inSalon: false),
+          CategoriesModel(name: 'straight',choose: false,inHome: false,inSalon: false),
+          CategoriesModel(name:  'iron',choose: false,inHome: false,inSalon: false),
+          CategoriesModel(name: 'burn',choose: false,inHome: false,inSalon: false),
         ]
       ),
       CategoriesModel(
@@ -99,10 +99,10 @@ class RegisterProvider2 extends ChangeNotifier {
         name: 'face',
           choose: false,
         subcategory: [
-          CategoriesModel(name: 'mask',choose: false),
-          CategoriesModel(name: 'hot towel',choose: false),
-          CategoriesModel(name: 'clean',choose: false),
-          CategoriesModel(name: 'remove hair',choose: false),
+          CategoriesModel(name: 'mask',choose: false,inHome: false,inSalon: false),
+          CategoriesModel(name: 'hot towel',choose: false,inHome: false,inSalon: false),
+          CategoriesModel(name: 'clean',choose: false,inHome: false,inSalon: false),
+          CategoriesModel(name: 'remove hair',choose: false,inHome: false,inSalon: false),
         ]
       ),
       CategoriesModel(
@@ -110,7 +110,7 @@ class RegisterProvider2 extends ChangeNotifier {
         name: 'fingernails',
           choose: false,
        subcategory: [
-          CategoriesModel(name: 'cut',choose: false),
+          CategoriesModel(name: 'cut',choose: false,inHome: false,inSalon: false),
 
     ]
       )
@@ -167,6 +167,14 @@ chooseCategory(bool subCategory ,bool choose , int i,{int ? j}){
 addAnotherCategory(){
 if(anotherCategoriesLength<6)
       anotherCategoriesLength++;
+    notifyListeners();
+}
+
+markHomeSalon(int i,int j,{bool ?inHome,bool? inSalon}){
+    if(inHome!=null)
+    categories[i].subcategory![j].inHome = inHome;
+    if(inSalon!=null)
+      categories[i].subcategory![j].inSalon = inSalon;
     notifyListeners();
 }
 

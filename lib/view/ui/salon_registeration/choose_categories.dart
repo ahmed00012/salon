@@ -215,7 +215,7 @@ class ChooseCategories extends ConsumerWidget {
                   VerticalProgress(
                     height: height,
                     progressHeight: height / 2,
-                    index: 3,
+                    index: 4,
                   ),
                 ],
               );

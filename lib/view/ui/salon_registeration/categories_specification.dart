@@ -1,20 +1,17 @@
 import 'package:beauty_center/constants.dart';
-import 'package:beauty_center/models/another_category_model.dart';
-import 'package:beauty_center/view/widgets/another_category.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../provider/center_registration_provider2.dart';
-
-import '../../widgets/add_works_picture.dart';
 import '../../widgets/app_bar.dart';
-import '../../widgets/default_text_field.dart';
 import '../../widgets/horizontal_progress.dart';
-import '../../widgets/time_picker_theme.dart';
 import '../../widgets/vertical_progress.dart';
 
 class CategoriesSpecification extends ConsumerWidget {
-  const CategoriesSpecification({Key? key}) : super(key: key);
+   CategoriesSpecification({Key? key}) : super(key: key);
+
+
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -61,9 +58,10 @@ class CategoriesSpecification extends ConsumerWidget {
                                           controller.categories[i].name!,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: height * 0.02,
+                                            fontSize: height * 0.022,
                                           ),
                                         ),
+
                                       ],
                                     ),
                                     SizedBox(height: 10,),
@@ -77,19 +75,97 @@ class CategoriesSpecification extends ConsumerWidget {
                                             children: [
                                               Padding(
                                                 padding:
-                                                const EdgeInsets.only(left: 20),
+                                                const EdgeInsets.only(left: 15),
                                                 child: Checkbox(
                                                     value: true,
                                                     activeColor:
                                                     Constants.mainColor2,
                                                     onChanged: (value) {}),
                                               ),
-                                              Text(controller.categories[i]
-                                                  .subcategory![j].name!,style: TextStyle(
-                                                  fontSize: height*0.02
-                                              ),),
+                                              Container(
+                                                width: width*0.2,
+                                                child: Text(controller.categories[i]
+                                                    .subcategory![j].name!,style: TextStyle(
+                                                    fontSize: height*0.018
+                                                ),),
+                                              ),
                                               Spacer(),
 
+                                              InkWell(onTap: (){
+                                                controller.markHomeSalon(i, j,inHome: !controller.categories[i].subcategory![j].inHome!);
+                                              },
+                                                child: Column(
+                                                  children: [
+                                                    Text('Home'),
+                                                    Icon(Icons.home,color:
+                                                    controller.categories[i].subcategory![j].inHome!?
+                                                    Constants.mainColor2:Colors.black12)
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(width: 15,),
+                                              InkWell(
+                                                onTap: (){
+                                                  controller.markHomeSalon(i, j,inSalon: !controller.categories[i].subcategory![j].inSalon!);
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Text('Salon'),
+                                                    Icon(Icons.chair,
+                                                      color: controller.categories[i].subcategory![j].inSalon!?
+                                                      Constants.mainColor2:Colors.black12
+                                                      ,)
+                                                  ],
+                                                ),
+                                              ),
+
+                                              Spacer(),
+                                              Container(
+                                                width: width*0.15,
+                                                height: 35,
+                                                color: Colors.white,
+
+                                                child: TextFormField(
+                                                  cursorColor: Constants.mainColor2,
+                                                  textAlign: TextAlign.center,
+
+                                                  initialValue: '15',
+                                                  maxLength: 3,
+
+                                                  decoration:const InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                      BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(
+                                                          width: 1, color: Constants.mainColor2),
+                                                    ),
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderRadius:
+                                                      BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(
+                                                          width: 1, color: Constants.mainColor2),
+                                                    ),
+                                                    labelText: 'Duration',
+                                                    contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                                                    labelStyle: TextStyle(color: Constants.mainColor2,
+                                                        fontWeight: FontWeight.bold,fontSize: 12),
+                                                    counterText: "",
+
+                                                  ),
+                                                  style: TextStyle(
+                                                    fontSize: 14
+                                                  ),
+                                                  onChanged: (value){
+
+                                                  },
+
+
+                                                ),
+                                              ),
+                                              SizedBox(width: 5,),
+                                              Text('Min',style: TextStyle(
+                                                fontSize: 14
+                                              ),)
 
 
 
@@ -135,6 +211,9 @@ class CategoriesSpecification extends ConsumerWidget {
                       )
 
                   ),
+
+
+
                   VerticalProgress(
                     height: height,
                     progressHeight: height / 2,
@@ -149,3 +228,4 @@ class CategoriesSpecification extends ConsumerWidget {
     );
   }
 }
+
