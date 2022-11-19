@@ -1,4 +1,5 @@
 import 'package:beauty_center/constants.dart';
+import 'package:beauty_center/view/ui/salon_registeration/employees_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -176,10 +177,55 @@ class CategoriesSpecification extends ConsumerWidget {
                                     SizedBox(
                                       height: 20,
                                     ),
+
+
+
                                   ],
                                 );
                               }),
+                          SizedBox(height: 20,),
+                          InkWell(
+                            onTap: (){
+                              if(controller.haveEmployees)
+                              controller.markHaveEmployees();
+                            },
+                            child: Row(
+                              children: [
+                                SizedBox(width: 20,),
+                                Radio(value: false,
+                                  activeColor: Constants.mainColor2,
+                                  onChanged: (value){
+                                    controller.markHaveEmployees();
+                                  },
+                                  groupValue: controller.haveEmployees,),
+                                Text('I do services myself',style: TextStyle(
+                                  fontSize: height*0.02
+                                ),)
+                              ],
+                            ),
+                          ),
 
+                          InkWell(
+                            onTap: (){
+                              if(!controller.haveEmployees)
+                                controller.markHaveEmployees();
+                            },
+                            child: Row(
+                              children: [
+                              SizedBox(width: 20,),
+                                Radio(value: true,
+                                    activeColor: Constants.mainColor2,
+                                    onChanged: (value){
+                                      controller.markHaveEmployees();
+                                    },
+                                  toggleable: true,
+                                  groupValue: controller.haveEmployees,),
+                                Text('I have employees',style: TextStyle(
+                                    fontSize: height*0.02
+                                ),)
+                              ],
+                            ),
+                          ),
 
 
                           SizedBox(height: 50,),
@@ -190,6 +236,7 @@ class CategoriesSpecification extends ConsumerWidget {
                               Spacer(),
                               InkWell(
                                 onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>EmployeesRegister()));
 
                                 },
                                 child: Container(
@@ -216,8 +263,8 @@ class CategoriesSpecification extends ConsumerWidget {
 
                   VerticalProgress(
                     height: height,
-                    progressHeight: height / 2,
-                    index: 3,
+                    progressHeight: height / 5,
+                    index: 5,
                   ),
                 ],
               );

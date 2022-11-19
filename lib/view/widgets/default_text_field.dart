@@ -6,10 +6,11 @@ import '../../constants.dart';
 
 class DefaultTextField extends StatefulWidget {
 
-   DefaultTextField({Key? key,this.icon,this.label}) : super(key: key);
+   DefaultTextField({Key? key,this.icon,this.label,this.number}) : super(key: key);
 
   String? label;
   IconData? icon;
+  bool? number;
 
 
   @override
@@ -39,6 +40,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
           onFocusChange: (focus) => setState(() {focus2 = focus;}),
           child: TextFormField(
             cursorColor: Constants.mainColor2,
+            keyboardType:widget.number!=null? TextInputType.number:TextInputType.text,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius:

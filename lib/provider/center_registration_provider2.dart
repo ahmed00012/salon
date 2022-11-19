@@ -33,6 +33,7 @@ class RegisterProvider2 extends ChangeNotifier {
   List<String> anotherCategories=[];
  List <AnotherCategoryModel>chosenAnotherCategories =[];
  int anotherCategoriesLength = 1;
+ bool haveEmployees = false;
 
 
 
@@ -175,6 +176,11 @@ markHomeSalon(int i,int j,{bool ?inHome,bool? inSalon}){
     categories[i].subcategory![j].inHome = inHome;
     if(inSalon!=null)
       categories[i].subcategory![j].inSalon = inSalon;
+    notifyListeners();
+}
+
+markHaveEmployees(){
+    haveEmployees = !haveEmployees;
     notifyListeners();
 }
 
