@@ -51,6 +51,7 @@ dependencies:
   keyboard_attachable: ^2.1.0
   flutter_time_picker_spinner: ^2.0.0
   image_picker: ^0.8.4+4
+  circular_bottom_navigation: 2.3.0
 
 
 
