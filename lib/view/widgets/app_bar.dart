@@ -19,8 +19,7 @@ class MyAppBar extends StatelessWidget {
           InkWell(onTap:(){
             Navigator.pop(context);
     },
-    child: Icon(Icons.arrow_back_ios,size:
-    30,)),
+    child: Icon(Icons.arrow_back_ios,size: 30,)),
           SizedBox(width: width*0.1,),
 
           Text(title!,
