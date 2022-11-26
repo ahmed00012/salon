@@ -4,5 +4,8 @@ class ReservationModel{
   TimeOfDay? timeStart;
   TimeOfDay? timeEnd;
   bool? inSalon;
-  ReservationModel({this.inSalon,this.timeEnd,this.timeStart});
+  Duration? duration;
+
+
+  ReservationModel({this.inSalon,this.timeEnd,this.timeStart,this.duration});
 }

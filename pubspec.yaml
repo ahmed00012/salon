@@ -52,6 +52,7 @@ dependencies:
   flutter_time_picker_spinner: ^2.0.0
   image_picker: ^0.8.4+4
   circular_bottom_navigation: 2.3.0
+  intl: ^0.17.0
 
 
 
