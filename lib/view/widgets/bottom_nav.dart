@@ -3,12 +3,14 @@
 
 import 'dart:io';
 import 'package:beauty_center/view/ui/home_screen.dart';
+import 'package:beauty_center/view/ui/points.dart';
 import 'package:beauty_center/view/ui/reports_screen.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../ui/home_screen.dart';
 
 
 class BottomNavBar extends StatefulWidget {
@@ -71,18 +73,13 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
 
     List<Widget> _screens = [
       ReportsScreen(),
-      Container(),
-
+      PointsScreen(),
       HomeScreen(),
-
-      Container(),
       Container(),
 
-
-
-
+      Container(),
     ];
-    var size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
