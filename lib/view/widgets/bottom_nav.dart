@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:beauty_center/view/ui/home_screen.dart';
 import 'package:beauty_center/view/ui/points.dart';
 import 'package:beauty_center/view/ui/reports_screen.dart';
+import 'package:beauty_center/view/ui/reservations.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,7 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
       ReportsScreen(),
       PointsScreen(),
       HomeScreen(),
-      Container(),
+      Reservations(),
 
       Container(),
     ];
