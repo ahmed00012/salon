@@ -30,9 +30,9 @@ class RulesOfSalon extends ConsumerWidget {
       body: Column(
         children: [
           MyAppBar(
-            title: 'Salon Information',
+            title: 'Salon Rules',
           ),
-          HorizontalProgress(),
+          HorizontalProgress(index: 8,),
           SizedBox(
             height: 20,
           ),
@@ -384,8 +384,8 @@ class RulesOfSalon extends ConsumerWidget {
 
                   VerticalProgress(
                     height: height,
-                    progressHeight: height / 7,
-                    index:7,
+                    progressHeight: height / 8,
+                    index:8,
                   ),
                 ],
               );

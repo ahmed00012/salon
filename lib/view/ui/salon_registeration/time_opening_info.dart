@@ -24,8 +24,8 @@ class TimeOpeningInfo extends ConsumerWidget {
     return Scaffold(
       body: Column(
           children: [
-            MyAppBar(title: 'Salon Information',),
-            HorizontalProgress(),
+            MyAppBar(title: 'Working Info',),
+            HorizontalProgress(index: 2,),
             SizedBox(height: 20,),
             Expanded(child: StatefulBuilder(
 
@@ -42,7 +42,10 @@ class TimeOpeningInfo extends ConsumerWidget {
                           child:  ListView(
 
                             children: [
-                              Center(child: Text('Add Salon Logo')),
+                              Center(child: Text('Add Salon Logo',style: TextStyle(
+                                  fontSize: height*0.02,
+                                  fontWeight: FontWeight.bold
+                              ),)),
                               SizedBox(height: 10,),
                               InkWell(
                                 onTap: (){
@@ -167,66 +170,225 @@ class TimeOpeningInfo extends ConsumerWidget {
 
 
                               SizedBox(height: 30,),
-                              Center(child: Text('Pick Your Opening Times')),
+                              Center(child: Text('Pick Your Opening Times',style: TextStyle(
+                                fontSize: height*0.02,
+                                fontWeight: FontWeight.bold
+                              ),)),
                               SizedBox(height: 20,),
 
-                              ListView.builder(
-                                  itemCount: controller.days.length,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context,i){
-                                    return Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: InkWell(
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text('From',style: TextStyle(fontSize: height*0.018),),
+                                      SizedBox(height: 5,),
+                                      InkWell(
                                         onTap: (){
-                                          controller.timePickerDialog(context, i);
+                                          showTimePicker(
+                                            context: context,
+                                            initialTime: TimeOfDay.now(),
+                                            helpText: 'Available From',
+                                            builder: (BuildContext context, child) {
+                                              return MyTimePickerTheme(child: child,);
+                                            },
+                                          ).then((value) {
+
+                                            if(value!=null)
+                                              controller.setOpenAndCloseHours(value, true);
+                                          });
                                         },
                                         child: Container(
-                                          height: height*0.08,
+                                          height: height*0.065,
+                                          width: width*0.2,
                                           decoration: BoxDecoration(
-                                              color:
-                                              controller.days[i].choosed!?
-                                              Constants.mainColor2.withOpacity(0.2):
-                                              Colors.white,
+                                              color: Colors.white,
                                               borderRadius: BorderRadius.circular(10),
-                                              border: Border.all(color:
-                                              controller.days[i].choosed!?
-                                              Constants.mainColor2:
-                                              Colors.black38,)
+                                              border: Border.all(color: Colors.black38)
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Checkbox(value: controller.days[i].choosed,
-                                                  activeColor: Constants.mainColor2,
-                                                  onChanged: (value){
-                                                    controller.timePickerDialog(context, i);
-                                                    },
-
-                                              ),
-                                              Text(controller.days[i].day!,style: TextStyle(
-                                                  fontSize: 16
-                                              ),),
-                                              Spacer(),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  if(controller.days[i].opening!=null)
-                                                  Text('From '+localizations.formatTimeOfDay(controller.days[i].opening!),
-                                                    style: TextStyle(fontSize: 12),),
-                                                  SizedBox(height: 5,),
-
-                                                  if(controller.days[i].closing!=null)
-                                                  Text('To     '+localizations.formatTimeOfDay(controller.days[i].closing!),
-                                                    style: TextStyle(fontSize: 12),)
-                                                ],
-                                              ),
-                                              SizedBox(width: 10,)
-                                            ],
+                                          child: Center(
+                                            child: Text(
+                                                controller.open!=null?
+                                                localizations.formatTimeOfDay(controller.open!):
+                                                ' 09:00 AM'
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    );
-                                  }),
+                                    ],
+                                  ),
+                                  SizedBox(width: 50,),
+                                  Column(
+                                    children: [
+                                      Text('To',style: TextStyle(fontSize: height*0.018),),
+                                      SizedBox(height: 5,),
+                                      InkWell(
+                                        onTap: (){
+                                          showTimePicker(
+                                            context: context,
+                                            initialTime: TimeOfDay.now(),
+                                            helpText: 'Available To',
+                                            builder: (BuildContext context, child) {
+                                              return MyTimePickerTheme(child: child,);
+                                            },
+                                          ).then((value) {
+                                            // controller.setEmployee(0,timeTo: value);
+                                            if(value!=null)
+                                            controller.setOpenAndCloseHours(value, false);
+
+                                          });
+                                        },
+                                        child: Container(
+                                          height: height*0.065,
+                                          width: width*0.2,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(10),
+                                              border: Border.all(color: Colors.black38)
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                                controller.open!=null?
+                                                localizations.formatTimeOfDay(controller.open!):
+                                                ' 09:00 PM'
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 15,),
+                              Divider(),
+                              SizedBox(height: 10,),
+                              Center(
+                                child: Text('Holidays',
+                                  style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
+                              ),
+                              SizedBox(height: 20,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Checkbox(
+                                      value: controller.holidays.contains('Sat'),
+                                      activeColor:
+                                      Constants.mainColor2,
+                                      onChanged: (value){
+                                        controller.chooseHolidays('Sat');
+
+                                      }),
+                                  InkWell(
+                                      onTap: (){
+                                        controller.chooseHolidays('Sat');
+                                      },
+                                      child: Text('Sat',style: TextStyle(fontSize: height*0.02),)),
+                                  SizedBox(width: 10,),
+
+                                  Checkbox(
+                                      value: controller.holidays.contains('Sun'),
+                                      activeColor:
+                                      Constants.mainColor2,
+                                      onChanged: (value){
+                                        controller.chooseHolidays('Sun');
+
+                                      }),
+                                  InkWell(
+                                      onTap: (){
+                                        controller.chooseHolidays('Sun');
+                                      },
+                                      child: Text('Sun',style: TextStyle(fontSize: height*0.02),)),
+                                  SizedBox(width: 10,),
+
+                                  Checkbox(
+                                      value: controller.holidays.contains('Mon'),
+                                      activeColor:
+                                      Constants.mainColor2,
+                                      onChanged: (value){
+                                        controller.chooseHolidays('Mon');
+
+                                      }),
+                                  InkWell(
+                                      onTap: (){
+                                        controller.chooseHolidays('Mon');
+                                      },
+                                      child: Text('Mon',style: TextStyle(fontSize: height*0.02),)),
+
+                                ],
+                              ),
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Checkbox(
+                                      value: controller.holidays.contains('Tue'),
+                                      activeColor:
+                                      Constants.mainColor2,
+                                      onChanged: (value){
+                                        controller.chooseHolidays('Tue');
+
+                                      }),
+                                  InkWell(
+                                      onTap: (){
+                                        controller.chooseHolidays('Tue');
+                                      },
+                                      child: Text('Tue',style: TextStyle(fontSize: height*0.02),)),
+                                  SizedBox(width: 10,),
+                                  Checkbox(
+                                      value: controller.holidays.contains('Wed'),
+                                      activeColor:
+                                      Constants.mainColor2,
+                                      onChanged: (value){
+                                        controller.chooseHolidays('Wed');
+
+                                      }),
+                                  InkWell(
+                                      onTap: (){
+                                        controller.chooseHolidays('Wed');
+                                      },
+                                      child: Text('Wed',style: TextStyle(fontSize: height*0.02),)),
+                                  SizedBox(width: 10,),
+
+                                  Checkbox(
+                                      value: controller.holidays.contains('Thu'),
+                                      activeColor:
+                                      Constants.mainColor2,
+                                      onChanged: (value){
+                                        controller.chooseHolidays('Thu');
+
+                                      }),
+                                  InkWell(
+                                      onTap: (){
+                                        controller.chooseHolidays('Thu');
+                                      },
+                                      child: Text('Thu',style: TextStyle(fontSize: height*0.02),)),
+                                  SizedBox(width: 10,),
+
+                                ],
+                              ),
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Checkbox(
+                                      value: controller.holidays.contains('Fri'),
+                                      activeColor:
+                                      Constants.mainColor2,
+                                      onChanged: (value){
+                                        controller.chooseHolidays('Fri');
+
+                                      }),
+                                  InkWell(
+                                      onTap: (){
+                                        controller.chooseHolidays('Fri');
+                                      },
+                                      child: Text('Fri',style: TextStyle(fontSize: height*0.02),)),
+
+                                ],
+                              ),
+
                               SizedBox(height: 50,),
 
 

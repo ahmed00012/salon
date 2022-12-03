@@ -41,6 +41,9 @@ final ImagePicker _picker = ImagePicker();
 String? pickedSalonLogo;
 
 List<OpeningDayModel> days = [];
+List<String> holidays = [];
+TimeOfDay ?open ;
+TimeOfDay ?close ;
 
 
   RegisterProvider(){
@@ -126,6 +129,24 @@ moveCamera(Completer<GoogleMapController> googleMapController,LatLng latLng)asyn
   notifyListeners();
 }
 
+chooseHolidays(String day ){
+  if(holidays.contains(day)){
+    holidays.remove(day);
+  }
+  else{
+    holidays.add(day);
+  }
+  notifyListeners();
+}
+
+setOpenAndCloseHours(TimeOfDay time,bool opening){
+    if(opening)
+      open = time;
+    else
+      close = time;
+    notifyListeners();
+
+}
 
 getOpeningTimes(){
     days = [
@@ -167,6 +188,8 @@ getOpeningTimes(){
     ];
     notifyListeners();
 }
+
+
 
 setOpeningDays(int i, {TimeOfDay? opening, TimeOfDay? closing}){
     if(opening!=null)

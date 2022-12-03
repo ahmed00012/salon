@@ -15,6 +15,7 @@ class LoginScreen extends ConsumerWidget {
   int? gender;
 
   double animatedHeight = 0;
+  double animatedHeightContainer = 0;
 
   Widget widget = Container();
 
@@ -24,7 +25,7 @@ class LoginScreen extends ConsumerWidget {
         ? 800
         : MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    final controller = ref.watch(authFuture(height));
+    final controller = ref.watch(authFuture);
     return Container(
       width: width,
       height: height,
@@ -37,140 +38,138 @@ class LoginScreen extends ConsumerWidget {
       )),
       child: Scaffold(
         backgroundColor: Colors.black.withOpacity(0.6),
-        body: FooterLayout(
-          footer: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: Container(
-                width: width,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40),
-                      topLeft: Radius.circular(40),
-                    )),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                        width: width,
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 30),
-                        child: Text(
-                          'Login',
-                          style: TextStyle(fontSize: 30, color: Colors.black),
-                        )),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    DefaultTextField(label: 'Phone',icon: Icons.phone),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    DefaultTextField(label: 'Password',icon: Icons.security),
-                    SizedBox(
-                      height: 35,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => ForgotPasswordScreen()));
-                      },
-                      child: Text(
-                        'Forgot Password ?',
-                        style: TextStyle(
-                            fontSize: height * 0.018,
-                            color: Constants.mainColor2,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => CenterInfo()));
-                      },
-                      child: AnimatedContainer(
-                        height: controller.animatedHeight2,
-                        width: width * 0.5,
-                        duration: Duration(seconds: 1),
-                        curve: Curves.bounceInOut,
-                        decoration: BoxDecoration(
-                            color: Constants.mainColor2,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Center(
-                          child: Text(
-                            'LOGIN',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: height * 0.02),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => SignUpScreen(
-                                      gender: gender,
-                                    )));
-                      },
-                      child: Text(
-                        'Create New Account',
-                        style: TextStyle(
-                            fontSize: height * 0.018,
-                            color: Constants.mainColor2,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          child: StatefulBuilder(builder: (context, setState) {
-            Future.delayed(Duration(seconds: 1), () {
+        body: StatefulBuilder(
+          builder: (context,setState) {
+            Future.delayed(Duration(milliseconds: 500), () {
               setState(() {
                 animatedHeight = height * 0.08;
+                animatedHeightContainer = height * 0.6;
               });
             });
 
-            Future.delayed(Duration(milliseconds: 500), () {
+            Future.delayed(Duration(seconds: 2), () {
               setState(() {
                 widget = Image.asset(
                   'assets/images/FullLogo-removebg-preview.png',
-                  width: width * 0.8,
+                  height: height*0.3,
                 );
               });
             });
-
-            return SingleChildScrollView(
+            return FooterLayout(
+              footer: SingleChildScrollView(
+                child:  AnimatedContainer(
+                  width: width,
+                  height: animatedHeightContainer,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        topLeft: Radius.circular(40),
+                      )),
+                  duration: Duration(seconds: 2),
+                  curve:Curves.easeIn,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                          width: width,
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.only(left: 30),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(fontSize: 30, color: Colors.black),
+                          )),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      DefaultTextField(label: 'Phone',icon: Icons.phone,number: true),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      DefaultTextField(label: 'Password',icon: Icons.security),
+                      SizedBox(
+                        height: 35,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ForgotPasswordScreen()));
+                        },
+                        child: Text(
+                          'Forgot Password ?',
+                          style: TextStyle(
+                              fontSize: height * 0.018,
+                              color: Constants.mainColor2,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 35,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => CenterInfo()));
+                        },
+                        child: Container(
+                          height: height*0.07,
+                          width: width * 0.5,
+                          decoration: BoxDecoration(
+                              color: Constants.mainColor2,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text(
+                              'LOGIN',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: height * 0.02),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 35,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => SignUpScreen(
+                                        gender: gender,
+                                      )));
+                        },
+                        child: Text(
+                          'Create New Account',
+                          style: TextStyle(
+                              fontSize: height * 0.018,
+                              color: Constants.mainColor2,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               child: Column(
                 children: [
                   AnimatedContainer(
                     width: width,
                     height: animatedHeight,
                     duration: const Duration(seconds: 2),
-                    curve: Curves.easeInOut,
+                    curve:  Curves.easeIn,
                   ),
                   widget,
                 ],
-              ),
+              )
             );
-          }),
+          }
         ),
 
         // SingleChildScrollView(

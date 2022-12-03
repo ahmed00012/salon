@@ -34,9 +34,9 @@ class EmployeesRegister extends ConsumerWidget {
       body: Column(
         children: [
           MyAppBar(
-            title: 'Salon Information',
+            title: 'Employees',
           ),
-          HorizontalProgress(),
+          HorizontalProgress(index: 6,),
           SizedBox(
             height: 20,
           ),

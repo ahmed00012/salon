@@ -19,7 +19,7 @@ class ResetPassword extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     double height = MediaQuery.of(context).size.height<600?800:MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    final controller = ref.watch(authFuture(height));
+    final controller = ref.watch(authFuture);
     return Container(
       width: width,
       height: height,

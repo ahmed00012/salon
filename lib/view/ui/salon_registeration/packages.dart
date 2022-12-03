@@ -31,9 +31,9 @@ class Packages extends ConsumerWidget {
       body: Column(
         children: [
           MyAppBar(
-            title: 'Salon Information',
+            title: 'Packages',
           ),
-          HorizontalProgress(),
+          HorizontalProgress(index: 7,),
           SizedBox(
             height: 20,
           ),
@@ -107,8 +107,8 @@ class Packages extends ConsumerWidget {
 
                   VerticalProgress(
                     height: height,
-                    progressHeight: height / 6,
-                    index: 6,
+                    progressHeight: height / 7,
+                    index: 7,
                   ),
                 ],
               );

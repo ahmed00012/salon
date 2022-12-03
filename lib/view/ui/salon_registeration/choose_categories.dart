@@ -30,9 +30,9 @@ class ChooseCategories extends ConsumerWidget {
       body: Column(
         children: [
           MyAppBar(
-            title: 'Salon Information',
+            title: 'Salon Services',
           ),
-          HorizontalProgress(),
+          HorizontalProgress(index: 4,),
           SizedBox(
             height: 20,
           ),
@@ -103,47 +103,92 @@ class ChooseCategories extends ConsumerWidget {
 
                                                 Visibility(
                                                   visible: controller.categories[i].subcategory![j].choose!,
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 10),
-                                                    child: Container(
-                                                      width: width*0.2,
-                                                      height: height*0.05,
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        width: width*0.14,
+                                                        height: height*0.04,
 
-                                                      decoration: BoxDecoration(
-                                                        color:  Colors.white,
-                                                        borderRadius: BorderRadius.circular(10),
+                                                        decoration: BoxDecoration(
+                                                          color:  Colors.white,
+                                                          borderRadius: BorderRadius.circular(10),
 
-                                                      ),
-                                                      child: TextFormField(
-                                                        cursorColor: Constants.mainColor2,
-                                                        initialValue: '00.00',
-
-                                                        decoration: InputDecoration(
-                                                          border: OutlineInputBorder(
-                                                            borderRadius:
-                                                            BorderRadius.all(Radius.circular(8)),
-                                                            borderSide: BorderSide(
-                                                                width: 1, color: Constants.mainColor2),
-                                                          ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                            borderRadius:
-                                                            BorderRadius.all(Radius.circular(8)),
-                                                            borderSide: BorderSide(
-                                                                width: 1, color: Constants.mainColor2),
-                                                          ),
-                                                          label: Text(
-                                                            'Price',style: TextStyle(
-                                                            color: Constants.mainColor2
-                                                          ),
-                                                          ),
-                                                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                                         ),
-                                                        onChanged: (value){
+                                                        child: TextFormField(
+                                                          cursorColor: Constants.mainColor2,
+                                                          keyboardType: TextInputType.number,
+                                                          initialValue: '50',
 
-                                                        },
+                                                          decoration: InputDecoration(
+                                                            border: OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.all(Radius.circular(8)),
+                                                              borderSide: BorderSide(
+                                                                  width: 1, color: Constants.mainColor2),
+                                                            ),
+                                                            focusedBorder: OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.all(Radius.circular(8)),
+                                                              borderSide: BorderSide(
+                                                                  width: 1, color: Constants.mainColor2),
+                                                            ),
+                                                            label: Text(
+                                                              'From',style: TextStyle(
+                                                                color: Constants.mainColor2
+                                                            ),
+                                                            ),
+                                                            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                                                          ),
+                                                          onChanged: (value){
 
+                                                          },
+
+                                                        ),
                                                       ),
-                                                    ),
+                                                      Padding(
+                                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                                        child: Container(
+                                                          width: width*0.14,
+                                                          height: height*0.04,
+
+                                                          decoration: BoxDecoration(
+                                                            color:  Colors.white,
+                                                            borderRadius: BorderRadius.circular(10),
+
+                                                          ),
+                                                          child: TextFormField(
+                                                            cursorColor: Constants.mainColor2,
+                                                            initialValue: '100',
+                                                            keyboardType: TextInputType.number,
+
+                                                            decoration: InputDecoration(
+                                                              border: OutlineInputBorder(
+                                                                borderRadius:
+                                                                BorderRadius.all(Radius.circular(8)),
+                                                                borderSide: BorderSide(
+                                                                    width: 1, color: Constants.mainColor2),
+                                                              ),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                borderRadius:
+                                                                BorderRadius.all(Radius.circular(8)),
+                                                                borderSide: BorderSide(
+                                                                    width: 1, color: Constants.mainColor2),
+                                                              ),
+                                                              label: Text(
+                                                                'To',style: TextStyle(
+                                                                  color: Constants.mainColor2
+                                                              ),
+                                                              ),
+                                                              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                                                            ),
+                                                            onChanged: (value){
+
+                                                            },
+
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
                                                 Visibility(
@@ -162,7 +207,7 @@ class ChooseCategories extends ConsumerWidget {
 
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
-                            child: Text('Add another category ?',
+                            child: Text('Add another Service ?',
                             style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
                           ),
                         ListView.builder(

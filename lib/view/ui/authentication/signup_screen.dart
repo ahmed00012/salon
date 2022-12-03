@@ -16,7 +16,7 @@ int? gender;
   Widget build(BuildContext context,WidgetRef ref) {
     double height = MediaQuery.of(context).size.height<600?800:MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    final controller = ref.watch(authFuture(height));
+    final controller = ref.watch(authFuture);
     return Container(
       width: width,
       height: height,
@@ -61,7 +61,7 @@ int? gender;
 
 
                           Text(
-                            'Reset Password',
+                            'Sign up',
                             style: TextStyle(
                                 fontSize: height*0.022
                             ),
@@ -74,7 +74,7 @@ int? gender;
 
                     DefaultTextField(label: 'Name',icon: Icons.person),
                     SizedBox(height: 25,),
-                    DefaultTextField(label: 'Phone',icon: Icons.phone),
+                    DefaultTextField(label: 'Phone',icon: Icons.phone,number: true,),
                     SizedBox(height: 25,),
                     DefaultTextField(label: 'Password',icon: Icons.security),
 

@@ -25,6 +25,7 @@ class EmployeeWidget extends ConsumerWidget {
     return
       controller.employees.length<2?
       Column(
+
       children: [
         Text('Employee Photo',style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
         SizedBox(height: 20,),
@@ -76,7 +77,7 @@ class EmployeeWidget extends ConsumerWidget {
 
         SizedBox(height: 30,),
         Align(
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.center,
           child: Container(
               height: height*0.065,
               width: width*0.7,
@@ -89,7 +90,7 @@ class EmployeeWidget extends ConsumerWidget {
         ),
         SizedBox(height: 20,),
         Align(
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.center,
           child: Container(
               height: height*0.065,
               width: width*0.7,
@@ -106,6 +107,7 @@ class EmployeeWidget extends ConsumerWidget {
         Text('Working Time',style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
         SizedBox(height: 20,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
             Column(
@@ -192,6 +194,7 @@ class EmployeeWidget extends ConsumerWidget {
           style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
         SizedBox(height: 20,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
                 value: controller.holidays.contains('Sat'),
@@ -242,6 +245,7 @@ class EmployeeWidget extends ConsumerWidget {
 
 
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
                 value: controller.holidays.contains('Tue'),
@@ -291,6 +295,7 @@ class EmployeeWidget extends ConsumerWidget {
         ),
 
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
                 value: controller.holidays.contains('Fri'),

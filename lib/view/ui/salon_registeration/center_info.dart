@@ -19,13 +19,7 @@ import '../../../provider/center_registration_provider1.dart';
 
 
 class CenterInfo extends ConsumerWidget {
-  bool nameFocus = false;
-  bool phoneFocus = false;
-  bool secondPhoneFocus = false;
-  bool countryFocus = false;
-  bool cityFocus = false;
-  bool areaFocus = false;
-  bool streetFocus = false;
+
   Completer<GoogleMapController> googleMapController = Completer();
 
 
@@ -38,7 +32,7 @@ class CenterInfo extends ConsumerWidget {
       body: Column(
         children: [
           MyAppBar(title: 'Salon Information',),
-         HorizontalProgress(),
+         HorizontalProgress(index: 1,),
           SizedBox(height: 20,),
          Expanded(
            child: StatefulBuilder(
@@ -57,130 +51,32 @@ class CenterInfo extends ConsumerWidget {
 
 
                        children: [
-                         Container(
+                        Container(
 
-                           decoration: BoxDecoration(
-                             color:  Colors.white,
-                             borderRadius: BorderRadius.circular(10),
-
-                           ),
-                           child: FocusScope(
-                             child: Focus(
-                               onFocusChange: (focus) {
-                                 setState((){
-                                   nameFocus = focus;
-                                 });
-                                 print(nameFocus.toString()+'flflfl');
-
-                               },
-                               child: TextFormField(
-                                 cursorColor: Constants.mainColor2,
-                                 decoration: InputDecoration(
-                                     border: InputBorder.none,
-                                     focusedBorder: OutlineInputBorder(
-                                       borderRadius:
-                                       BorderRadius.all(Radius.circular(8)),
-                                       borderSide: BorderSide(
-                                           width: 1, color: Constants.mainColor2),
-                                     ),
-                                     label: Text(
-                                         'SALON NAME',
-                                    style:   TextStyle(color:nameFocus?
-                                       Constants.mainColor2:Colors.black26,
-                                           fontWeight: FontWeight.bold,fontSize: 14),
-                                     ),
-
-                                     prefixIcon: Padding(
-                                       padding: const EdgeInsets.only(right: 10),
-                                       child: Icon(Icons.person,
-                                           color: Constants.mainColor2),
-                                     )
-                                 ),
-
-                               ),
-                             ),
-                           ),
-                         ),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: DefaultTextField(label: 'Salon Name',
+                              icon: Icons.perm_identity,)),
                          SizedBox(height: 20,),
                          Container(
 
-                           decoration: BoxDecoration(
-                             color:  Colors.white,
-                             borderRadius: BorderRadius.circular(10),
-
-                           ),
-                           child: FocusScope(
-                             child: Focus(
-                               onFocusChange: (focus) {
-                                 setState((){
-                                   phoneFocus = focus;
-                                 });
-                               },
-                               child: TextFormField(
-                                 cursorColor: Constants.mainColor2,
-                                 decoration: InputDecoration(
-                                     border: InputBorder.none,
-                                     focusedBorder: OutlineInputBorder(
-                                       borderRadius:
-                                       BorderRadius.all(Radius.circular(8)),
-                                       borderSide: BorderSide(
-                                           width: 1, color: Constants.mainColor2),
-                                     ),
-                                     labelText: 'SALON PHONE',
-                                     labelStyle: TextStyle(color:phoneFocus?
-                                     Constants.mainColor2:Colors.black26,
-                                         fontWeight: FontWeight.bold,fontSize: 14),
-                                     prefixIcon: Padding(
-                                       padding: const EdgeInsets.only(right: 10),
-                                       child: Icon(Icons.phone,
-                                           color: Constants.mainColor2),
-                                     )
-                                 ),
-
-                               ),
+                             decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(10)
                              ),
-                           ),
-                         ),
+                             child: DefaultTextField(label: 'Salon Phone',
+                               icon: Icons.phone,)),
                          SizedBox(height: 20,),
                          Container(
 
-                           decoration: BoxDecoration(
-                             color:  Colors.white,
-                             borderRadius: BorderRadius.circular(10),
-
-                           ),
-                           child: FocusScope(
-                             child: Focus(
-                               onFocusChange: (focus) {
-                                 setState((){
-                                   secondPhoneFocus = focus;
-                                 });
-                               },
-                               child: TextFormField(
-                                 cursorColor: Constants.mainColor2,
-                                 decoration: InputDecoration(
-                                     border: InputBorder.none,
-                                     focusedBorder: OutlineInputBorder(
-                                       borderRadius:
-                                       BorderRadius.all(Radius.circular(8)),
-                                       borderSide: BorderSide(
-                                           width: 1, color: Constants.mainColor2),
-                                     ),
-                                     labelText: 'ANOTHER PHONE',
-                                     labelStyle: TextStyle(color:secondPhoneFocus?
-                                     Constants.mainColor2:Colors.black26,
-                                         fontWeight: FontWeight.bold,fontSize: 14),
-                                     prefixIcon: Padding(
-                                       padding: const EdgeInsets.only(right: 10),
-                                       child: Icon(Icons.phone,
-                                           color: Constants.mainColor2),
-                                     )
-                                 ),
-
-                               ),
+                             decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(10)
                              ),
-                           ),
-                         ),
+                             child: DefaultTextField(label: 'Another Phone',
+                               icon: Icons.phone,)),
                          SizedBox(height: 20,),
                          Text('COUNTRY',style: TextStyle(
                            color: Colors.black26,
@@ -223,24 +119,16 @@ class CenterInfo extends ConsumerWidget {
                                Icons.arrow_forward_ios_outlined,
                                color: Constants.mainColor2,
                              ),
-                             onMenuStateChange: (opened){
-                               setState((){
-                                 countryFocus = opened;
-                               });
-                             },
+
                              iconSize: 14,
 
-                             buttonHeight: height*0.06,
+                             buttonHeight: height*0.07,
 
                              buttonPadding: const EdgeInsets.only(left: 5, right: 14),
                              buttonDecoration: BoxDecoration(
                                borderRadius: BorderRadius.circular(10),
                                color: Colors.white,
-                               border: Border.all(
-                                 color: countryFocus?Constants.mainColor2:Colors.white
-                               )
-
-
+                               border: Border.all(color: Colors.black38)
                              ),
                              buttonElevation: 0,
                              dropdownDecoration: BoxDecoration(
@@ -292,22 +180,16 @@ class CenterInfo extends ConsumerWidget {
                                Icons.arrow_forward_ios_outlined,
                                color: Constants.mainColor2,
                              ),
-                             onMenuStateChange: (opened){
-                               setState((){
-                                 cityFocus = opened;
-                               });
-                             },
+
                              iconSize: 14,
 
-                             buttonHeight: height*0.06,
+                             buttonHeight: height*0.07,
 
                              buttonPadding: const EdgeInsets.only(left: 5, right: 14),
                              buttonDecoration: BoxDecoration(
                                  borderRadius: BorderRadius.circular(10),
                                  color: Colors.white,
-                                 border: Border.all(
-                                     color: cityFocus?Constants.mainColor2:Colors.white
-                                 )
+                               border: Border.all(color: Colors.black38)
 
 
                              ),
@@ -361,22 +243,17 @@ class CenterInfo extends ConsumerWidget {
                                Icons.arrow_forward_ios_outlined,
                                color: Constants.mainColor2,
                              ),
-                             onMenuStateChange: (opened){
-                               setState((){
-                                 areaFocus = opened;
-                               });
-                             },
+
                              iconSize: 14,
 
-                             buttonHeight: height*0.06,
+                             buttonHeight: height*0.07,
 
                              buttonPadding: const EdgeInsets.only(left: 5, right: 14),
                              buttonDecoration: BoxDecoration(
                                  borderRadius: BorderRadius.circular(10),
                                  color: Colors.white,
-                                 border: Border.all(
-                                     color: areaFocus?Constants.mainColor2:Colors.white
-                                 )
+                                 border: Border.all(color: Colors.black38)
+
 
 
                              ),
@@ -392,43 +269,12 @@ class CenterInfo extends ConsumerWidget {
                          SizedBox(height: 20,),
                          Container(
 
-                           decoration: BoxDecoration(
-                             color:  Colors.white,
-                             borderRadius: BorderRadius.circular(10),
-
-                           ),
-                           child: FocusScope(
-                             child: Focus(
-                               onFocusChange: (focus) {
-                                 setState((){
-                                   streetFocus = focus;
-                                 });
-                               },
-                               child: TextFormField(
-                                 cursorColor: Constants.mainColor2,
-                                 decoration: InputDecoration(
-                                     border: InputBorder.none,
-                                     focusedBorder: OutlineInputBorder(
-                                       borderRadius:
-                                       BorderRadius.all(Radius.circular(8)),
-                                       borderSide: BorderSide(
-                                           width: 1, color: Constants.mainColor2),
-                                     ),
-                                     labelText: 'STREET NAME',
-                                     labelStyle: TextStyle(color:streetFocus?
-                                     Constants.mainColor2:Colors.black26,
-                                         fontWeight: FontWeight.bold,fontSize: 14),
-                                     prefixIcon: Padding(
-                                       padding: const EdgeInsets.only(right: 10),
-                                       child: Icon(Icons.comment,
-                                           color: Constants.mainColor2),
-                                     )
-                                 ),
-
-                               ),
+                             decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(10)
                              ),
-                           ),
-                         ),
+                             child: DefaultTextField(label: 'Street Name',
+                               icon: Icons.comment,)),
 
                          SizedBox(height: 20,),
 

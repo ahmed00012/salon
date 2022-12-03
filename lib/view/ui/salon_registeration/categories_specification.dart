@@ -27,9 +27,9 @@ class CategoriesSpecification extends ConsumerWidget {
       body: Column(
         children: [
           MyAppBar(
-            title: 'Salon Information',
+            title: 'Services Duration',
           ),
-          HorizontalProgress(),
+          HorizontalProgress(index: 5,),
           SizedBox(
             height: 20,
           ),
@@ -92,35 +92,27 @@ class CategoriesSpecification extends ConsumerWidget {
                                               ),
                                               Spacer(),
 
-                                              InkWell(onTap: (){
-                                                controller.markHomeSalon(i, j,inHome: !controller.categories[i].subcategory![j].inHome!);
-                                              },
-                                                child: Column(
-                                                  children: [
-                                                    Text('Home'),
-                                                    Icon(Icons.home,color:
-                                                    controller.categories[i].subcategory![j].inHome!?
-                                                    Constants.mainColor2:Colors.black12)
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(width: 15,),
-                                              InkWell(
-                                                onTap: (){
-                                                  controller.markHomeSalon(i, j,inSalon: !controller.categories[i].subcategory![j].inSalon!);
-                                                },
-                                                child: Column(
-                                                  children: [
-                                                    Text('Salon'),
-                                                    Icon(Icons.chair,
-                                                      color: controller.categories[i].subcategory![j].inSalon!?
-                                                      Constants.mainColor2:Colors.black12
-                                                      ,)
-                                                  ],
-                                                ),
-                                              ),
+
 
                                               Spacer(),
+
+                                              InkWell(
+                                                child: Container(
+                                                  height: height*0.035,
+                                                  width: width*0.08,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      border: Border.all(color: Constants.mainColor2)
+                                                  ),
+                                                  child: Center(
+                                                    child: Icon(Icons.add,
+                                                      color: Constants.mainColor2,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(width: 10,),
                                               Container(
                                                 width: width*0.15,
                                                 height: 35,
@@ -166,7 +158,25 @@ class CategoriesSpecification extends ConsumerWidget {
                                               SizedBox(width: 5,),
                                               Text('Min',style: TextStyle(
                                                 fontSize: 14
-                                              ),)
+                                              ),),
+                                              SizedBox(width: 10,),
+                                              InkWell(
+                                                child: Container(
+                                                  height: height*0.035,
+                                                  width: width*0.08,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    border: Border.all(color: Constants.mainColor2)
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(bottom: 20),
+                                                    child: Icon(Icons.minimize,
+                                                      color: Constants.mainColor2,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
 
 
 

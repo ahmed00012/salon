@@ -25,8 +25,8 @@ class AddDocumentations extends ConsumerWidget {
     return Scaffold(
       body: Column(
         children: [
-          MyAppBar(title: 'Salon Information',),
-          HorizontalProgress(),
+          MyAppBar(title: 'Documentations',),
+          HorizontalProgress(index: 3,),
           SizedBox(height: 20,),
           Expanded(child: StatefulBuilder(
 
@@ -40,7 +40,10 @@ class AddDocumentations extends ConsumerWidget {
                           shrinkWrap: true,
                       children: [
 
-                        Center(child: Text('pick the licence')),
+                        Center(child: Text('pick the licence',style:
+                          TextStyle(
+                            fontSize: height*0.02,fontWeight: FontWeight.bold
+                          ),)),
                         SizedBox(height: 20,),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -98,7 +101,10 @@ class AddDocumentations extends ConsumerWidget {
                           ),
                         ),
                         SizedBox(height: 20,),
-                        Center(child: Text('pick your Certification')),
+                        Center(child: Text('pick your Certification',style:
+                        TextStyle(
+                            fontSize: height*0.02,fontWeight: FontWeight.bold
+                        ),)),
                         SizedBox(height: 20,),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -160,7 +166,10 @@ class AddDocumentations extends ConsumerWidget {
 
 
                         SizedBox(height: 20,),
-                        Center(child: Text('Add your previous works')),
+                        Center(child: Text('Add your previous works',style:
+                        TextStyle(
+                            fontSize: height*0.02,fontWeight: FontWeight.bold
+                        ),)),
                         SizedBox(height: 20,),
                         GridView.builder(
                             physics: NeverScrollableScrollPhysics(),
