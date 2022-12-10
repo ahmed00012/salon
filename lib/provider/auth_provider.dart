@@ -1,4 +1,5 @@
 
+import 'package:beauty_center/models/countries_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -7,6 +8,8 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../constants.dart';
 import '../local_storage.dart';
+import '../main.dart';
+import '../models/areas_model.dart';
 import '../repository/auth_repository.dart';
 
 
@@ -18,6 +21,7 @@ class AuthProvider extends ChangeNotifier {
 
 
 
+
 static String? imageBackGround;
 
 
@@ -25,7 +29,10 @@ static String? imageBackGround;
   AuthProvider(){
 
 
+
   }
+
+
 
 
 

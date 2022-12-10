@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:beauty_center/repository/salon_info_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,6 +14,9 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../constants.dart';
 import '../local_storage.dart';
+import '../main.dart';
+import '../models/areas_model.dart';
+import '../models/countries_model.dart';
 import '../models/opening_day_model.dart';
 import '../repository/auth_repository.dart';
 import '../view/widgets/time_picker_theme.dart';
@@ -21,13 +25,14 @@ import '../view/widgets/time_picker_theme.dart';
 final registerFuture =
 ChangeNotifierProvider.autoDispose<RegisterProvider>((ref) => RegisterProvider());
 class RegisterProvider extends ChangeNotifier {
-List<String> countries = ['Egypt', 'Emirates'];
-List<String> cities = ['Cairo','Alexandria','Tanta'];
-List<String> areas = ['Moharam Bek','Miami','Sidi Beshr'];
+  SalonInfoRepo salonInfoRepo = SalonInfoRepo();
+  List<Country> countries = [];
+  List<Cities> cities = [];
+  List<Area> areas = [];
 
-String? countryValue = 'Egypt';
-String? cityValue = 'Cairo';
-String? areaValue = 'Moharam Bek';
+int? countryValue ;
+int? cityValue ;
+int? areaValue ;
 double zoom = 7.0;
 List<Marker> markers = <Marker>[];
 List<String> recommendedPics = [
@@ -44,11 +49,20 @@ List<OpeningDayModel> days = [];
 List<String> holidays = [];
 TimeOfDay ?open ;
 TimeOfDay ?close ;
+  TextEditingController titleArController = TextEditingController();
+  TextEditingController titleEnController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController anotherPhoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController streetController = TextEditingController();
+  TextEditingController descriptionArController = TextEditingController();
+  TextEditingController descriptionEnController = TextEditingController();
 
 
   RegisterProvider(){
     addMarker(LatLng(30.044611387091066, 31.231687873506743));
     getOpeningTimes();
+    getCountries();
 
   }
 
@@ -223,6 +237,50 @@ timePickerDialog(BuildContext context,int i){
     });
   });
 }
+
+
+
+Future getCountries()async{
+  var data = await salonInfoRepo.getCountries();
+  if(data != false){
+    countries = List.from(data.map((e)=>Country.fromJson(e)));
+    countryValue = countries[0].id;
+    cityValue = countries[0].cities![0].id;
+    cities = List.from(countries[0].cities!);
+    getAreas(cityValue!);
+  }
+  else{
+    displayToastMessage('Something wrong happened !', true, navigatorKey.currentContext!);
+  }
+  notifyListeners();
+}
+
+Future getAreas(int city) async{
+  var data = await salonInfoRepo.getAreas(city);
+  if(data != false){
+    areas = List.from(data.map((e)=>Area.fromJson(e)));
+  }
+  else{
+    displayToastMessage('Something wrong happened !', true, navigatorKey.currentContext!);
+  }
+  notifyListeners();
+}
+
+
+selectCountry(Country country){
+    countryValue = country.id;
+    cities = List.from(country.cities!);
+    cityValue = cities[0].id;
+    notifyListeners();
+}
+
+selectCity(Cities city){
+    cityValue = city.id;
+    // cities = List.from(country.cities!);
+    // cityValue = cities[0].title!.en;
+    notifyListeners();
+}
+
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {
     showTopSnackBar(

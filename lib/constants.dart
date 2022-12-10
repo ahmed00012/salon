@@ -10,7 +10,13 @@ class Constants{
   static const Color titleColor = Color(0xff1B4774);
   static const Color titleColor2 = Color(0xff6247aa);
 
-  ////white shade   0xffF5F5DC
+
+ static String BASE = 'https://beta.poss.app/api/';
+ static Uri INTRO = Uri.parse(BASE +'intro');
+ static Uri COUNTRIES = Uri.parse(BASE +'country/cities');
+ static Uri CITIES = Uri.parse(BASE +'city/byCountry/');
+ static Uri AREAS = Uri.parse(BASE +'area/byCity/');
+
 
 
 
