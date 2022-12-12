@@ -4,6 +4,7 @@ import 'package:beauty_center/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../provider/center_registration_provider1.dart';
 import '../../../provider/center_registration_provider2.dart';
 
 import '../../widgets/add_works_picture.dart';
@@ -18,7 +19,7 @@ class AddDocumentations extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final controller = ref.watch(registerFuture2);
+    final controller = ref.watch(registerFuture);
     double height = MediaQuery.of(context).size.height<600?800:MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -190,7 +191,7 @@ class AddDocumentations extends ConsumerWidget {
                                       onTap: (){
 
                                         if(controller.images.length==i)
-                                          controller.pickImage();
+                                          controller.pickImageSalon();
 
                                       },
                                       child: AddWorksPic(image:controller.images.length!=i?
@@ -228,7 +229,8 @@ class AddDocumentations extends ConsumerWidget {
                             Spacer(),
                             InkWell(
                               onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (_)=>ChooseCategories()));
+                                controller.registerSalon();
+                                // Navigator.push(context, MaterialPageRoute(builder: (_)=>ChooseCategories()));
 
                               },
                               child: Container(

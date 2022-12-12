@@ -24,11 +24,7 @@ final registerFuture2 =
 ChangeNotifierProvider.autoDispose<RegisterProvider2>((ref) => RegisterProvider2());
 class RegisterProvider2 extends ChangeNotifier {
 
-  File? licence;
-  File? certification;
-  final ImagePicker _picker = ImagePicker();
-  List images = [];
-  int imageLength = 1;
+
   List<CategoriesModel> categories=[];
   List<String> anotherCategories=[];
  List <AnotherCategoryModel>chosenAnotherCategories =[];
@@ -44,42 +40,6 @@ class RegisterProvider2 extends ChangeNotifier {
   }
 
 
-  removeLicence(){
-    licence= null;
-    notifyListeners();
-  }
-  removeCertification(){
-    certification= null;
-    notifyListeners();
-  }
-  addImage(){
-    if(images.length==imageLength&&imageLength<11)
-      imageLength = imageLength +1;
-    notifyListeners();
-  }
-  removeImage(int i){
-    imageLength = imageLength -1;
-    images.removeAt(i);
-    notifyListeners();
-  }
-
-  pickLicence() async {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      licence=File(image!.path);
-    notifyListeners();
-  }
-  pickCertification() async {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      certification=File(image!.path);
-    notifyListeners();
-  }
-
-  pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    images.add(File(image!.path));
-    addImage();
-    notifyListeners();
-  }
 
 
   getCategories(){

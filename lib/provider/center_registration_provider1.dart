@@ -2,12 +2,15 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:beauty_center/models/salon_info_confirm.dart';
 import 'package:beauty_center/repository/salon_info_repository.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -44,11 +47,15 @@ List<String> recommendedPics = [
 File? salonImage;
 final ImagePicker _picker = ImagePicker();
 String? pickedSalonLogo;
+  File? licence;
+  File? certification;
+  List<File> images = [];
+  int imageLength = 1;
 
 List<OpeningDayModel> days = [];
 List<String> holidays = [];
-TimeOfDay ?open ;
-TimeOfDay ?close ;
+TimeOfDay open  = TimeOfDay(hour: 9, minute: 0);
+TimeOfDay close = TimeOfDay(hour: 21, minute: 0);
   TextEditingController titleArController = TextEditingController();
   TextEditingController titleEnController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -57,6 +64,7 @@ TimeOfDay ?close ;
   TextEditingController streetController = TextEditingController();
   TextEditingController descriptionArController = TextEditingController();
   TextEditingController descriptionEnController = TextEditingController();
+  TextEditingController yearOfExperience = TextEditingController();
 
 
   RegisterProvider(){
@@ -67,6 +75,42 @@ TimeOfDay ?close ;
   }
 
 
+  removeLicence(){
+    licence= null;
+    notifyListeners();
+  }
+  removeCertification(){
+    certification= null;
+    notifyListeners();
+  }
+  addImage(){
+    if(images.length==imageLength&&imageLength<11)
+      imageLength = imageLength +1;
+    notifyListeners();
+  }
+  removeImage(int i){
+    imageLength = imageLength -1;
+    images.removeAt(i);
+    notifyListeners();
+  }
+
+  pickLicence() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    licence=File(image!.path);
+    notifyListeners();
+  }
+  pickCertification() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    certification=File(image!.path);
+    notifyListeners();
+  }
+
+  pickImageSalon() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    images.add(File(image!.path));
+    addImage();
+    notifyListeners();
+  }
 
 
 void addMarker(LatLng latLng) {
@@ -280,6 +324,48 @@ selectCity(Cities city){
     // cityValue = cities[0].title!.en;
     notifyListeners();
 }
+
+
+Future registerSalon()async{
+if(pickedSalonLogo!=null){
+  salonImage = await getImageFileFromAssets(pickedSalonLogo!);
+}
+    SalonInfoRegistration salon = SalonInfoRegistration(
+      titleAr: titleArController.text,
+      titleEn: titleEnController.text,
+      phone: phoneController.text,
+      anotherPhone: anotherPhoneController.text,
+      password: passwordController.text,
+      descriptionAr: descriptionArController.text,
+      descriptionEn: descriptionEnController.text,
+      street: streetController.text,
+      holidays: List.from(holidays),
+      openAt: '${open.hour}:${open.minute}',
+      closeAt: '${close.hour}:${close.minute}',
+      areaId: areaValue,
+      countryId: countryValue,
+      cityId: cityValue,
+      lat: markers[0].position.latitude,
+      lng: markers[0].position.longitude,
+      logoImg: salonImage,
+      certificateImage: certification,
+      licenseImage: licence,
+      workImages: images,
+      startExperience: yearOfExperience.text
+    );
+
+
+var data = salonInfoRepo.uploadImageToServer(salon);
+
+}
+
+
+  Future<File> getImageFileFromAssets(String path) async {
+    final byteData = await rootBundle.load(path);
+    final file = File('${(await getTemporaryDirectory()).path}/${path}');
+    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    return file;
+  }
 
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {

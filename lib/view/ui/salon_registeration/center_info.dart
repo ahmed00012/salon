@@ -426,8 +426,7 @@ class CenterInfo extends ConsumerWidget {
                                       if(_formKey.currentState!.validate())
                                       Navigator.push(
                                           context,
-                                          MaterialPageRoute(
-                                              builder: (_) => TimeOpeningInfo()));
+                                          MaterialPageRoute(builder: (_) => TimeOpeningInfo()));
                                     },
                                     child: Container(
                                       height: height * 0.06,

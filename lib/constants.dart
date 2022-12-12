@@ -16,6 +16,7 @@ class Constants{
  static Uri COUNTRIES = Uri.parse(BASE +'country/cities');
  static Uri CITIES = Uri.parse(BASE +'city/byCountry/');
  static Uri AREAS = Uri.parse(BASE +'area/byCity/');
+ static Uri SALONINFO = Uri.parse(BASE +'provider');
 
 
 

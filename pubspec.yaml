@@ -54,6 +54,7 @@ dependencies:
   circular_bottom_navigation: 2.3.0
   intl: ^0.17.0
   http:
+  path_provider: ^2.0.11
 
 
 
