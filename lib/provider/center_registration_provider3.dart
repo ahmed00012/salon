@@ -15,7 +15,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../constants.dart';
 import '../local_storage.dart';
-import '../models/categories_model.dart';
+import '../models/categories0_model.dart';
 import '../models/employee_model.dart';
 import '../models/opening_day_model.dart';
 import '../repository/auth_repository.dart';
@@ -31,7 +31,7 @@ List<PackagesModel> packages = [];
 final ImagePicker _picker = ImagePicker();
 List images = [];
 int imageLength = 1;
-List<CategoriesModel> categories=[];
+List<CategoriesModel0> categories=[];
 bool workInHome = false;
 List<String> holidays = [];
 bool pets = false;
@@ -100,34 +100,34 @@ pickImage() async {
 
 getCategories(){
   categories = [
-    CategoriesModel(
+    CategoriesModel0(
         id: 1,
         name: 'Hair',
         choose: false,
         subcategory: [
-          CategoriesModel(name: 'cut',choose: false,inHome: false,inSalon: false),
-          CategoriesModel(name: 'straight',choose: false,inHome: false,inSalon: false),
-          CategoriesModel(name:  'iron',choose: false,inHome: false,inSalon: false),
-          CategoriesModel(name: 'burn',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name: 'cut',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name: 'straight',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name:  'iron',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name: 'burn',choose: false,inHome: false,inSalon: false),
         ]
     ),
-    CategoriesModel(
+    CategoriesModel0(
         id: 2,
         name: 'face',
         choose: false,
         subcategory: [
-          CategoriesModel(name: 'mask',choose: false,inHome: false,inSalon: false),
-          CategoriesModel(name: 'hot towel',choose: false,inHome: false,inSalon: false),
-          CategoriesModel(name: 'clean',choose: false,inHome: false,inSalon: false),
-          CategoriesModel(name: 'remove hair',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name: 'mask',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name: 'hot towel',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name: 'clean',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name: 'remove hair',choose: false,inHome: false,inSalon: false),
         ]
     ),
-    CategoriesModel(
+    CategoriesModel0(
         id: 3,
         name: 'fingernails',
         choose: false,
         subcategory: [
-          CategoriesModel(name: 'cut',choose: false,inHome: false,inSalon: false),
+          CategoriesModel0(name: 'cut',choose: false,inHome: false,inSalon: false),
 
         ]
     )

@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:beauty_center/constants.dart';
 import 'package:beauty_center/models/salon_info_confirm.dart';
@@ -70,7 +71,20 @@ class SalonInfoRepo extends SalonInfoRepository{
 
 
       http.MultipartRequest request = new http.MultipartRequest('POST', Constants.SALONINFO);
-
+print(salonInfo.titleAr);
+print(salonInfo.titleEn);
+print(salonInfo.phone);
+print(salonInfo.anotherPhone);
+print(salonInfo.password);
+print(salonInfo.countryId);
+print(salonInfo.cityId);
+print(salonInfo.holidays);
+print(salonInfo.openAt);
+print(salonInfo.type);
+print(salonInfo.workImages);
+print(salonInfo.licenseImage);
+print(salonInfo.logoImg);
+print(salonInfo.type);
       request.fields['title_ar'] = salonInfo.titleAr.toString();
       request.fields['title_en'] = salonInfo.titleEn.toString();
       request.fields['phone'] =  salonInfo.phone.toString();
@@ -78,19 +92,21 @@ class SalonInfoRepo extends SalonInfoRepository{
       request.fields['password'] = salonInfo.password.toString();
       request.fields['country_id'] = salonInfo.countryId.toString();
       request.fields['city_id'] = salonInfo.cityId.toString();
-      request.fields['area_id'] = salonInfo.areaId.toString();
+      request.fields['area_id'] = '1';
       request.fields['street_name'] =salonInfo.street.toString();
       request.fields['lat'] = salonInfo.lat.toString();
       request.fields['lng'] = salonInfo.lng.toString();
-      request.fields['start_experience'] = salonInfo.startExperience.toString();
+      request.fields['start_experience'] = '1998';
       request.fields['holidays'] = salonInfo.holidays.toString();
       request.fields['open_at'] = salonInfo.openAt.toString();
       request.fields['close_at'] = salonInfo.closeAt.toString();
       request.fields['description_ar'] = salonInfo.descriptionAr.toString();
       request.fields['description_en'] = salonInfo.descriptionEn.toString();
+      request.fields['type'] = salonInfo.type.toString();
 
 
       if (salonInfo.logoImg != null) {
+
         streamLogo =
         new http.ByteStream(DelegatingStream.typed(salonInfo.logoImg!.openRead()));
         lengthLogo = await salonInfo.logoImg!.length();
@@ -133,12 +149,18 @@ if(salonInfo.workImages!=null)
       }
 
       var response = await request.send();
-      print(response.toString()) ;
 
 
-      final res = await http.Response.fromStream(response);
+
+    http.Response response2 = await http.Response.fromStream(response);
+    print("Result: ${response2.statusCode}");
+
+
+
+    // print(res.body.toString()+'slslksll') ;
+    // print(res.statusCode.toString()+'slslksll') ;
       if (response.statusCode == 200) {
-      return json.decode(res.body);
+      // return json.decode(res.body);
 
       } else {
 

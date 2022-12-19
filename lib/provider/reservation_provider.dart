@@ -1,5 +1,5 @@
 
-import 'package:beauty_center/models/categories_model.dart';
+import 'package:beauty_center/models/categories0_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,11 +25,11 @@ List<ReservationModel> reservations = [];
         orderNumber: 1254,
         totalPayment: '300',
         services: [
-          CategoriesModel(
+          CategoriesModel0(
             name: 'Cut Hair',
             price: 100
           ),
-          CategoriesModel(
+          CategoriesModel0(
               name: 'Protine',
               price: 200
           ),
@@ -43,11 +43,11 @@ List<ReservationModel> reservations = [];
         orderNumber: 1421,
         totalPayment: '400',
         services: [
-          CategoriesModel(
+          CategoriesModel0(
             name: 'Cut Hair',
             price: 100
           ),
-          CategoriesModel(
+          CategoriesModel0(
               name: 'Nails',
               price: 300
           ),
@@ -61,11 +61,11 @@ List<ReservationModel> reservations = [];
         orderNumber: 6587,
         totalPayment: '300',
         services: [
-          CategoriesModel(
+          CategoriesModel0(
             name: 'Cut Hair',
             price: 100
           ),
-          CategoriesModel(
+          CategoriesModel0(
               name: 'Spa',
               price: 200
           ),

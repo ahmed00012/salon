@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/categories_model.dart';
+import '../models/categories0_model.dart';
 import '../models/points_model.dart';
 
 final pointsFuture =

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'categories_model.dart';
+import 'categories0_model.dart';
 
 class ReservationModel{
   TimeOfDay? timeStart;
@@ -9,7 +9,7 @@ class ReservationModel{
   Duration? duration;
   String? clientName;
   int? orderNumber;
-  List<CategoriesModel>? services;
+  List<CategoriesModel0>? services;
   String? createdAt;
   String? totalPayment;
 

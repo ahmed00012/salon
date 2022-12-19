@@ -229,7 +229,7 @@ class AddDocumentations extends ConsumerWidget {
                             Spacer(),
                             InkWell(
                               onTap: (){
-                                controller.registerSalon();
+                                controller.registerSalon(context);
                                 // Navigator.push(context, MaterialPageRoute(builder: (_)=>ChooseCategories()));
 
                               },

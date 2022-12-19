@@ -48,7 +48,7 @@ class ChooseCategories extends ConsumerWidget {
 
                            ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
-                                itemCount: controller.categories.length,
+                                itemCount: controller.categories2.length,
 
                                shrinkWrap: true,
                                 itemBuilder: (context, i) {
@@ -58,14 +58,14 @@ class ChooseCategories extends ConsumerWidget {
                                         children: [
                                           SizedBox(width: 10,),
                                           Checkbox(
-                                              value: controller.categories[i].choose,
+                                              value: controller.categories2[i].choose,
                                               activeColor: Constants.mainColor2,
                                               onChanged: (value) {
                                                 controller.chooseCategory(
                                                     false, value!, i);
                                               }),
                                           Text(
-                                            controller.categories[i].name!,
+                                            controller.categories2[i].title!.en!,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: height * 0.02,
@@ -75,7 +75,7 @@ class ChooseCategories extends ConsumerWidget {
                                       ),
                                       ListView.builder(
                                           itemCount: controller
-                                              .categories[i].subcategory!.length,
+                                              .categories2[i].services!.length,
                                           physics: NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemBuilder: (context, j) {
@@ -85,8 +85,8 @@ class ChooseCategories extends ConsumerWidget {
                                                   padding:
                                                   const EdgeInsets.only(left: 30),
                                                   child: Checkbox(
-                                                      value: controller.categories[i]
-                                                          .subcategory![j].choose,
+                                                      value: controller.categories2[i]
+                                                          .services![j].choose,
                                                       activeColor:
                                                       Constants.mainColor2,
                                                       onChanged: (value) {
@@ -95,18 +95,24 @@ class ChooseCategories extends ConsumerWidget {
                                                             j: j);
                                                       }),
                                                 ),
-                                                Text(controller.categories[i]
-                                                    .subcategory![j].name!,style: TextStyle(
-                                                    fontSize: height*0.02
-                                                ),),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                                  child: Container(
+                                                    width:width*0.3,
+                                                    child: Text(controller
+                                                        .categories2[i].services![j].title!.en!,style: TextStyle(
+                                                        fontSize: height*0.02
+                                                    ),),
+                                                  ),
+                                                ),
                                                 Spacer(),
 
                                                 Visibility(
-                                                  visible: controller.categories[i].subcategory![j].choose!,
+                                                  visible: controller.categories2[i].services![j].choose!,
                                                   child: Row(
                                                     children: [
                                                       Container(
-                                                        width: width*0.14,
+                                                        width: width*0.13,
                                                         height: height*0.04,
 
                                                         decoration: BoxDecoration(
@@ -146,9 +152,9 @@ class ChooseCategories extends ConsumerWidget {
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                                        padding: EdgeInsets.symmetric(horizontal: 5),
                                                         child: Container(
-                                                          width: width*0.14,
+                                                          width: width*0.13,
                                                           height: height*0.04,
 
                                                           decoration: BoxDecoration(
@@ -192,8 +198,8 @@ class ChooseCategories extends ConsumerWidget {
                                                   ),
                                                 ),
                                                 Visibility(
-                                                    visible: controller.categories[i].subcategory![j].choose!,
-                                                    child: Text('EGP'))
+                                                    visible: controller.categories2[i].services![j].choose!,
+                                                    child: Text('EGP',style: TextStyle(fontSize: 10),))
 
                                               ],
                                             );

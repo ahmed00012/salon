@@ -4,12 +4,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/categories_model.dart';
+import '../models/categories0_model.dart';
 
 final makeReservationFuture =
 ChangeNotifierProvider.autoDispose<MakeReservationProvider>((ref) => MakeReservationProvider());
 class MakeReservationProvider extends ChangeNotifier {
-  List<CategoriesModel> categories=[];
+  List<CategoriesModel0> categories=[];
 
   MakeReservationProvider(){
     getCategories();
@@ -18,34 +18,34 @@ class MakeReservationProvider extends ChangeNotifier {
 
   getCategories(){
     categories = [
-      CategoriesModel(
+      CategoriesModel0(
           id: 1,
           name: 'Hair',
           choose: false,
           subcategory: [
-            CategoriesModel(name: 'cut',choose: false,inHome: false,inSalon: false),
-            CategoriesModel(name: 'straight',choose: false,inHome: false,inSalon: false),
-            CategoriesModel(name:  'iron',choose: false,inHome: false,inSalon: false),
-            CategoriesModel(name: 'burn',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name: 'cut',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name: 'straight',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name:  'iron',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name: 'burn',choose: false,inHome: false,inSalon: false),
           ]
       ),
-      CategoriesModel(
+      CategoriesModel0(
           id: 2,
           name: 'face',
           choose: false,
           subcategory: [
-            CategoriesModel(name: 'mask',choose: false,inHome: false,inSalon: false),
-            CategoriesModel(name: 'hot towel',choose: false,inHome: false,inSalon: false),
-            CategoriesModel(name: 'clean',choose: false,inHome: false,inSalon: false),
-            CategoriesModel(name: 'remove hair',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name: 'mask',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name: 'hot towel',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name: 'clean',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name: 'remove hair',choose: false,inHome: false,inSalon: false),
           ]
       ),
-      CategoriesModel(
+      CategoriesModel0(
           id: 3,
           name: 'fingernails',
           choose: false,
           subcategory: [
-            CategoriesModel(name: 'cut',choose: false,inHome: false,inSalon: false),
+            CategoriesModel0(name: 'cut',choose: false,inHome: false,inSalon: false),
 
           ]
       )

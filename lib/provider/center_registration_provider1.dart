@@ -22,6 +22,7 @@ import '../models/areas_model.dart';
 import '../models/countries_model.dart';
 import '../models/opening_day_model.dart';
 import '../repository/auth_repository.dart';
+import '../view/ui/salon_registeration/choose_categories.dart';
 import '../view/widgets/time_picker_theme.dart';
 
 
@@ -326,7 +327,7 @@ selectCity(Cities city){
 }
 
 
-Future registerSalon()async{
+Future registerSalon(BuildContext context)async{
 if(pickedSalonLogo!=null){
   salonImage = await getImageFileFromAssets(pickedSalonLogo!);
 }
@@ -351,13 +352,19 @@ if(pickedSalonLogo!=null){
       certificateImage: certification,
       licenseImage: licence,
       workImages: images,
-      startExperience: yearOfExperience.text
+      startExperience: yearOfExperience.text,
+      type: LocalStorage.getData(key: 'gender')=='man'?1:2
     );
 
 
-var data = salonInfoRepo.uploadImageToServer(salon);
+var data = await salonInfoRepo.uploadImageToServer(salon);
 
-}
+print(data);
+// if(data!=false) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => ChooseCategories()));
+    // }
+  }
 
 
   Future<File> getImageFileFromAssets(String path) async {

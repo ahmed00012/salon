@@ -1,11 +1,11 @@
-import 'categories_model.dart';
+import 'categories0_model.dart';
 
 class PackagesModel{
 
   String? title;
   String? price;
-  List<CategoriesModel> ?services;
-  List<CategoriesModel>? freeCategory;
+  List<CategoriesModel0> ?services;
+  List<CategoriesModel0>? freeCategory;
   String? saved;
   bool? saveByMoney;
   bool? extraService;
