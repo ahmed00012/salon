@@ -96,6 +96,7 @@ class Services {
   String? createdAt;
   String? updatedAt;
   bool? choose ;
+  int? duration;
 
   Services(
       {this.id,
@@ -108,7 +109,7 @@ class Services {
         this.type,
         this.createdAt,
         this.updatedAt,
-      this.choose});
+      this.choose,this.duration});
 
   Services.fromJson(Map<String, dynamic> json) {
     id = json['id'];

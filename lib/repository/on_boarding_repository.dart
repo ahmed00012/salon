@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
@@ -17,6 +18,7 @@ class OnBoardingRepo extends OnBoardingRepository{
         Constants.INTRO: Uri.parse('${Constants.INTRO}?type=$gender');
 
     var response = await http.get(uri);
+    log(response.body.toString()+'slslkslk');
     if(response.statusCode==200){
       var data = json.decode(response.body);
       return data['data'];

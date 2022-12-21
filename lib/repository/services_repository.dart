@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:beauty_center/constants.dart';
+import 'package:beauty_center/local_storage.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ServicesRepository{
   Future getCategories();
+  Future storeServices(Map serviceJson);
   
 }
 
@@ -20,6 +22,25 @@ class ServicesRepo extends ServicesRepository{
     return data['data'];
   }
   else return false;
+  }
+
+  @override
+  Future storeServices(Map serviceJson) async{
+    print(serviceJson);
+    var response = await http.post(Constants.STORESERVICES,
+        body: jsonEncode(serviceJson) ,
+    headers: {
+      'Authorization':LocalStorage.getData(key: 'token'),
+      'Accept':'application/json'
+    });
+
+    print(response.body);
+
+    if(response.statusCode==200){
+      var data =json.decode(response.body);
+      return data['data'];
+    }
+    else return false;
   }
   
 }

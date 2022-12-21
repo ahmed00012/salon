@@ -11,13 +11,14 @@ class Constants{
   static const Color titleColor2 = Color(0xff6247aa);
 
 
- static String BASE = 'https://beta.poss.app/api';
- static Uri INTRO = Uri.parse(BASE +'intro');
+ static String BASE = 'https://beta.poss.app/api/';
+ static Uri INTRO = Uri.parse('${BASE}intro');
  static Uri COUNTRIES = Uri.parse(BASE +'country/cities');
  static Uri CITIES = Uri.parse(BASE +'city/byCountry/');
  static Uri AREAS = Uri.parse(BASE +'area/byCity/');
  static Uri SALONINFO = Uri.parse(BASE +'provider');
  static Uri CATEGORIES = Uri.parse(BASE +'categories/all_with_services');
+ static Uri STORESERVICES = Uri.parse(BASE +'provider/services');
 
 
 

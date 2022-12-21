@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:beauty_center/models/another_category_model.dart';
+import 'package:beauty_center/models/service_json_model.dart';
 import 'package:beauty_center/repository/services_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -92,50 +93,31 @@ class RegisterProvider2 extends ChangeNotifier {
     
     if(data!=false){
       categories2 = List<CategoriesModel>.from(data.map((e)=>CategoriesModel.fromJson(e)));
+      categories2.forEach((element) {
+        element.services!.forEach((service) {
+          service.priceFrom = 0;
+          service.priceTo = 100;
+          service.duration = 15;
+        });
+      });
 
     }
 notifyListeners();
   }
 
-chooseCategory(bool subCategory ,bool choose , int i,{int ? j}){
+chooseCategory(bool choose , int i,int  j){
     if(choose) {
-      if (subCategory) {
-        int chosenSubCategories = 0;
-        categories2[i].services![j!].choose = true;
+        categories2[i].services![j].choose = true;
         categories2[i].services!.forEach((element) {
-          if(element.choose!)
-            chosenSubCategories++;
         });
-        if(chosenSubCategories==categories2[i].services!.length){
-          categories2[i].choose=true;
-        }
-      }
-      else {
-        categories2[i].choose = true;
-        categories2[i].services!.forEach((element) {
-          element.choose = true;
-        });
-      }
 
     }
     else{
-      if (subCategory) {
-        int unChosenSubCategories = 0;
-        categories2[i].services![j!].choose = false;
+
+        categories2[i].services![j].choose = false;
         categories2[i].services!.forEach((element) {
-          if(!element.choose!)
-            unChosenSubCategories++;
+
         });
-        if(unChosenSubCategories!=categories2[i].services!.length){
-          categories2[i].choose=false;
-        }
-      }
-      else {
-        categories2[i].choose = false;
-        categories2[i].services!.forEach((element) {
-          element.choose = false;
-        });
-      }
     }
     notifyListeners();
 }
@@ -157,6 +139,55 @@ markHomeSalon(int i,int j,{bool ?inHome,bool? inSalon}){
 markHaveEmployees(){
     haveEmployees = !haveEmployees;
     notifyListeners();
+}
+
+setPrice(bool from, String value, int i , int j){
+    if(from)
+      categories2[i].services![j].priceFrom = int.parse(value);
+    else
+      categories2[i].services![j].priceTo = int.parse(value);
+
+    notifyListeners();
+}
+
+
+setDuration(bool plus, int i , int j){
+    if(plus){
+      categories2[i].services![j].duration = categories2[i].services![j].duration! + 15;
+    }
+    else{
+      if(categories2[i].services![j].duration! > 15)
+      categories2[i].services![j].duration = categories2[i].services![j].duration! - 15;
+    }
+    notifyListeners();
+}
+
+
+storeServices()async{
+  SalonServices salonServices = SalonServices(
+    services: []
+  );
+  List<Map> se = [];
+   categories2.forEach((element) {
+     element.services!.forEach((service) {
+       if(service.choose!) {
+          ServiceJsonModel serviceJson = ServiceJsonModel(
+            id: service.id,
+            duration: service.duration.toString(),
+            priceFrom: service.priceFrom,
+            priceTo: service.priceTo,
+          );
+          salonServices.services!.add(serviceJson);
+          se.add(serviceJson.toJson());
+        }
+      });
+   });
+
+
+   var data = await servicesRepo.storeServices({
+     'services':se
+   });
+   print(data);
 }
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {

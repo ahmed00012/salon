@@ -360,18 +360,20 @@ if(pickedSalonLogo!=null){
 var data = await salonInfoRepo.uploadImageToServer(salon);
 
 print(data);
-// if(data!=false) {
+if(data!=false) {
+  LocalStorage.saveData(key: 'token', value: 'Bearer ${data['access_token']}');
       Navigator.push(
           context, MaterialPageRoute(builder: (_) => ChooseCategories()));
-    // }
+    }
   }
 
 
   Future<File> getImageFileFromAssets(String path) async {
     final byteData = await rootBundle.load(path);
-    final file = File('${(await getTemporaryDirectory()).path}/${path}');
-    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    return file;
+    File('${(await getTemporaryDirectory()).path}/$path').create(recursive: true);
+    final buffer = byteData.buffer;
+    return   File('${(await getTemporaryDirectory()).path}/$path').writeAsBytes(
+        buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
   }
 
 

@@ -1,7 +1,22 @@
+class SalonServices{
+  List<ServiceJsonModel> ? services ;
+  SalonServices({this.services});
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    if (this.services != null) {
+      data['services'] =
+          this.services!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
 class ServiceJsonModel {
-  int? id;
-  double? priceFrom;
-  double? priceTo;
+  String? id;
+  int? priceFrom;
+  int? priceTo;
   String? duration;
 
   ServiceJsonModel({this.id,this.duration,this.priceFrom,this.priceTo});

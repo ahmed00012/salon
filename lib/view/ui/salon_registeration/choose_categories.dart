@@ -53,66 +53,79 @@ class ChooseCategories extends ConsumerWidget {
                                shrinkWrap: true,
                                 itemBuilder: (context, i) {
                                   return Column(
+
                                     children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(width: 10,),
-                                          Checkbox(
-                                              value: controller.categories2[i].choose,
-                                              activeColor: Constants.mainColor2,
-                                              onChanged: (value) {
-                                                controller.chooseCategory(
-                                                    false, value!, i);
-                                              }),
-                                          Text(
-                                            controller.categories2[i].title!.en!,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: height * 0.02,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 30,bottom: 10),
+                                       child: Container(
+                                         width: width*0.8,
+                                         height: height*0.06,
+                                         decoration: BoxDecoration(
+                                           color: Constants.mainColor2,
+                                           borderRadius: BorderRadius.circular(10),
+                                           border: Border.all(color: Constants.mainColor2)
+                                         ),
+                                         child:  Center(
+                                           child: Text(
+                                             controller.categories2[i].title!.en!,
+                                             style: TextStyle(
+                                               fontWeight: FontWeight.bold,
+                                               fontSize: height * 0.025,
+                                               color: Colors.white
+                                             ),
+                                           ),
+                                         ),
+                                       ),
+                                     ),
+
                                       ListView.builder(
                                           itemCount: controller
                                               .categories2[i].services!.length,
                                           physics: NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemBuilder: (context, j) {
-                                            return Row(
+                                            return Column(
+
                                               children: [
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(left: 30),
-                                                  child: Checkbox(
-                                                      value: controller.categories2[i]
-                                                          .services![j].choose,
-                                                      activeColor:
-                                                      Constants.mainColor2,
-                                                      onChanged: (value) {
-                                                        controller.chooseCategory(
-                                                            true, value!, i,
-                                                            j: j);
-                                                      }),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.symmetric(vertical: 10),
-                                                  child: Container(
-                                                    width:width*0.3,
-                                                    child: Text(controller
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets.only(left: 20),
+                                                      child: Checkbox(
+                                                          value: controller.categories2[i]
+                                                              .services![j].choose,
+                                                          activeColor:
+                                                          Constants.mainColor2,
+                                                          onChanged: (value) {
+                                                            controller.chooseCategory(value!, i, j);
+                                                          }),
+                                                    ),
+                                                    Text(controller
                                                         .categories2[i].services![j].title!.en!,style: TextStyle(
                                                         fontSize: height*0.02
                                                     ),),
-                                                  ),
-                                                ),
-                                                Spacer(),
 
+
+
+
+                                                  ],
+                                                ),
                                                 Visibility(
                                                   visible: controller.categories2[i].services![j].choose!,
-                                                  child: Row(
+                                                  child:Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+
                                                     children: [
+                                                      SizedBox(width: width*0.15,),
+                                                      Text('Price       ',style: TextStyle(
+                                                        fontSize: height*0.02,
+
+
+                                                      ),),
+                                                      SizedBox(width: 20,),
                                                       Container(
-                                                        width: width*0.13,
+                                                        width: width*0.15,
                                                         height: height*0.04,
 
                                                         decoration: BoxDecoration(
@@ -123,9 +136,9 @@ class ChooseCategories extends ConsumerWidget {
                                                         child: TextFormField(
                                                           cursorColor: Constants.mainColor2,
                                                           keyboardType: TextInputType.number,
-                                                          initialValue: '50',
+                                                          initialValue: controller.categories2[i].services![j].priceFrom.toString(),
 
-                                                          decoration: InputDecoration(
+                                                          decoration: const InputDecoration(
                                                             border: OutlineInputBorder(
                                                               borderRadius:
                                                               BorderRadius.all(Radius.circular(8)),
@@ -146,61 +159,138 @@ class ChooseCategories extends ConsumerWidget {
                                                             contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                                           ),
                                                           onChanged: (value){
+                                                            controller.setPrice(true,value, i , j);
 
                                                           },
 
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding: EdgeInsets.symmetric(horizontal: 5),
-                                                        child: Container(
-                                                          width: width*0.13,
-                                                          height: height*0.04,
+                                                      SizedBox(width: 10,),
+                                                      Container(
+                                                        width: width*0.15,
+                                                        height: height*0.04,
 
-                                                          decoration: BoxDecoration(
-                                                            color:  Colors.white,
-                                                            borderRadius: BorderRadius.circular(10),
+                                                        decoration: BoxDecoration(
+                                                          color:  Colors.white,
+                                                          borderRadius: BorderRadius.circular(10),
 
-                                                          ),
-                                                          child: TextFormField(
-                                                            cursorColor: Constants.mainColor2,
-                                                            initialValue: '100',
-                                                            keyboardType: TextInputType.number,
+                                                        ),
+                                                        child: TextFormField(
+                                                          cursorColor: Constants.mainColor2,
+                                                          initialValue: controller.categories2[i].services![j].priceTo.toString(),
+                                                          keyboardType: TextInputType.number,
 
-                                                            decoration: InputDecoration(
-                                                              border: OutlineInputBorder(
-                                                                borderRadius:
-                                                                BorderRadius.all(Radius.circular(8)),
-                                                                borderSide: BorderSide(
-                                                                    width: 1, color: Constants.mainColor2),
-                                                              ),
-                                                              focusedBorder: OutlineInputBorder(
-                                                                borderRadius:
-                                                                BorderRadius.all(Radius.circular(8)),
-                                                                borderSide: BorderSide(
-                                                                    width: 1, color: Constants.mainColor2),
-                                                              ),
-                                                              label: Text(
-                                                                'To',style: TextStyle(
-                                                                  color: Constants.mainColor2
-                                                              ),
-                                                              ),
-                                                              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                                                          decoration:const InputDecoration(
+                                                            border: OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.all(Radius.circular(8)),
+                                                              borderSide: BorderSide(
+                                                                  width: 1, color: Constants.mainColor2),
                                                             ),
-                                                            onChanged: (value){
+                                                            focusedBorder: OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.all(Radius.circular(8)),
+                                                              borderSide: BorderSide(
+                                                                  width: 1, color: Constants.mainColor2),
+                                                            ),
+                                                            label: Text(
+                                                              'To',style: TextStyle(
+                                                                color: Constants.mainColor2
+                                                            ),
+                                                            ),
+                                                            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                                                          ),
+                                                          onChanged: (value){
+                                                            controller.setPrice(false,value, i , j);
+                                                          },
 
-                                                            },
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 20,),
+                                                      Text('EGP',style: TextStyle(fontSize: 10),),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(height: 20,),
+                                                Visibility(
+                                                  visible: controller.categories2[i].services![j].choose!,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(width: width*0.15,),
+                                                      Text('Duration',style: TextStyle(
+                                                        fontSize: height*0.02,
 
+
+                                                      ),),
+                                                      SizedBox(width: 20,),
+                                                      InkWell(
+                                                        onTap: (){
+                                                          controller.setDuration(true, i, j);
+                                                        },
+                                                        child: Container(
+                                                          height: height*0.035,
+                                                          width: width*0.09,
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all()
+                                                          ),
+                                                          child: Center(
+                                                            child: Icon(Icons.add,
+                                                              color: Colors.black,
+                                                            ),
                                                           ),
                                                         ),
-                                                      )
+                                                      ),
+                                                      SizedBox(width: 10,),
+                                                      Container(
+                                                        width: width*0.22,
+                                                        height: 35,
+
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                          borderRadius: BorderRadius.circular(10),
+                                                          border: Border.all(color: Colors.black38)
+                                                        ),
+
+                                                        child: Center(
+                                                            child: Text(
+                                                                '${controller.categories2[i].services![j].duration} Minute'
+                                                            )),
+                                                      ),
+
+                                                      SizedBox(width: 10,),
+                                                      InkWell(
+                                                        onTap: (){
+                                                          controller.setDuration(false, i, j);
+                                                        },
+                                                        child: Container(
+                                                          height: height*0.035,
+                                                          width: width*0.09,
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              border: Border.all()
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.only(bottom: 20),
+                                                            child: Icon(Icons.minimize,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+
+
                                                     ],
                                                   ),
                                                 ),
                                                 Visibility(
                                                     visible: controller.categories2[i].services![j].choose!,
-                                                    child: Text('EGP',style: TextStyle(fontSize: 10),))
-
+                                                    child: SizedBox(height: 20,)),
+                                                Visibility(
+                                                    visible: controller.categories2[i].services![j].choose!,
+                                                    child: Divider())
                                               ],
                                             );
                                           }),
@@ -211,26 +301,26 @@ class ChooseCategories extends ConsumerWidget {
                                   );
                                 }),
 
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
-                            child: Text('Add another Service ?',
-                            style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
-                          ),
-                        ListView.builder(
-                            itemCount: controller.anotherCategoriesLength,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context,i){
-                          return AnotherCategory(anotherCategories: controller.anotherCategories,
-                          onChanged: (String category,String name){
-                            controller.chosenAnotherCategories.insert(i, AnotherCategoryModel(
-                                name: name,
-                                category: category
-                            )) ;
-                            print(name);
-                            },
-                        );
-                        }),
+                        //   Padding(
+                        //     padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+                        //     child: Text('Add another Service ?',
+                        //     style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
+                        //   ),
+                        // ListView.builder(
+                        //     itemCount: controller.anotherCategoriesLength,
+                        //     physics: NeverScrollableScrollPhysics(),
+                        //     shrinkWrap: true,
+                        //     itemBuilder: (context,i){
+                        //   return AnotherCategory(anotherCategories: controller.anotherCategories,
+                        //   onChanged: (String category,String name){
+                        //     controller.chosenAnotherCategories.insert(i, AnotherCategoryModel(
+                        //         name: name,
+                        //         category: category
+                        //     )) ;
+                        //     print(name);
+                        //     },
+                        // );
+                        // }),
 
 
                           SizedBox(height: 50,),
@@ -241,8 +331,9 @@ class ChooseCategories extends ConsumerWidget {
                               Spacer(),
                               InkWell(
                                 onTap: (){
+                                  controller.storeServices();
 
-                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>CategoriesSpecification()));
+                                  // Navigator.push(context, MaterialPageRoute(builder: (_)=>CategoriesSpecification()));
                                 },
                                 child: Container(
                                   height: height*0.06,

@@ -160,8 +160,8 @@ if(salonInfo.workImages!=null)
     // print(res.body.toString()+'slslksll') ;
     // print(res.statusCode.toString()+'slslksll') ;
       if (response.statusCode == 200) {
-      // return json.decode(res.body);
-
+       var data = json.decode(response2.body);
+       return data['data'];
       } else {
 
        return false;

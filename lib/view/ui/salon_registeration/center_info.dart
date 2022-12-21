@@ -423,7 +423,7 @@ class CenterInfo extends ConsumerWidget {
                                   Spacer(),
                                   InkWell(
                                     onTap: () {
-                                      if(_formKey.currentState!.validate())
+                                      // if(_formKey.currentState!.validate())
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(builder: (_) => TimeOpeningInfo()));
