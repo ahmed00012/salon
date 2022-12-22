@@ -28,10 +28,11 @@ class ServicesRepo extends ServicesRepository{
   Future storeServices(Map serviceJson) async{
     print(serviceJson);
     var response = await http.post(Constants.STORESERVICES,
-        body: jsonEncode(serviceJson) ,
+        body: jsonEncode(serviceJson),
     headers: {
       'Authorization':LocalStorage.getData(key: 'token'),
-      'Accept':'application/json'
+      'Accept':'application/json',
+      'Content-type': 'application/json',
     });
 
     print(response.body);

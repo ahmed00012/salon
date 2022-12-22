@@ -331,7 +331,7 @@ class ChooseCategories extends ConsumerWidget {
                               Spacer(),
                               InkWell(
                                 onTap: (){
-                                  controller.storeServices();
+                                  controller.storeServices(context);
 
                                   // Navigator.push(context, MaterialPageRoute(builder: (_)=>CategoriesSpecification()));
                                 },

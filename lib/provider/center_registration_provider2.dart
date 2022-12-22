@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:beauty_center/models/another_category_model.dart';
 import 'package:beauty_center/models/service_json_model.dart';
 import 'package:beauty_center/repository/services_repository.dart';
+import 'package:beauty_center/view/ui/salon_registeration/employees_register.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -163,11 +164,11 @@ setDuration(bool plus, int i , int j){
 }
 
 
-storeServices()async{
+storeServices(BuildContext context)async{
   SalonServices salonServices = SalonServices(
     services: []
   );
-  List<Map> se = [];
+
    categories2.forEach((element) {
      element.services!.forEach((service) {
        if(service.choose!) {
@@ -178,16 +179,20 @@ storeServices()async{
             priceTo: service.priceTo,
           );
           salonServices.services!.add(serviceJson);
-          se.add(serviceJson.toJson());
+
         }
       });
    });
 
 
-   var data = await servicesRepo.storeServices({
-     'services':se
-   });
-   print(data);
+
+   var data = await servicesRepo.storeServices(salonServices.toJson());
+   if(data!= false){
+     Navigator.push(context, MaterialPageRoute(builder: (_)=>EmployeesRegister()));
+   }
+   else{
+     displayToastMessage('Somthing wrong !',true,context);
+   }
 }
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {

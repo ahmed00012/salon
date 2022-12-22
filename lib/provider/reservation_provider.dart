@@ -20,10 +20,13 @@ List<ReservationModel> reservations = [];
     reservations = [
       ReservationModel(
         inSalon: true,
+        employeeName: 'Maha',
         clientName: 'Bassant',
         createdAt: '09:15 PM',
         orderNumber: 1254,
         totalPayment: '300',
+          clientPhone: '0123456789',
+
         services: [
           CategoriesModel0(
             name: 'Cut Hair',
@@ -39,6 +42,8 @@ List<ReservationModel> reservations = [];
       ReservationModel(
         inSalon: true,
         clientName: 'Maha',
+          employeeName: 'Bassant',
+          clientPhone: '0123456789',
         createdAt: '08:37 PM',
         orderNumber: 1421,
         totalPayment: '400',
@@ -57,9 +62,11 @@ List<ReservationModel> reservations = [];
       ReservationModel(
         inSalon: false,
         clientName: 'Abeer',
+          employeeName: 'Maha',
         createdAt: '04:01 PM',
         orderNumber: 6587,
         totalPayment: '300',
+        clientPhone: '0123456789',
         services: [
           CategoriesModel0(
             name: 'Cut Hair',
