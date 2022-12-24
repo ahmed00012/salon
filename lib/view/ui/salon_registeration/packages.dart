@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../provider/center_registration_provider2.dart';
-import '../../../provider/center_registration_provider3.dart';
+import '../../../provider/employee_provider.dart';
+import '../../../provider/package_provider.dart';
 import '../../widgets/add_works_picture.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/horizontal_progress.dart';
@@ -22,7 +23,7 @@ class Packages extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(registerFuture3);
+    final controller = ref.watch(packageFuture);
     double height = MediaQuery.of(context).size.height < 600
         ? 800
         : MediaQuery.of(context).size.height;
@@ -58,7 +59,7 @@ class Packages extends ConsumerWidget {
                               SizedBox(height: 40,),
                               InkWell(
                                 onTap: (){
-                                  controller.setPackage(controller.packages.length);
+                                  // controller.setPackage(controller.packages.length);
                                 },
                                 child: Container(
                                   height: height*0.065,

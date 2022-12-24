@@ -19,6 +19,9 @@ class Constants{
  static Uri SALONINFO = Uri.parse(BASE +'provider');
  static Uri CATEGORIES = Uri.parse(BASE +'categories/all_with_services');
  static Uri STORESERVICES = Uri.parse(BASE +'provider/services');
+ static Uri STOREEMPLOYEE = Uri.parse(BASE +'employee');
+ static Uri STOREPACKAGE = Uri.parse(BASE +'package');
+ static Uri PROVIDERSERVICES = Uri.parse(BASE +'provider/services');
 
 
 

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants.dart';
-import '../../provider/center_registration_provider3.dart';
+import '../../provider/employee_provider.dart';
 import 'add_works_picture.dart';
 import 'default_text_field.dart';
 
@@ -16,7 +16,7 @@ class PackageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final controller = ref.watch(registerFuture3);
+    final controller = ref.watch(employeeFuture);
     double height = MediaQuery.of(context).size.height < 600
         ? 800
         : MediaQuery.of(context).size.height;
@@ -85,64 +85,35 @@ class PackageWidget extends ConsumerWidget {
             style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
           SizedBox(height: 20,),
           ListView.builder(
-              itemCount: controller.categories.length,
+              itemCount: controller.services.length,
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemBuilder: (context,i){
+              itemBuilder: (context,j){
 
-                return  Padding(
-                  padding: const EdgeInsets.all(10.0),
+                return  InkWell(
+                  onTap: (){
+                    // controller.chooseService(i,j);
+                  },
                   child: Container(
-                    width: width * 0.8,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                          color: Colors.grey,
-                          style: BorderStyle.solid,
-                          width: 1),
-                    ),
-                    child: ExpansionTile(
-                      title: Text(controller.categories[i].name!),
-                      iconColor: Constants.mainColor2,
-                      textColor: Constants.mainColor2,
-                      children: [
-                        ListView.builder(
-                            itemCount: controller.categories[i].subcategory!.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context,j){
-                              return InkWell(
-                                onTap: (){
-                                  controller.chooseCategory(i,j);
-                                },
-                                child: Container(
-                                    height: height*0.06,
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                          const EdgeInsets.only(left: 30),
-                                          child: Checkbox(
-                                              value: controller.categories[i]
-                                                  .subcategory![j].choose,
-                                              activeColor:
-                                              Constants.mainColor2,
-                                              onChanged: (value) {
-                                                controller.chooseCategory(i,j);
-                                              }),
-                                        ),
-                                        Text(controller.categories[i]
-                                            .subcategory![j].name!,style: TextStyle(
-                                            fontSize: height*0.02
-                                        ),),
-                                      ],
-                                    )),
-                              );
-                            })
-                      ],
-                    ),
-                  ),
+                      height: height*0.06,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(left: 30),
+                            child: Checkbox(
+                                value: controller.services[j].choose,
+                                activeColor:
+                                Constants.mainColor2,
+                                onChanged: (value) {
+                                  // controller.chooseService(i,j);
+                                }),
+                          ),
+                          Text(controller.services[j].title!.en!,style: TextStyle(
+                              fontSize: height*0.02
+                          ),),
+                        ],
+                      )),
                 );
               }
           ),
@@ -249,64 +220,35 @@ class PackageWidget extends ConsumerWidget {
                       style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
                     SizedBox(height: 20,),
                     ListView.builder(
-                        itemCount: controller.categories.length,
+                        itemCount: controller.services.length,
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemBuilder: (context,i){
+                        itemBuilder: (context,j){
 
-                          return  Padding(
-                            padding: const EdgeInsets.all(10.0),
+                          return  InkWell(
+                            onTap: (){
+                              // controller.chooseService(i,j);
+                            },
                             child: Container(
-                              width: width * 0.8,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                border: Border.all(
-                                    color: Colors.grey,
-                                    style: BorderStyle.solid,
-                                    width: 1),
-                              ),
-                              child: ExpansionTile(
-                                title: Text(controller.categories[i].name!),
-                                iconColor: Constants.mainColor2,
-                                textColor: Constants.mainColor2,
-                                children: [
-                                  ListView.builder(
-                                      itemCount: controller.categories[i].subcategory!.length,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemBuilder: (context,j){
-                                        return InkWell(
-                                          onTap: (){
-                                            controller.chooseCategory(i,j);
-                                          },
-                                          child: Container(
-                                              height: height*0.06,
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(left: 30),
-                                                    child: Checkbox(
-                                                        value: controller.categories[i]
-                                                            .subcategory![j].choose,
-                                                        activeColor:
-                                                        Constants.mainColor2,
-                                                        onChanged: (value) {
-                                                          controller.chooseCategory(i,j);
-                                                        }),
-                                                  ),
-                                                  Text(controller.categories[i]
-                                                      .subcategory![j].name!,style: TextStyle(
-                                                      fontSize: height*0.02
-                                                  ),),
-                                                ],
-                                              )),
-                                        );
-                                      })
-                                ],
-                              ),
-                            ),
+                                height: height*0.06,
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.only(left: 30),
+                                      child: Checkbox(
+                                          value: controller.services[j].choose,
+                                          activeColor:
+                                          Constants.mainColor2,
+                                          onChanged: (value) {
+                                            // controller.chooseService(i,j);
+                                          }),
+                                    ),
+                                    Text(controller.services[j].title!.en!,style: TextStyle(
+                                        fontSize: height*0.02
+                                    ),),
+                                  ],
+                                )),
                           );
                         }
                     ),

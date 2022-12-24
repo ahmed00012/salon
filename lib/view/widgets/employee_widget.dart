@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants.dart';
-import '../../provider/center_registration_provider3.dart';
+import '../../provider/employee_provider.dart';
 import 'add_works_picture.dart';
 import 'default_text_field.dart';
 
@@ -14,9 +14,10 @@ class EmployeeWidget extends ConsumerWidget {
    EmployeeWidget({Key? key,this.i}) : super(key: key);
   int ?i;
 
+
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final controller = ref.watch(registerFuture3);
+    final controller = ref.watch(employeeFuture);
     double height = MediaQuery.of(context).size.height < 600
         ? 800
         : MediaQuery.of(context).size.height;
@@ -36,8 +37,8 @@ class EmployeeWidget extends ConsumerWidget {
               controller.pickEmployeePhoto(0);
             },
             child: Container(
-              height: height*0.15,
-              width: height*0.15,
+              height: height*0.16,
+              width: height*0.16,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white,
@@ -49,9 +50,9 @@ class EmployeeWidget extends ConsumerWidget {
                   controller.employees.isNotEmpty&&controller.employees[0].photo!=null?
                   ClipOval(
                       child: Image.file(controller.employees[0].photo!,
-                        height: height*0.145,
-                        width: height*0.145,
-                        fit: BoxFit.cover,
+                        height: height*0.155,
+                        width: height*0.155,
+                        fit: BoxFit.fill,
                       )):
                   Icon(Icons.person,color: Colors.black38,size: 60,),
 
@@ -76,30 +77,77 @@ class EmployeeWidget extends ConsumerWidget {
         ),
 
         SizedBox(height: 30,),
-        Align(
-          alignment: Alignment.center,
-          child: Container(
-              height: height*0.065,
-              width: width*0.7,
-
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
+        Container(
+          width: width*0.8,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextFormField(
+            cursorColor: Constants.mainColor2,
+            decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(
+                    width: 1, color: Colors.black),
               ),
-              child: DefaultTextField(icon: Icons.person,label: 'Employee Name',)),
+              focusedBorder: OutlineInputBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(
+                    width: 1, color: Constants.mainColor2),
+              ),
+              labelText: 'Employee Name',
+              labelStyle: TextStyle(color:Constants.mainColor2,
+                  fontWeight: FontWeight.bold,fontSize: 14),
+              prefixIcon:Icon(Icons.person,
+                  color: Constants.mainColor2),
+            ),
+            onChanged: (value){
+              controller.setEmployeeName(0, value);
+            },
+
+            validator: (value){},
+          ),
         ),
         SizedBox(height: 20,),
-        Align(
-          alignment: Alignment.center,
-          child: Container(
-              height: height*0.065,
-              width: width*0.7,
+        Container(
+          width: width*0.8,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextFormField(
+            cursorColor: Constants.mainColor2,
+            keyboardType:TextInputType.number,
+            decoration: InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(8)),
+                  borderSide: BorderSide(
+                      width: 1, color: Colors.black),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(8)),
+                  borderSide: BorderSide(
+                      width: 1, color: Constants.mainColor2),
+                ),
+                labelText: 'Employee Phone',
+                labelStyle: TextStyle(color:Constants.mainColor2,
+                    fontWeight: FontWeight.bold,fontSize: 14),
+                prefixIcon:Icon(Icons.phone,
+                    color: Constants.mainColor2),
+            ),
+            onChanged: (value){
+              controller.setEmployeePhone(0, value);
+            },
 
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              child: DefaultTextField(icon: Icons.phone,label: 'Employee Phone',)),
+            validator: (value){},
+          ),
         ),
         SizedBox(height: 15,),
         Divider(),
@@ -124,7 +172,7 @@ class EmployeeWidget extends ConsumerWidget {
                         return MyTimePickerTheme(child: child,);
                       },
                     ).then((value) {
-                      controller.setEmployee(0,timeFrom: value);
+                      controller.setEmployeeTime(0,true,value!);
 
                     });
                   },
@@ -138,9 +186,7 @@ class EmployeeWidget extends ConsumerWidget {
                     ),
                     child: Center(
                       child: Text(
-                          controller.employees.isNotEmpty&&controller.employees[0].availableFrom!=null?
-                          localizations.formatTimeOfDay(controller.employees[0].availableFrom!):
-                          ' 09:00 Am'
+                          localizations.formatTimeOfDay(controller.employees[0].availableFrom!)
                       ),
                     ),
                   ),
@@ -162,7 +208,7 @@ class EmployeeWidget extends ConsumerWidget {
                         return MyTimePickerTheme(child: child,);
                       },
                     ).then((value) {
-                      controller.setEmployee(0,timeTo: value);
+                      controller.setEmployeeTime(0,false,value!);
 
                     });
                   },
@@ -176,9 +222,7 @@ class EmployeeWidget extends ConsumerWidget {
                     ),
                     child: Center(
                       child: Text(
-                          controller.employees.isNotEmpty&&controller.employees[0].availableTo!=null?
-                          localizations.formatTimeOfDay(controller.employees[0].availableTo!):
-                          ' 09:00 PM'
+                          localizations.formatTimeOfDay(controller.employees[0].availableTo!)
                       ),
                     ),
                   ),
@@ -197,46 +241,46 @@ class EmployeeWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
-                value: controller.holidays.contains('Sat'),
+                value: controller.employees[0].holidays!.contains('Sat'),
                 activeColor:
                 Constants.mainColor2,
                 onChanged: (value){
-                  controller.chooseHolidays('Sat');
+                  controller.chooseHolidays(0,'Sat');
 
                 }),
             InkWell(
                 onTap: (){
-                  controller.chooseHolidays('Sat');
+                  controller.chooseHolidays(0,'Sat');
                 },
                 child: Text('Sat',style: TextStyle(fontSize: height*0.02),)),
             SizedBox(width: 10,),
 
             Checkbox(
-                value: controller.holidays.contains('Sun'),
+                value: controller.employees[0].holidays!.contains('Sun'),
                 activeColor:
                 Constants.mainColor2,
                 onChanged: (value){
-                  controller.chooseHolidays('Sun');
+                  controller.chooseHolidays(0,'Sun');
 
                 }),
             InkWell(
                 onTap: (){
-                  controller.chooseHolidays('Sun');
+                  controller.chooseHolidays(0,'Sun');
                 },
                 child: Text('Sun',style: TextStyle(fontSize: height*0.02),)),
             SizedBox(width: 10,),
 
             Checkbox(
-                value: controller.holidays.contains('Mon'),
+                value: controller.employees[0].holidays!.contains('Mon'),
                 activeColor:
                 Constants.mainColor2,
                 onChanged: (value){
-                  controller.chooseHolidays('Mon');
+                  controller.chooseHolidays(0,'Mon');
 
                 }),
             InkWell(
                 onTap: (){
-                  controller.chooseHolidays('Mon');
+                  controller.chooseHolidays(0,'Mon');
                 },
                 child: Text('Mon',style: TextStyle(fontSize: height*0.02),)),
 
@@ -248,45 +292,45 @@ class EmployeeWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
-                value: controller.holidays.contains('Tue'),
+                value: controller.employees[0].holidays!.contains('Tue'),
                 activeColor:
                 Constants.mainColor2,
                 onChanged: (value){
-                  controller.chooseHolidays('Tue');
+                  controller.chooseHolidays(0,'Tue');
 
                 }),
             InkWell(
                 onTap: (){
-                  controller.chooseHolidays('Tue');
+                  controller.chooseHolidays(0,'Tue');
                 },
                 child: Text('Tue',style: TextStyle(fontSize: height*0.02),)),
             SizedBox(width: 10,),
             Checkbox(
-                value: controller.holidays.contains('Wed'),
+                value: controller.employees[0].holidays!.contains('Wed'),
                 activeColor:
                 Constants.mainColor2,
                 onChanged: (value){
-                  controller.chooseHolidays('Wed');
+                  controller.chooseHolidays(0,'Wed');
 
                 }),
             InkWell(
                 onTap: (){
-                  controller.chooseHolidays('Wed');
+                  controller.chooseHolidays(0,'Wed');
                 },
                 child: Text('Wed',style: TextStyle(fontSize: height*0.02),)),
             SizedBox(width: 10,),
 
             Checkbox(
-                value: controller.holidays.contains('Thu'),
+                value: controller.employees[0].holidays!.contains('Thu'),
                 activeColor:
                 Constants.mainColor2,
                 onChanged: (value){
-                  controller.chooseHolidays('Thu');
+                  controller.chooseHolidays(0,'Thu');
 
                 }),
             InkWell(
                 onTap: (){
-                  controller.chooseHolidays('Thu');
+                  controller.chooseHolidays(0,'Thu');
                 },
                 child: Text('Thu',style: TextStyle(fontSize: height*0.02),)),
             SizedBox(width: 10,),
@@ -298,16 +342,16 @@ class EmployeeWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Checkbox(
-                value: controller.holidays.contains('Fri'),
+                value: controller.employees[0].holidays!.contains('Fri'),
                 activeColor:
                 Constants.mainColor2,
                 onChanged: (value){
-                  controller.chooseHolidays('Fri');
+                  controller.chooseHolidays(0,'Fri');
 
                 }),
             InkWell(
                 onTap: (){
-                  controller.chooseHolidays('Fri');
+                  controller.chooseHolidays(0,'Fri');
                 },
                 child: Text('Fri',style: TextStyle(fontSize: height*0.02),)),
 
@@ -329,9 +373,9 @@ class EmployeeWidget extends ConsumerWidget {
               crossAxisCount: 2,
               childAspectRatio: 1.2,
             ),
-            itemCount: controller.imageLength,
+            itemCount: controller.employees[i!].imageLength,
 
-            itemBuilder: (context,i){
+            itemBuilder: (context,j){
 
               return Stack(
                 fit: StackFit.expand,
@@ -340,20 +384,20 @@ class EmployeeWidget extends ConsumerWidget {
                   InkWell(
                       onTap: (){
 
-                        if(controller.images.length==i)
-                          controller.pickImage();
+                        if(controller.employees[i!].workImages!.length==j)
+                          controller.pickImage(i!);
 
                       },
-                      child: AddWorksPic(image:controller.images.length!=i?
-                      controller.images[i]:null ,)),
+                      child: AddWorksPic(image:controller.employees[i!].workImages!.length!=j?
+                      controller.employees[i!].workImages![j]:null ,)),
 
-                  if(controller.images.length!=i)
+                  if(controller.employees[i!].workImages!.length!=j)
                     Positioned(
                       bottom: 5,
                       right: 5,
                       child: InkWell(
                         onTap: (){
-                          controller.removeImage(i);
+                          controller.removeImage(j);
                         },
                         child: Container(
                           height: 35,
@@ -381,91 +425,64 @@ class EmployeeWidget extends ConsumerWidget {
 
 
 
+
+        ListView.builder(
+            itemCount: controller.employees[0].servicesModel!.length,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context,j){
+
+              return  InkWell(
+                onTap: (){
+                  controller.chooseService(0,j);
+                },
+                child: Container(
+                    height: height*0.06,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding:
+                          const EdgeInsets.only(left: 30),
+                          child: Checkbox(
+                              value: controller.employees[i!].servicesModel![j]
+                                  .choose!,
+                              activeColor:
+                              Constants.mainColor2,
+                              onChanged: (value) {
+                                 controller.chooseService(0,j);
+                              }),
+                        ),
+                        Text(controller.employees[i!].servicesModel![j].title!.en!,style: TextStyle(
+                            fontSize: height*0.02
+                        ),),
+                      ],
+                    )),
+              );
+            }
+        ),
+        SizedBox(height: 20,),
         InkWell(
           onTap: (){
-            controller.checkCanWorkInHome();
+            controller.checkCanWorkInHome(0);
           },
           child: Container(
               height: height*0.06,
               child: Row(
                 children: [
-                  Checkbox(
-                      value: controller.workInHome,
+                  Switch(
+                      value: controller.employees[0].workOut!,
                       activeColor:
                       Constants.mainColor2,
                       onChanged: (value) {
-                        controller.checkCanWorkInHome();
+                        controller.checkCanWorkInHome(0);
                       }),
-                  Text('Can work in client home',style: TextStyle(
+                  Text('Employee can work in client home',style: TextStyle(
                       fontSize: height*0.02
                   ),),
                 ],
               )),
         ),
-        ListView.builder(
-            itemCount: controller.categories.length,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context,i){
-
-              return  Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  width: width * 0.8,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(
-                        color: Colors.grey,
-                        style: BorderStyle.solid,
-                        width: 1),
-                  ),
-                  child: ExpansionTile(
-                    title: Text(controller.categories[i].name!),
-                    iconColor: Constants.mainColor2,
-                    textColor: Constants.mainColor2,
-                    children: [
-                      ListView.builder(
-                          itemCount: controller.categories[i].subcategory!.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context,j){
-                            return InkWell(
-                              onTap: (){
-                                controller.chooseCategory(i,j);
-                              },
-                              child: Container(
-                                  height: height*0.06,
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(left: 30),
-                                        child: Checkbox(
-                                            value: controller.categories[i]
-                                                .subcategory![j].choose,
-                                            activeColor:
-                                            Constants.mainColor2,
-                                            onChanged: (value) {
-                                              controller.chooseCategory(i,j);
-                                            }),
-                                      ),
-                                      Text(controller.categories[i]
-                                          .subcategory![j].name!,style: TextStyle(
-                                          fontSize: height*0.02
-                                      ),),
-                                    ],
-                                  )),
-                            );
-                          })
-                    ],
-                  ),
-                ),
-              );
-            }
-        ),
         SizedBox(height: 40,),
-
 
 
       ],
@@ -494,7 +511,7 @@ class EmployeeWidget extends ConsumerWidget {
                   alignment: Alignment.center,
                   child: InkWell(
                     onTap: (){
-                      controller.pickEmployeePhoto(0);
+                      controller.pickEmployeePhoto(i!);
                     },
                     child: Container(
                       height: height*0.15,
@@ -507,9 +524,9 @@ class EmployeeWidget extends ConsumerWidget {
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          controller.employees.isNotEmpty&&controller.employees[0].photo!=null?
+                          controller.employees.isNotEmpty&&controller.employees[i!].photo!=null?
                           ClipOval(
-                              child: Image.file(controller.employees[0].photo!,
+                              child: Image.file(controller.employees[i!].photo!,
                                 height: height*0.145,
                                 width: height*0.145,
                                 fit: BoxFit.cover,
@@ -537,25 +554,84 @@ class EmployeeWidget extends ConsumerWidget {
                 ),
 
                 SizedBox(height: 30,),
-                Container(
-                    height: height*0.065,
-                    width: width*0.7,
-
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    width: width*0.8,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: DefaultTextField(icon: Icons.person,label: 'Employee Name',)),
-                SizedBox(height: 20,),
-                 Container(
-                     height: height*0.065,
-                     width: width*0.7,
+                    child: TextFormField(
+                      cursorColor: Constants.mainColor2,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(
+                              width: 1, color: Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(
+                              width: 1, color: Constants.mainColor2),
+                        ),
+                        labelText: 'Employee Name',
+                        labelStyle: TextStyle(color:Constants.mainColor2,
+                            fontWeight: FontWeight.bold,fontSize: 14),
+                        prefixIcon:Icon(Icons.person,
+                            color: Constants.mainColor2),
+                      ),
+                      onChanged: (value){
+                        controller.setEmployeeName(i!, value);
+                      },
 
-                     decoration: BoxDecoration(
-                         color: Colors.white,
-                         borderRadius: BorderRadius.circular(10)
-                     ),
-                     child: DefaultTextField(icon: Icons.phone,label: 'Employee Phone',)),
+                      validator: (value){},
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    width: width*0.8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextFormField(
+                      cursorColor: Constants.mainColor2,
+                      keyboardType:TextInputType.number,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(
+                              width: 1, color: Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(
+                              width: 1, color: Constants.mainColor2),
+                        ),
+                        labelText: 'Employee Phone',
+                        labelStyle: TextStyle(color:Constants.mainColor2,
+                            fontWeight: FontWeight.bold,fontSize: 14),
+                        prefixIcon:Icon(Icons.phone,
+                            color: Constants.mainColor2),
+                      ),
+                      onChanged: (value){
+                        controller.setEmployeePhone(i!, value);
+                      },
+
+                      validator: (value){},
+                    ),
+                  ),
+                ),
                 SizedBox(height: 15,),
                 Divider(),
                 SizedBox(height: 10,),
@@ -579,7 +655,7 @@ class EmployeeWidget extends ConsumerWidget {
                                 return MyTimePickerTheme(child: child,);
                               },
                             ).then((value) {
-                              controller.setEmployee(0,timeFrom: value);
+                              controller.setEmployeeTime(0,true,value!);
 
                             });
                           },
@@ -617,7 +693,7 @@ class EmployeeWidget extends ConsumerWidget {
                                 return MyTimePickerTheme(child: child,);
                               },
                             ).then((value) {
-                              controller.setEmployee(0,timeTo: value);
+                              controller.setEmployeeTime(0,false,value!);
 
                             });
                           },
@@ -652,46 +728,46 @@ class EmployeeWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Checkbox(
-                        value: controller.holidays.contains('Sat'),
+                        value: controller.employees[i!].holidays!.contains('Sat'),
                         activeColor:
                         Constants.mainColor2,
                         onChanged: (value){
-                          controller.chooseHolidays('Sat');
+                          controller.chooseHolidays(i!,'Sat');
 
                         }),
                     InkWell(
                         onTap: (){
-                          controller.chooseHolidays('Sat');
+                          controller.chooseHolidays(i!,'Sat');
                         },
                         child: Text('Sat',style: TextStyle(fontSize: height*0.02),)),
                     SizedBox(width: 10,),
 
                     Checkbox(
-                        value: controller.holidays.contains('Sun'),
+                        value: controller.employees[i!].holidays!.contains('Sun'),
                         activeColor:
                         Constants.mainColor2,
                         onChanged: (value){
-                          controller.chooseHolidays('Sun');
+                          controller.chooseHolidays(i!,'Sun');
 
                         }),
                     InkWell(
                         onTap: (){
-                          controller.chooseHolidays('Sun');
+                          controller.chooseHolidays(i!,'Sun');
                         },
                         child: Text('Sun',style: TextStyle(fontSize: height*0.02),)),
                     SizedBox(width: 10,),
 
                     Checkbox(
-                        value: controller.holidays.contains('Mon'),
+                        value: controller.employees[i!].holidays!.contains('Mon'),
                         activeColor:
                         Constants.mainColor2,
                         onChanged: (value){
-                          controller.chooseHolidays('Mon');
+                          controller.chooseHolidays(i!,'Mon');
 
                         }),
                     InkWell(
                         onTap: (){
-                          controller.chooseHolidays('Mon');
+                          controller.chooseHolidays(i!,'Mon');
                         },
                         child: Text('Mon',style: TextStyle(fontSize: height*0.02),)),
 
@@ -703,45 +779,45 @@ class EmployeeWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Checkbox(
-                        value: controller.holidays.contains('Tue'),
+                        value: controller.employees[i!].holidays!.contains('Tue'),
                         activeColor:
                         Constants.mainColor2,
                         onChanged: (value){
-                          controller.chooseHolidays('Tue');
+                          controller.chooseHolidays(i!,'Tue');
 
                         }),
                     InkWell(
                         onTap: (){
-                          controller.chooseHolidays('Tue');
+                          controller.chooseHolidays(i!,'Tue');
                         },
                         child: Text('Tue',style: TextStyle(fontSize: height*0.02),)),
                     SizedBox(width: 10,),
                     Checkbox(
-                        value: controller.holidays.contains('Wed'),
+                        value: controller.employees[i!].holidays!.contains('Wed'),
                         activeColor:
                         Constants.mainColor2,
                         onChanged: (value){
-                          controller.chooseHolidays('Wed');
+                          controller.chooseHolidays(i!,'Wed');
 
                         }),
                     InkWell(
                         onTap: (){
-                          controller.chooseHolidays('Wed');
+                          controller.chooseHolidays(i!,'Wed');
                         },
                         child: Text('Wed',style: TextStyle(fontSize: height*0.02),)),
                     SizedBox(width: 10,),
 
                     Checkbox(
-                        value: controller.holidays.contains('Thu'),
+                        value: controller.employees[i!].holidays!.contains('Thu'),
                         activeColor:
                         Constants.mainColor2,
                         onChanged: (value){
-                          controller.chooseHolidays('Thu');
+                          controller.chooseHolidays(i!,'Thu');
 
                         }),
                     InkWell(
                         onTap: (){
-                          controller.chooseHolidays('Thu');
+                          controller.chooseHolidays(i!,'Thu');
                         },
                         child: Text('Thu',style: TextStyle(fontSize: height*0.02),)),
                     SizedBox(width: 10,),
@@ -753,16 +829,16 @@ class EmployeeWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Checkbox(
-                        value: controller.holidays.contains('Fri'),
+                        value: controller.employees[i!].holidays!.contains('Fri'),
                         activeColor:
                         Constants.mainColor2,
                         onChanged: (value){
-                          controller.chooseHolidays('Fri');
+                          controller.chooseHolidays(i!,'Fri');
 
                         }),
                     InkWell(
                         onTap: (){
-                          controller.chooseHolidays('Fri');
+                          controller.chooseHolidays(i!,'Fri');
                         },
                         child: Text('Fri',style: TextStyle(fontSize: height*0.02),)),
 
@@ -784,9 +860,9 @@ class EmployeeWidget extends ConsumerWidget {
                       crossAxisCount: 2,
                       childAspectRatio: 1.2,
                     ),
-                    itemCount: controller.imageLength,
+                    itemCount: controller.employees[i!].imageLength!,
 
-                    itemBuilder: (context,i){
+                    itemBuilder: (context,j){
 
                       return Stack(
                         fit: StackFit.expand,
@@ -795,20 +871,20 @@ class EmployeeWidget extends ConsumerWidget {
                           InkWell(
                               onTap: (){
 
-                                if(controller.images.length==i)
-                                  controller.pickImage();
+                                if(controller.employees[i!].workImages!.length==j)
+                                  controller.pickImage(i!);
 
                               },
-                              child: AddWorksPic(image:controller.images.length!=i?
-                              controller.images[i]:null ,)),
+                              child: AddWorksPic(image:controller.employees[i!].workImages!.length!=j?
+                              controller.employees[i!].workImages![j]:null ,)),
 
-                          if(controller.images.length!=i)
+                          if(controller.employees[i!].workImages!.length!=j)
                             Positioned(
                               bottom: 5,
                               right: 5,
                               child: InkWell(
                                 onTap: (){
-                                  controller.removeImage(i);
+                                  controller.removeImage(j);
                                 },
                                 child: Container(
                                   height: 35,
@@ -834,93 +910,63 @@ class EmployeeWidget extends ConsumerWidget {
                   style: TextStyle(fontSize: height*0.02,fontWeight: FontWeight.bold),),
                 SizedBox(height: 20,),
 
+                ListView.builder(
+                    itemCount: controller.employees[i!].servicesModel!.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context,j){
 
-
+                      return  InkWell(
+                        onTap: (){
+                           controller.chooseService(i!,j);
+                        },
+                        child: Container(
+                            height: height*0.06,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 30),
+                                  child: Checkbox(
+                                      value: controller.employees[i!].servicesModel![j]
+                                          .choose!,
+                                      activeColor:
+                                      Constants.mainColor2,
+                                      onChanged: (value) {
+                                         controller.chooseService(i!,j);
+                                      }),
+                                ),
+                                Text(controller.employees[i!].servicesModel![j].title!.en!,style: TextStyle(
+                                    fontSize: height*0.02
+                                ),),
+                              ],
+                            )),
+                      );
+                    }
+                ),
+                SizedBox(height: 20,),
                 InkWell(
                   onTap: (){
-                    controller.checkCanWorkInHome();
+                    controller.checkCanWorkInHome(i!);
                   },
                   child: Container(
                       height: height*0.06,
                       child: Row(
                         children: [
-                          Checkbox(
-                              value: controller.workInHome,
+                          Switch(
+                              value: controller.employees[i!].workOut!,
                               activeColor:
                               Constants.mainColor2,
                               onChanged: (value) {
-                                controller.checkCanWorkInHome();
+                                controller.checkCanWorkInHome(i!);
                               }),
-                          Text('Can work in client home',style: TextStyle(
+                          Text('Employee can work in client home',style: TextStyle(
                               fontSize: height*0.02
                           ),),
                         ],
                       )),
                 ),
-                ListView.builder(
-                    itemCount: controller.categories.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context,i){
-
-                      return  Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          width: width * 0.8,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            border: Border.all(
-                                color: Colors.grey,
-                                style: BorderStyle.solid,
-                                width: 1),
-                          ),
-                          child: ExpansionTile(
-                            title: Text(controller.categories[i].name!),
-                            iconColor: Constants.mainColor2,
-                            textColor: Constants.mainColor2,
-                            children: [
-                              ListView.builder(
-                                  itemCount: controller.categories[i].subcategory!.length,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context,j){
-                                    return InkWell(
-                                      onTap: (){
-                                        controller.chooseCategory(i,j);
-                                      },
-                                      child: Container(
-                                          height: height*0.06,
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                const EdgeInsets.only(left: 30),
-                                                child: Checkbox(
-                                                    value: controller.categories[i]
-                                                        .subcategory![j].choose,
-                                                    activeColor:
-                                                    Constants.mainColor2,
-                                                    onChanged: (value) {
-                                                      controller.chooseCategory(i,j);
-                                                    }),
-                                              ),
-                                              Text(controller.categories[i]
-                                                  .subcategory![j].name!,style: TextStyle(
-                                                  fontSize: height*0.02
-                                              ),),
-                                            ],
-                                          )),
-                                    );
-                                  })
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                ),
                 SizedBox(height: 30,),
-
 
 
               ],

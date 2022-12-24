@@ -9,7 +9,7 @@ class CategoriesModel {
   int? type;
   String? createdAt;
   String? updatedAt;
-  int? categoryId;
+  String? categoryId;
   List<Services>? services;
   bool? choose ;
 
@@ -35,7 +35,7 @@ class CategoriesModel {
     type = json['type'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    categoryId = json['category_id'];
+    categoryId = json['category_id'].toString();
     if (json['services'] != null) {
       services = <Services>[];
       json['services'].forEach((v) {
