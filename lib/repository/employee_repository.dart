@@ -43,13 +43,13 @@ class EmployeeRepo extends EmployeeRepository{
     request.fields['work_from'] = employee.availableFrom.toString().substring(10,15);
     request.fields['work_to'] = employee.availableTo.toString().substring(10,15);
     request.fields['holidays'] = employee.holidays.toString().replaceAll('[', '').replaceAll(']', '');
-     request.fields['service_ids'] = employee.services.toString();
-    for (String item in employee.services!) {
-      request.files.add(http.MultipartFile.fromString('service_ids', item));
+    for(int i = 0; i < employee.services!.length; i++){
+      request.fields['service_ids[$i]'] = '${employee.services![i]}';
     }
     request.fields['work_out'] = employee.workOut!?'1':'0';
     request.headers["Authorization"] =LocalStorage.getData(key: 'token');
     request.headers["Accept"] ='application/json';
+    request.headers["Content-Type"] ='application/json';
 
     if (employee.photo != null) {
 

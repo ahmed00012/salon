@@ -143,7 +143,7 @@ pickEmployeePhoto(int i) async {
 
 
 Future storeEmployee(EmployeeModel currentEmployee) async{
-  currentEmployee.stored = true;
+  // currentEmployee.stored = true;
      var data = await employeeRepo.storeEmployee(currentEmployee);
       print(data);
 }
