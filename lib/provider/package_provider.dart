@@ -60,21 +60,55 @@ class PackageProvider extends ChangeNotifier {
             descriptionAr: '',
             descriptionEn: '',
             image: null,
-            from: '',
-            to:'',
+            from: '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
+            to:'${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year +1}',
             services: [],
             servicesModel: services,
             saved: false,
-          isPride: false,
-          type: LocalStorage.getData(key: 'gender')=='man'?1:2,
-          price: '',
-          newPrice: ''
+           isPride: false,
+           type: LocalStorage.getData(key: 'gender')=='man'?1:2,
+           price: '',
+           newPrice: ''
 
         ));
 
     notifyListeners();
   }
 
+  setPackageTitle(String value,int i,bool ar){
+    if(ar)
+    packages[i].titleAr = value;
+    else
+      packages[i].titleEn = value;
+    notifyListeners();
+  }
+
+
+  pickPackageImage(int i) async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    packages[i].image = File(image!.path);
+    notifyListeners();
+  }
+
+  setPrice(int i , bool before,String value){
+    if(before)
+      packages[i].price = value;
+    else
+      packages[i].newPrice = value;
+    notifyListeners();
+  }
+
+  setDate(DateTime value,int i){
+    packages[i].to = value.toString().substring(0,10);
+    notifyListeners();
+  }
+  setPackageDescription(String value,int i,bool ar){
+    if(ar)
+      packages[i].descriptionAr = value;
+    else
+      packages[i].descriptionEn = value;
+    notifyListeners();
+  }
 
   Future getServices()async{
     var data = await packageRepo.getServices();
@@ -104,8 +138,15 @@ class PackageProvider extends ChangeNotifier {
       packages[employeeIndex].services!.remove(packages[employeeIndex].servicesModel![serviceIndex].id!);
     notifyListeners();
   }
-  checkForPride(int i){
-    packages[i].isPride = !packages[i].isPride!;
+
+  checkForPride(int i, bool value){
+    packages[i].isPride = value;
+    packages[i].nonPride = false;
+    notifyListeners();
+  }
+  checkForNonPride(int i){
+    packages[i].nonPride = true;
+    packages[i].isPride = false;
     notifyListeners();
   }
   // chooseHolidays(int i ,String day ){
@@ -125,7 +166,7 @@ class PackageProvider extends ChangeNotifier {
   Future storePackage(PackagesModel packagesModel) async{
     packagesModel.saved = true;
     var data = await packageRepo.storePackage(packagesModel);
-    print(data);
+    // print(data);
   }
 
 

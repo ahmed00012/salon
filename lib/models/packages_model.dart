@@ -15,6 +15,7 @@ class PackagesModel{
   String? newPrice;
   File? image;
   bool? isPride;
+  bool? nonPride;
   String? from;
   String? to;
   int? type;
@@ -24,5 +25,6 @@ class PackagesModel{
   bool? saved;
 
   PackagesModel({this.titleEn,this.type,this.services,this.from,this.servicesModel,this.descriptionEn,
-  this.descriptionAr,this.titleAr,this.image,this.saved,this.price,this.isPride,this.newPrice,this.to});
+  this.descriptionAr,this.titleAr,this.image,this.saved,this.price,this.isPride,this.newPrice,this.to,
+  this.nonPride});
 }

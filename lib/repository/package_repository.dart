@@ -32,18 +32,33 @@ class PackageRepo extends PackageRepository{
 
     http.MultipartRequest request = new http.MultipartRequest('POST', Constants.STOREPACKAGE);
 
+    request.fields['title_ar'] = package.titleAr.toString();
+    request.fields['title_en'] =  package.titleEn.toString();
+    request.fields['price'] = package.price.toString();
+    request.fields['new_price'] = package.newPrice.toString();
+    request.fields['is_bride'] = package.isPride!?'1':'0';
+    for(int i = 0; i < package.services!.length; i++){
+      request.fields['service_ids[$i]'] = '${package.services![i]}';
+    }
+    request.fields['date_from'] = package.from.toString();
+    request.fields['date_to'] = package.to.toString();
+    request.fields['type'] = LocalStorage.getData(key: 'gender')=='man'?'1':'2';
+    request.fields['description_ar'] = package.descriptionAr.toString();
+    request.fields['description_en'] = package.descriptionEn.toString();
+    request.headers["Authorization"] =LocalStorage.getData(key: 'token');
+    request.headers["Accept"] ='application/json';
+    request.headers["Content-Type"] ='application/json';
 
 
+    if (package.image != null) {
 
-    // if (package.image != null) {
-    //
-    //   streamImg =
-    //   new http.ByteStream(DelegatingStream.typed(employee.photo!.openRead()));
-    //   lengthImg = await employee.photo!.length();
-    //   multipartFileImg = new http.MultipartFile('image', streamImg , lengthImg ,
-    //       filename: basename(employee.photo!.path));
-    //   request.files.add(multipartFileImg);
-    // }
+      streamImg =
+      new http.ByteStream(DelegatingStream.typed(package.image!.openRead()));
+      lengthImg = await package.image!.length();
+      multipartFileImg = new http.MultipartFile('image', streamImg , lengthImg ,
+          filename: basename(package.image!.path));
+      request.files.add(multipartFileImg);
+    }
 
     var response = await request.send();
     http.Response response2 = await http.Response.fromStream(response);

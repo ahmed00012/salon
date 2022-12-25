@@ -59,7 +59,8 @@ class Packages extends ConsumerWidget {
                               SizedBox(height: 40,),
                               InkWell(
                                 onTap: (){
-                                  // controller.setPackage(controller.packages.length);
+                                  controller.storePackage(controller.packages.last);
+                                  controller.setPackage();
                                 },
                                 child: Container(
                                   height: height*0.065,
@@ -81,7 +82,12 @@ class Packages extends ConsumerWidget {
                                   Spacer(),
                                   InkWell(
                                     onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>RulesOfSalon()));
+                                      if(!controller.packages.last.saved!)
+                                        controller.storePackage(controller.packages.last).then((value) {
+                                          Navigator.push(context, MaterialPageRoute(builder: (_)=>RulesOfSalon()));
+                                        });
+                                      else
+                                        Navigator.push(context, MaterialPageRoute(builder: (_)=>RulesOfSalon()));
                                     },
                                     child: Container(
                                       height: height*0.06,

@@ -452,9 +452,14 @@ class EmployeeWidget extends ConsumerWidget {
                                  controller.chooseService(0,j);
                               }),
                         ),
-                        Text(controller.employees[i!].servicesModel![j].title!.en!,style: TextStyle(
-                            fontSize: height*0.02
-                        ),),
+                        Container(
+                          width: width*0.6,
+                          child: Text(controller.employees[i!].servicesModel![j].title!.en!,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: height*0.02
+                          ),),
+                        ),
                       ],
                     )),
               );
@@ -936,9 +941,15 @@ class EmployeeWidget extends ConsumerWidget {
                                          controller.chooseService(i!,j);
                                       }),
                                 ),
-                                Text(controller.employees[i!].servicesModel![j].title!.en!,style: TextStyle(
-                                    fontSize: height*0.02
-                                ),),
+                                Container(
+
+                                  width: width*0.6,
+                                  child: Text(controller.employees[i!].servicesModel![j].title!.en!,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: height*0.02
+                                  ),),
+                                ),
                               ],
                             )),
                       );

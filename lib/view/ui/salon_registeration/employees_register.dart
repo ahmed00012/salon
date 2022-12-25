@@ -82,13 +82,13 @@ class EmployeesRegister extends ConsumerWidget {
                                   Spacer(),
                                   InkWell(
                                     onTap: (){
-                                      controller.storeEmployee(controller.employees.last);
-                                      // if(!controller.employees.last.stored!)
-                                      // controller.storeEmployee(controller.employees.last).then((value) {
-                                      //   Navigator.push(context, MaterialPageRoute(builder: (_)=>Packages()));
-                                      // });
-                                      // else
-                                      //  Navigator.push(context, MaterialPageRoute(builder: (_)=>Packages()));
+
+                                      if(!controller.employees.last.stored!)
+                                      controller.storeEmployee(controller.employees.last).then((value) {
+                                        Navigator.push(context, MaterialPageRoute(builder: (_)=>Packages()));
+                                      });
+                                      else
+                                       Navigator.push(context, MaterialPageRoute(builder: (_)=>Packages()));
 
                                     },
                                     child: Container(
