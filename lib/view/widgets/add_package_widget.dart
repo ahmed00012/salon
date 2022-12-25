@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants.dart';
 import '../../provider/employee_provider.dart';
+import '../../provider/package_provider.dart';
 import 'add_works_picture.dart';
 import 'default_text_field.dart';
 
@@ -16,7 +17,7 @@ class PackageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final controller = ref.watch(employeeFuture);
+    final controller = ref.watch(packageFuture);
     double height = MediaQuery.of(context).size.height < 600
         ? 800
         : MediaQuery.of(context).size.height;
@@ -46,7 +47,7 @@ class PackageWidget extends ConsumerWidget {
           SizedBox(height: 20,),
           InkWell(
             onTap: (){
-              controller.choseForBride();
+              controller.checkForPride(0);
             },
             child: Row(
 
@@ -55,7 +56,7 @@ class PackageWidget extends ConsumerWidget {
                   activeColor: Constants.mainColor2,
                   groupValue: controller.bride,
                   onChanged: (value){
-                    controller.choseForBride();
+                    controller.checkForPride(0);
                   }),
                 Text('  Bride ',style: TextStyle(fontSize: height*0.02),)
               ],
@@ -63,7 +64,7 @@ class PackageWidget extends ConsumerWidget {
           ),
           InkWell(
             onTap: (){
-              controller.choseForBride();
+              controller.checkForPride(0);
             },
             child: Row(
 
@@ -72,7 +73,7 @@ class PackageWidget extends ConsumerWidget {
                   activeColor: Constants.mainColor2,
                   groupValue: controller.bride,
                   onChanged: (value){
-                    controller.choseForBride();
+                    controller.checkForPride(0);
                   }),
                 Text('  non Bride ',style: TextStyle(fontSize: height*0.02),)
               ],
@@ -181,7 +182,7 @@ class PackageWidget extends ConsumerWidget {
                     SizedBox(height: 20,),
                     InkWell(
                       onTap: (){
-                        controller.choseForBride();
+                        controller.checkForPride(i!);
                       },
                       child: Row(
 
@@ -190,7 +191,7 @@ class PackageWidget extends ConsumerWidget {
                               activeColor: Constants.mainColor2,
                               groupValue: controller.bride,
                               onChanged: (value){
-                                controller.choseForBride();
+                                controller.checkForPride(i!);
                               }),
                           Text('  Bride ',style: TextStyle(fontSize: height*0.02),)
                         ],
@@ -198,7 +199,7 @@ class PackageWidget extends ConsumerWidget {
                     ),
                     InkWell(
                       onTap: (){
-                        controller.choseForBride();
+                        controller.checkForPride(i!);
                       },
                       child: Row(
 
@@ -207,7 +208,7 @@ class PackageWidget extends ConsumerWidget {
                               activeColor: Constants.mainColor2,
                               groupValue: controller.bride,
                               onChanged: (value){
-                                controller.choseForBride();
+                                controller.checkForPride(i!);
                               }),
                           Text('  non Bride ',style: TextStyle(fontSize: height*0.02),)
                         ],

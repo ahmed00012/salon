@@ -66,7 +66,7 @@ class PackageProvider extends ChangeNotifier {
             servicesModel: services,
             saved: false,
           isPride: false,
-          type: LocalStorage.getData(key: 'gender'),
+          type: LocalStorage.getData(key: 'gender')=='man'?1:2,
           price: '',
           newPrice: ''
 

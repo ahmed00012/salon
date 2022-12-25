@@ -27,6 +27,14 @@ class EmployeeRepo extends EmployeeRepository{
     var streamImg;
     var lengthImg;
 
+    print(employee.name.toString()+'slsllsa');
+    print(employee.phone.toString()+'slsllsa');
+    print(employee.photo.toString()+'slsllsa');
+    print(employee.holidays.toString().replaceAll('[', '').replaceAll(']', '')+'slsllsa');
+    print(employee.services.toString()+'slsllsa');
+    print(employee.availableFrom.toString().substring(10,15)+'slsllsa');
+    print(employee.availableTo.toString()+'slsllsa');
+    print(employee.workOut.toString()+'slsllsa');
 
     http.MultipartRequest request = new http.MultipartRequest('POST', Constants.STOREEMPLOYEE);
 
@@ -35,10 +43,13 @@ class EmployeeRepo extends EmployeeRepository{
     request.fields['work_from'] = employee.availableFrom.toString().substring(10,15);
     request.fields['work_to'] = employee.availableTo.toString().substring(10,15);
     request.fields['holidays'] = employee.holidays.toString().replaceAll('[', '').replaceAll(']', '');
-    request.fields['service_ids'] = employee.services.toString().replaceAll('[', '').replaceAll(']', '');
-    request.fields['work_out'] = employee.workOut.toString();
-
-
+     request.fields['service_ids'] = employee.services.toString();
+    for (String item in employee.services!) {
+      request.files.add(http.MultipartFile.fromString('service_ids', item));
+    }
+    request.fields['work_out'] = employee.workOut!?'1':'0';
+    request.headers["Authorization"] =LocalStorage.getData(key: 'token');
+    request.headers["Accept"] ='application/json';
 
     if (employee.photo != null) {
 
@@ -70,6 +81,7 @@ class EmployeeRepo extends EmployeeRepository{
     var response = await request.send();
     http.Response response2 = await http.Response.fromStream(response);
     print("Result: ${response2.statusCode}");
+    print("Result: ${response2.body}");
     if (response.statusCode == 200) {
       var data = json.decode(response2.body);
       return data['data'];

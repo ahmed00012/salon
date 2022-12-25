@@ -140,10 +140,7 @@ pickEmployeePhoto(int i) async {
 }
 
 
-choseForBride(){
-  bride = !bride;
-  notifyListeners();
-}
+
 
 Future storeEmployee(EmployeeModel currentEmployee) async{
   currentEmployee.stored = true;
