@@ -1,4 +1,5 @@
 import 'package:beauty_center/constants.dart';
+import 'package:beauty_center/provider/package_provider.dart';
 import 'package:beauty_center/view/ui/salon_registeration/good_job.dart';
 import 'package:beauty_center/view/widgets/default_text_field.dart';
 import 'package:beauty_center/view/widgets/employee_widget.dart';
@@ -21,7 +22,7 @@ class RulesOfSalon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(employeeFuture);
+    final controller = ref.watch(packageFuture);
     double height = MediaQuery.of(context).size.height < 600
         ? 800
         : MediaQuery.of(context).size.height;
@@ -47,307 +48,53 @@ class RulesOfSalon extends ConsumerWidget {
                           child:ListView(
                             children: [
 
-                           Padding(
-                             padding: const EdgeInsets.all(10.0),
-                             child: InkWell(
-                               onTap:(){
-                                 setState(() {
-                                   controller.pets = !controller.pets;
-                                 });
-                               },
-                               child: Container(
-                                 decoration: BoxDecoration(
-                                   color: Colors.white,
-                                   borderRadius: BorderRadius.circular(15)
-                                 ),
-                                 child: Row(
-                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                   children: [
 
-                                     Padding(
-                                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                                       child: Text('Pets Allowed',style: TextStyle(fontSize: height*0.02),),
-                                     ),
-                                     Switch(
-                                       value: controller.pets,
-                                       onChanged: (value) {
-                                         setState(() {
-                                           controller.pets = value;
-                                         });
+                             ListView.builder(
+                                 itemCount: controller.rules.length,
+                                 physics: NeverScrollableScrollPhysics(),
+                                 shrinkWrap: true,
+                                 itemBuilder: (context,i){
+                                   return   Padding(
+                                     padding: const EdgeInsets.all(10.0),
+                                     child: InkWell(
+                                       onTap:(){
+                                         controller.chooseRule(i);
                                        },
-                                       activeTrackColor: Constants.mainColor2,
-                                       activeColor: Colors.white,
+                                       child: Container(
+                                         decoration: BoxDecoration(
+                                             color: Colors.white,
+                                             borderRadius: BorderRadius.circular(15)
+                                         ),
+                                         child: Row(
+                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                           children: [
+
+                                             Padding(
+                                               padding: const EdgeInsets.symmetric(horizontal: 10),
+                                               child: Container(
+                                                 height: height*0.06,
+                                                 width: width*0.55,
+                                                 alignment: Alignment.centerLeft,
+                                                 child: Text(controller.rules[i].title!.en!,
+                                                   style: TextStyle(fontSize: height*0.02),),
+                                               ),
+                                             ),
+                                             Switch(
+                                               value: controller.rules[i].chosen!,
+                                               onChanged: (value) {
+                                                 controller.chooseRule(i);
+                                               },
+                                               activeTrackColor: Constants.mainColor2,
+                                               activeColor: Colors.white,
+                                             ),
+
+                                           ],
+                                         ),
+                                       ),
                                      ),
+                                   );
 
-                                   ],
-                                 ),
-                               ),
-                             ),
-                           ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: InkWell(
-                                  onTap:(){
-                                    setState(() {
-                                      controller.food = !controller.food;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                                          child: Text('Food And Drink Allowed',style: TextStyle(fontSize: height*0.02),),
-                                        ),
-                                        Switch(
-                                          value: controller.food,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              controller.food = value;
-                                            });
-                                          },
-                                          activeTrackColor: Constants.mainColor2,
-                                          activeColor: Colors.white,
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: InkWell(
-                                  onTap:(){
-                                    setState(() {
-                                      controller.children = !controller.children;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                                          child: Text('Children Allowed',style: TextStyle(fontSize: height*0.02),),
-                                        ),
-                                        Switch(
-                                          value: controller.children,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              controller.children = value;
-                                            });
-                                          },
-                                          activeTrackColor: Constants.mainColor2,
-                                          activeColor: Colors.white,
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: InkWell(
-                                  onTap:(){
-                                    setState(() {
-                                      controller.smoke = !controller.smoke;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                                          child: Text('Smoke Allowed',style: TextStyle(fontSize: height*0.02),),
-                                        ),
-                                        Switch(
-                                          value: controller.smoke,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              controller.smoke = value;
-                                            });
-                                          },
-                                          activeTrackColor: Constants.mainColor2,
-                                          activeColor: Colors.white,
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: InkWell(
-                                  onTap:(){
-                                    setState(() {
-                                      controller.material = !controller.material;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                                          child: Container(
-                                              width: width*0.5,
-                                              child: Text('Client Can Use His Own Material',
-                                                style: TextStyle(fontSize: height*0.02),)),
-                                        ),
-                                        Switch(
-                                          value: controller.material,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              controller.material = value;
-                                            });
-                                          },
-                                          activeTrackColor: Constants.mainColor2,
-                                          activeColor: Colors.white,
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: InkWell(
-                                  onTap:(){
-                                    setState(() {
-                                      controller.wifi = !controller.wifi;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                                          child: Text('There Is Wifi',style: TextStyle(fontSize: height*0.02),),
-                                        ),
-                                        Switch(
-                                          value: controller.wifi,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              controller.wifi = value;
-                                            });
-                                          },
-                                          activeTrackColor: Constants.mainColor2,
-                                          activeColor: Colors.white,
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: InkWell(
-                                  onTap:(){
-                                    setState(() {
-                                      controller.photographer = !controller.photographer;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                                          child: Container(
-                                              width: width*0.5,
-                                              child: Text('Client Can Bring His Photographer',style: TextStyle(fontSize: height*0.02),)),
-                                        ),
-                                        Switch(
-                                          value: controller.photographer,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              controller.photographer = value;
-                                            });
-                                          },
-                                          activeTrackColor: Constants.mainColor2,
-                                          activeColor: Colors.white,
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: InkWell(
-                                  onTap:(){
-                                    setState(() {
-                                      controller.cafeShop = !controller.cafeShop;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                                          child: Text('There Is Cafe Shop',style: TextStyle(fontSize: height*0.02),),
-                                        ),
-                                        Switch(
-                                          value: controller.cafeShop,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              controller.cafeShop = value;
-                                            });
-                                          },
-                                          activeTrackColor: Constants.mainColor2,
-                                          activeColor: Colors.white,
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                             }),
 
 
                               SizedBox(height: 50,),
@@ -356,8 +103,9 @@ class RulesOfSalon extends ConsumerWidget {
                                   Spacer(),
                                   InkWell(
                                     onTap: (){
+                                      controller.storeRules();
 
-                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>GoodJob()));
+                                       // Navigator.push(context, MaterialPageRoute(builder: (_)=>GoodJob()));
                                     },
                                     child: Container(
                                       height: height*0.06,

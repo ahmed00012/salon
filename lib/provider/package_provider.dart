@@ -17,6 +17,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../models/categories0_model.dart';
 import '../models/categories_model.dart';
 import '../models/employee_model.dart';
+import '../models/roles_employee.dart';
 import '../repository/package_repository.dart';
 
 
@@ -31,6 +32,7 @@ class PackageProvider extends ChangeNotifier {
   final ImagePicker _picker = ImagePicker();
 
   List<Services> services=[];
+  List<RulesModel> rules = [];
 
 
   bool pets = false;
@@ -49,6 +51,7 @@ class PackageProvider extends ChangeNotifier {
 
     getServices();
      setPackage();
+    getRules();
 
   }
   setPackage(){
@@ -144,11 +147,7 @@ class PackageProvider extends ChangeNotifier {
     packages[i].nonPride = false;
     notifyListeners();
   }
-  checkForNonPride(int i){
-    packages[i].nonPride = true;
-    packages[i].isPride = false;
-    notifyListeners();
-  }
+
   // chooseHolidays(int i ,String day ){
   //   if(employees[i].holidays!.contains(day)){
   //     employees[i].holidays!.remove(day);
@@ -169,6 +168,33 @@ class PackageProvider extends ChangeNotifier {
     // print(data);
   }
 
+  Future getRules() async{
+    var data = await packageRepo.getRules();
+    if(data!=false){
+      rules = List.from(data.map((e)=>RulesModel.fromJson(e)));
+      rules.forEach((element) {
+        element.chosen = false;
+      });
+    }
+    notifyListeners();
+  }
+
+  chooseRule(int index){
+    rules[index].chosen = !rules[index].chosen!;
+    notifyListeners();
+  }
+
+  Future storeRules()async{
+    List<String> chosenRules = [];
+    rules.forEach((element) {
+      if(element.chosen!){
+        chosenRules.add(element.id!);
+      }
+    });
+
+    var data = await packageRepo.storeRules(chosenRules);
+
+  }
 
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {

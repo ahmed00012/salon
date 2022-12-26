@@ -15,7 +15,8 @@ abstract class PackageRepository{
 
   Future storePackage(PackagesModel package);
   Future getServices();
-
+  Future getRules();
+  Future storeRules(List<String> rules);
 }
 
 
@@ -91,5 +92,50 @@ class PackageRepo extends PackageRepository{
     }
     else return false;
   }
+
+  @override
+  Future getRules() async{
+    var response = await http.get(Constants.GETROLES,
+        headers: {
+          'Authorization':LocalStorage.getData(key: 'token'),
+        });
+
+    print(response.body);
+
+    if(response.statusCode==200){
+      var data =json.decode(response.body);
+      return data['data'];
+    }
+    else return false;
+  }
+
+
+  @override
+  Future storeRules(List<String> rules) async {
+    http.MultipartRequest request = new http.MultipartRequest('POST', Constants.STOREROLES);
+
+    for(int i = 0; i < rules.length; i++){
+      request.fields['features[$i]'] = rules[i];
+    }
+
+    request.headers["Authorization"] =LocalStorage.getData(key: 'token');
+    request.headers["Accept"] ='application/json';
+    request.headers["Content-Type"] ='application/json';
+    var response = await request.send();
+    http.Response response2 = await http.Response.fromStream(response);
+    print("Result: ${response2.statusCode}");
+    if (response.statusCode == 200) {
+      var data = json.decode(response2.body);
+      return data['data'];
+    } else {
+
+      return false;
+
+    }
+
+
+
+  }
+
 
 }

@@ -42,53 +42,15 @@ class RegisterProvider2 extends ChangeNotifier {
 
 
   RegisterProvider2(){
+
     getCategories();
-    getCategories2();
   }
 
 
 
 
-  getCategories(){
-    categories = [
-      CategoriesModel0(
-        id: 1,
-        name: 'Hair',
-        choose: false,
-        subcategory: [
-          CategoriesModel0(name: 'cut',choose: false,inHome: false,inSalon: false),
-          CategoriesModel0(name: 'straight',choose: false,inHome: false,inSalon: false),
-          CategoriesModel0(name:  'iron',choose: false,inHome: false,inSalon: false),
-          CategoriesModel0(name: 'burn',choose: false,inHome: false,inSalon: false),
-        ]
-      ),
-      CategoriesModel0(
-        id: 2,
-        name: 'face',
-          choose: false,
-        subcategory: [
-          CategoriesModel0(name: 'mask',choose: false,inHome: false,inSalon: false),
-          CategoriesModel0(name: 'hot towel',choose: false,inHome: false,inSalon: false),
-          CategoriesModel0(name: 'clean',choose: false,inHome: false,inSalon: false),
-          CategoriesModel0(name: 'remove hair',choose: false,inHome: false,inSalon: false),
-        ]
-      ),
-      CategoriesModel0(
-        id: 3,
-        name: 'fingernails',
-          choose: false,
-       subcategory: [
-          CategoriesModel0(name: 'cut',choose: false,inHome: false,inSalon: false),
 
-    ]
-      )
-    ];
-    categories.forEach((element) {
-      anotherCategories.add(element.name!);
-    });
-
-  }
-  Future getCategories2()async{
+  Future getCategories()async{
 
     var data = await servicesRepo.getCategories();
     
@@ -98,7 +60,7 @@ class RegisterProvider2 extends ChangeNotifier {
         element.services!.forEach((service) {
           service.priceFrom = 0;
           service.priceTo = 100;
-          service.duration = 15;
+          service.duration = 30;
         });
       });
 
@@ -154,11 +116,11 @@ setPrice(bool from, String value, int i , int j){
 
 setDuration(bool plus, int i , int j){
     if(plus){
-      categories2[i].services![j].duration = categories2[i].services![j].duration! + 15;
+      categories2[i].services![j].duration = categories2[i].services![j].duration! + 30;
     }
     else{
-      if(categories2[i].services![j].duration! > 15)
-      categories2[i].services![j].duration = categories2[i].services![j].duration! - 15;
+      if(categories2[i].services![j].duration! > 30)
+      categories2[i].services![j].duration = categories2[i].services![j].duration! - 30;
     }
     notifyListeners();
 }

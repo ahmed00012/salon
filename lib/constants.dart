@@ -22,6 +22,8 @@ class Constants{
  static Uri STOREEMPLOYEE = Uri.parse(BASE +'employee');
  static Uri STOREPACKAGE = Uri.parse(BASE +'package');
  static Uri PROVIDERSERVICES = Uri.parse(BASE +'provider/services');
+ static Uri GETROLES = Uri.parse(BASE +'features/all');
+ static Uri STOREROLES = Uri.parse(BASE +'features/store');
 
 
 
