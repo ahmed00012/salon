@@ -376,6 +376,54 @@ if(data!=false) {
         buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
   }
 
+ double getHeight(){
+
+    if(titleEnController.text.isNotEmpty && titleArController.text.isNotEmpty&&phoneController.text.isNotEmpty&&
+        anotherPhoneController.text.isNotEmpty && passwordController.text.isNotEmpty&& countryValue!=null &&
+        cityValue!=null && streetController.text.isNotEmpty&& descriptionEnController.text.isNotEmpty&&
+    descriptionArController.text.isNotEmpty){
+      return 1;
+    }
+    else if(titleEnController.text.isNotEmpty && titleArController.text.isNotEmpty&&phoneController.text.isNotEmpty&&
+        anotherPhoneController.text.isNotEmpty && passwordController.text.isNotEmpty&& countryValue!=null &&
+        cityValue!=null && streetController.text.isNotEmpty && descriptionEnController.text.isNotEmpty){
+      return 0.85;
+    }
+    else if(titleEnController.text.isNotEmpty && titleArController.text.isNotEmpty&&phoneController.text.isNotEmpty&&
+        anotherPhoneController.text.isNotEmpty && passwordController.text.isNotEmpty&& countryValue!=null &&
+        cityValue!=null && streetController.text.isNotEmpty){
+      return 0.7;
+    }
+    else if(titleEnController.text.isNotEmpty && titleArController.text.isNotEmpty&&phoneController.text.isNotEmpty&&
+        anotherPhoneController.text.isNotEmpty && passwordController.text.isNotEmpty&& countryValue!=null &&
+        cityValue!=null){
+      return 0.56;
+    }
+    else if(titleEnController.text.isNotEmpty && titleArController.text.isNotEmpty&&phoneController.text.isNotEmpty&&
+        anotherPhoneController.text.isNotEmpty && passwordController.text.isNotEmpty){
+      return 0.4;
+    }
+    else if(titleEnController.text.isNotEmpty && titleArController.text.isNotEmpty&&phoneController.text.isNotEmpty&&
+        anotherPhoneController.text.isNotEmpty){
+      return 0.32;
+    }
+
+    else if(titleEnController.text.isNotEmpty && titleArController.text.isNotEmpty&&phoneController.text.isNotEmpty){
+      return 0.24;
+    }
+    else if(titleEnController.text.isNotEmpty && titleArController.text.isNotEmpty){
+      return 0.16;
+    }
+    else if(titleEnController.text.isNotEmpty){
+      return 0.08;
+    }
+    else {
+      return 0;
+    }
+
+      notifyListeners();
+  }
+
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {
     showTopSnackBar(

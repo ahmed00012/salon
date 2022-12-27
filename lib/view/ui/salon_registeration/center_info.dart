@@ -18,6 +18,7 @@ import '../../../provider/center_registration_provider1.dart';
 class CenterInfo extends ConsumerWidget {
   Completer<GoogleMapController> googleMapController = Completer();
   final _formKey = GlobalKey<FormState>();
+  double progressHeight = 0.0;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,68 +55,105 @@ class CenterInfo extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
 
                             children: [
-                               DefaultTextField(
-                                 label: 'Salon Title English',
-                                 image: 'assets/images/title(3).png',
-                                 controller: controller.titleEnController,
-                                 validator: (val){
-                                   if (val!.length<2)
-                                     return 'Title must be 2 characters at least';
+                              SizedBox(height: 15,),
+                               InkWell(
+                                 onTap: (){
+                                   setState((){
+                                      progressHeight =  height*controller.getHeight();
+                                   });
                                  },
+                                 child: DefaultTextField(
+                                   label: 'Salon Title English',
+                                   image: 'assets/images/title(3).png',
+                                   controller: controller.titleEnController,
+                                   validator: (val){
+                                     if (val!.length<2)
+                                       return 'Title must be 2 characters at least';
+                                   },
 
 
+                                 ),
                                ),
                               SizedBox(
                                 height: 20,
                               ),
-                              DefaultTextField(
-                                label: 'Salon Title Arabic',
-                                image: 'assets/images/title(3).png',
-                                controller: controller.titleArController,
-                                validator: (val){
-                                  if (val!.length<2)
-                                    return 'Title must be 2 characters at least';
+                              InkWell(
+                                onTap: (){
+                                  setState((){
+                                    progressHeight =  height*controller.getHeight();
+                                  });
                                 },
+                                 child: DefaultTextField(
+                                  label: 'Salon Title Arabic',
+                                  image: 'assets/images/title(3).png',
+                                  controller: controller.titleArController,
+                                  validator: (val){
+                                    if (val!.length<2)
+                                      return 'Title must be 2 characters at least';
+                                  },
 
                               ),
+                               ),
                               SizedBox(
                                 height: 20,
                               ),
-                              DefaultTextField(
-                                label: 'Salon Phone',
-                                icon: Icons.phone,
-                                controller: controller.phoneController,
-                                number: true,
-                                validator: (val){
-                                  if (val!.length<10)
-                                    return 'Invalid Phone';
+                              InkWell(
+                                onTap: (){
+                                  setState((){
+                                    progressHeight =  height*controller.getHeight();
+                                  });
                                 },
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              DefaultTextField(
-                                label: 'Another Phone',
-                                icon: Icons.phone,
-                                number: true,
-                                controller: controller.anotherPhoneController,
-                                validator: (val){
-                                  if (val!.length<10)
-                                    return 'Invalid Phone';
-                                },
+                                child: DefaultTextField(
+                                  label: 'Salon Phone',
+                                  icon: Icons.phone,
+                                  controller: controller.phoneController,
+                                  number: true,
+                                  validator: (val){
+                                    if (val!.length<10)
+                                      return 'Invalid Phone';
+                                  },
+                                ),
                               ),
                               SizedBox(
                                 height: 20,
                               ),
-                              DefaultTextField(
-                                label: 'Password',
-                                icon: Icons.security,
-                                password: true,
-                                controller: controller.passwordController,
-                                validator: (val){
-                                  if (val!.length<6)
-                                    return 'Password 6 characters at least';
+                              InkWell(
+                                onTap: (){
+                                  setState((){
+                                    progressHeight =  height*controller.getHeight();
+                                    print(controller.getHeight());
+                                  });
                                 },
+                                child: DefaultTextField(
+                                  label: 'Another Phone',
+                                  icon: Icons.phone,
+                                  number: true,
+                                  controller: controller.anotherPhoneController,
+                                  validator: (val){
+                                    if (val!.length<10)
+                                      return 'Invalid Phone';
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              InkWell(
+                                onTap: (){
+                                  setState((){
+                                    progressHeight =  height*controller.getHeight();
+                                  });
+                                },
+                                child: DefaultTextField(
+                                  label: 'Password',
+                                  icon: Icons.security,
+                                  password: true,
+                                  controller: controller.passwordController,
+                                  validator: (val){
+                                    if (val!.length<6)
+                                      return 'Password 6 characters at least';
+                                  },
+                                ),
                               ),
                               SizedBox(
                                 height: 20,
@@ -136,6 +174,9 @@ class CenterInfo extends ConsumerWidget {
                                             value: item.id,
                                             child: InkWell(
                                               onTap: () {
+                                                  setState((){
+                                                    progressHeight =  height*controller.getHeight();
+                                                  });
                                                 controller.selectCountry(item);
                                               },
                                               child: Row(
@@ -168,7 +209,7 @@ class CenterInfo extends ConsumerWidget {
                                   ),
                                   iconSize: 14,
                                   buttonHeight: height * 0.07,
-                                  buttonWidth: width,
+                                  buttonWidth: width*0.8,
                                   buttonPadding:
                                       const EdgeInsets.only(left: 5, right: 14),
                                   buttonDecoration: BoxDecoration(
@@ -202,7 +243,12 @@ class CenterInfo extends ConsumerWidget {
                                       .map((item) => DropdownMenuItem<int>(
                                             value: item.id,
                                             child: InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                setState((){
+                                                  progressHeight =  height*controller.getHeight();
+                                                });
+
+                                              },
                                               child: Row(
                                                 children: [
                                                   Icon(
@@ -233,7 +279,7 @@ class CenterInfo extends ConsumerWidget {
                                   ),
                                   iconSize: 14,
                                   buttonHeight: height * 0.07,
-                                  buttonWidth: width,
+                                  buttonWidth: width*0.8,
                                   buttonPadding:
                                       const EdgeInsets.only(left: 5, right: 14),
                                   buttonDecoration: BoxDecoration(
@@ -266,24 +312,31 @@ class CenterInfo extends ConsumerWidget {
                                   items: controller.areas
                                       .map((item) => DropdownMenuItem<int>(
                                             value: item.id,
-                                            child: Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.location_on_sharp,
-                                                  color: Constants.mainColor2,
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  item.title!.en!,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.black,
+                                            child: InkWell(
+                                              onTap: (){
+                                                setState((){
+                                                  progressHeight =  height*controller.getHeight();
+                                                });
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_on_sharp,
+                                                    color: Constants.mainColor2,
                                                   ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              ],
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    item.title!.en!,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ))
                                       .toList(),
@@ -295,7 +348,7 @@ class CenterInfo extends ConsumerWidget {
                                   ),
                                   iconSize: 14,
                                   buttonHeight: height * 0.07,
-                                  buttonWidth: width,
+                                  buttonWidth: width*0.8,
                                   buttonPadding:
                                       const EdgeInsets.only(left: 5, right: 14),
                                   buttonDecoration: BoxDecoration(
@@ -314,77 +367,111 @@ class CenterInfo extends ConsumerWidget {
                               SizedBox(
                                 height: 20,
                               ),
-                              DefaultTextField(
-                                label: 'Street Name',
-                                icon: Icons.comment,
-                                controller: controller.streetController,
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              DefaultTextField(
-                                label: 'Description English',
-                                icon: Icons.account_box_outlined,
-                                description: true,
-                                controller: controller.descriptionEnController,
-                                validator: (val){
-                                  if (val!.length<10)
-                                    return 'Too short description';
-                                },
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              DefaultTextField(
-                                label: 'Description Arabic',
-                                icon: Icons.account_box_outlined,
-                                description: true,
-                                controller: controller.descriptionArController,
-                                validator: (val){
-                                  if (val!.length<10)
-                                    return 'Too short description';
-                                },
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
                               InkWell(
-                                onTap: () {
-                                  controller.determinePosition(googleMapController);
+                                onTap: (){
+
+                                    setState((){
+                                      progressHeight =  height*controller.getHeight();
+                                    });
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.my_location_outlined,
-                                      color: Constants.mainColor2,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      'Use Your Current Location',
-                                      style: TextStyle(
-                                          color: Constants.mainColor2,
-                                          fontSize: height * 0.018),
-                                    )
-                                  ],
+                                child: DefaultTextField(
+                                  label: 'Street Name',
+                                  icon: Icons.comment,
+                                  controller: controller.streetController,
                                 ),
                               ),
                               SizedBox(
                                 height: 20,
                               ),
-                              Row(
-                                children: [
-                                  Expanded(child: Divider()),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 15),
-                                    child: Text('OR Pick Your Location',
-                                        style: TextStyle(color: Colors.black38)),
+                              InkWell(
+                                onTap: (){
+
+                                  setState((){
+                                    progressHeight =  height*controller.getHeight();
+                                  });
+                                },
+                                child: DefaultTextField(
+                                  label: 'Description English',
+                                  icon: Icons.account_box_outlined,
+                                  description: true,
+                                  controller: controller.descriptionEnController,
+                                  validator: (val){
+                                    if (val!.length<10)
+                                      return 'Too short description';
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              InkWell(
+                                onTap: (){
+
+                                  setState((){
+                                    progressHeight =  height*controller.getHeight();
+                                  });
+                                },
+                                child: DefaultTextField(
+                                  label: 'Description Arabic',
+                                  icon: Icons.account_box_outlined,
+                                  description: true,
+                                  controller: controller.descriptionArController,
+                                  validator: (val){
+                                    if (val!.length<10)
+                                      return 'Too short description';
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                width: width*0.8,
+                                child: InkWell(
+                                  onTap: () {
+                                    controller.determinePosition(googleMapController);
+                                      setState((){
+                                        progressHeight =  height*controller.getHeight();
+                                      });
+
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.my_location_outlined,
+                                        color: Constants.mainColor2,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'Use Your Current Location',
+                                        style: TextStyle(
+                                            color: Constants.mainColor2,
+                                            fontSize: height * 0.018),
+                                      )
+                                    ],
                                   ),
-                                  Expanded(child: Divider()),
-                                ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                width: width*0.8,
+                                child: Row(
+                                  children: [
+                                    Expanded(child: Divider()),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 15),
+                                      child: Text('OR Pick Your Location',
+                                          style: TextStyle(color: Colors.black38)),
+                                    ),
+                                    Expanded(child: Divider()),
+                                  ],
+                                ),
                               ),
                               SizedBox(
                                 height: 20,
@@ -455,7 +542,7 @@ class CenterInfo extends ConsumerWidget {
                   ),
                   VerticalProgress(
                     height: height,
-                    progressHeight: height / 2,
+                    progressHeight: progressHeight,
                     index: 1,
                   ),
                 ],

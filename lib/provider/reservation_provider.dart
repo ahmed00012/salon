@@ -1,5 +1,6 @@
 
 import 'package:beauty_center/models/categories0_model.dart';
+import 'package:beauty_center/repository/orders_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,11 +10,12 @@ final reservationFuture =
 ChangeNotifierProvider.autoDispose<ReservationProvider>((ref) => ReservationProvider());
 class ReservationProvider extends ChangeNotifier {
 
+  OrdersRepo repo = OrdersRepo();
 List<ReservationModel> reservations = [];
 
 
   ReservationProvider(){
-    getReservations();
+    getReservations2();
   }
 
   getReservations(){
@@ -81,6 +83,11 @@ List<ReservationModel> reservations = [];
       ),
     ];
   }
+Future  getReservations2()async{
+   var data = await repo.getOrders();
+  }
+
+
 
 
 }

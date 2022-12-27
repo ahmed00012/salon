@@ -20,11 +20,11 @@ class MyAppBar extends StatelessWidget {
             Navigator.pop(context);
     },
     child: Icon(Icons.arrow_back_ios,size: 30,)),
-          SizedBox(width: width*0.1,),
+          SizedBox(width: 20,),
 
           Text(title!,
             style: TextStyle(
-                fontSize: height*0.025
+                fontSize: height*0.025,
             ),)
 
         ],

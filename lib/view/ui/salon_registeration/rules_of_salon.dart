@@ -103,7 +103,7 @@ class RulesOfSalon extends ConsumerWidget {
                                   Spacer(),
                                   InkWell(
                                     onTap: (){
-                                      controller.storeRules();
+                                      controller.storeRules(context);
 
                                        // Navigator.push(context, MaterialPageRoute(builder: (_)=>GoodJob()));
                                     },

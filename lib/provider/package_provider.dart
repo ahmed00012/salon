@@ -7,6 +7,7 @@ import 'package:beauty_center/models/another_category_model.dart';
 import 'package:beauty_center/models/packages_model.dart';
 import 'package:beauty_center/repository/employee_repository.dart';
 import 'package:beauty_center/view/ui/salon_registeration/employees_register.dart';
+import 'package:beauty_center/view/ui/salon_registeration/good_job.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -184,7 +185,7 @@ class PackageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future storeRules()async{
+  Future storeRules(BuildContext context)async{
     List<String> chosenRules = [];
     rules.forEach((element) {
       if(element.chosen!){
@@ -193,6 +194,10 @@ class PackageProvider extends ChangeNotifier {
     });
 
     var data = await packageRepo.storeRules(chosenRules);
+
+    if(data!=false){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>GoodJob()));
+    }
 
   }
 
