@@ -1,10 +1,12 @@
 import 'package:beauty_center/constants.dart';
-import 'package:beauty_center/models/reservation_model.dart';
+
 import 'package:flutter/material.dart';
 
+import '../../models/order_model.dart';
+
 class ReservationDetails extends StatelessWidget {
-  ReservationDetails({Key? key, this.reservationModel}) : super(key: key);
-  ReservationModel? reservationModel = ReservationModel();
+  ReservationDetails({Key? key, this.order}) : super(key: key);
+  OrderModel? order = OrderModel();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,7 @@ class ReservationDetails extends StatelessWidget {
                             ),
                             Spacer(),
                             Text(
-                              '# ' + reservationModel!.orderNumber.toString(),
+                              '# ' + order!.uuid.toString(),
                               style: TextStyle(
                                   fontSize: height * 0.02,
                                   color: Colors.black45),
@@ -97,7 +99,7 @@ class ReservationDetails extends StatelessWidget {
                             ),
                             Spacer(),
                             Text(
-                              reservationModel!.clientName!,
+                              order!.client!.name!,
                               style: TextStyle(
                                   fontSize: height * 0.02,
                                   color: Colors.black45),
@@ -118,7 +120,7 @@ class ReservationDetails extends StatelessWidget {
                             ),
                             Spacer(),
                             Text(
-                              reservationModel!.clientPhone!,
+                              order!.client!.phone!,
                               style: TextStyle(
                                   fontSize: height * 0.02,
                                   color: Colors.black45),
@@ -196,7 +198,7 @@ class ReservationDetails extends StatelessWidget {
                             ),
                             Spacer(),
                             Text(
-                              reservationModel!.services!.length.toString(),
+                              order!.details!.length.toString(),
                               style: TextStyle(
                                   fontSize: height * 0.02,
                                   color: Colors.black45),
@@ -207,7 +209,7 @@ class ReservationDetails extends StatelessWidget {
                           height: 10,
                         ),
                         ListView.builder(
-                            itemCount: reservationModel!.services!.length,
+                            itemCount: order!.details!.length,
                             physics: NeverScrollableScrollPhysics(),
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
@@ -218,12 +220,12 @@ class ReservationDetails extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      reservationModel!.services![i].name!,
+                                      order!.details![i].itemable!.title!.en!,
                                       style: TextStyle(fontSize: height * 0.02),
                                     ),
                                     Spacer(),
                                     Text(
-                                      reservationModel!.services![i].price!
+                                      order!.details![i].itemable!.priceFrom
                                               .toString() +
                                           ' EGP',
                                       style: TextStyle(
@@ -261,7 +263,7 @@ class ReservationDetails extends StatelessWidget {
                           ),
                           Spacer(),
                           Text(
-                            reservationModel!.totalPayment! + ' EGP',
+                            order!.total.toString() + ' EGP',
                             style: TextStyle(
                                 fontSize: height * 0.02, color: Colors.black45),
                           )

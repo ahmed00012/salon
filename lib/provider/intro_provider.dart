@@ -15,6 +15,7 @@ ChangeNotifierProvider.autoDispose<IntroProvider>((ref) => IntroProvider());
 class IntroProvider extends ChangeNotifier {
   OnBoardingRepo onBoardingRepo = OnBoardingRepo();
   OnBoardingContent onBoardingContent = OnBoardingContent();
+  List<Intro> intro = [];
   int currentGender = 1;
   IntroProvider(){
 
@@ -40,11 +41,11 @@ class IntroProvider extends ChangeNotifier {
     currentGender = gender;
     if(gender == 1 ){
       LocalStorage.saveData(key: 'gender', value: 'man');
-      getIntroData(gender: gender);
+      intro = onBoardingContent.intro!.where((element) => element.type==1).toList();
     }
     else{
       LocalStorage.saveData(key: 'gender', value: 'woman');
-      getIntroData(gender: gender);
+      intro = onBoardingContent.intro!.where((element) => element.type==2).toList();
     }
 
   }

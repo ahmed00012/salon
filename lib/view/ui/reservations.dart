@@ -45,7 +45,7 @@ class Reservations extends ConsumerWidget {
           SizedBox(height: 10,),
 
           ListView.builder(
-              itemCount: controller.reservations.length,
+              itemCount: controller.orders.length,
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context,i){
@@ -54,7 +54,7 @@ class Reservations extends ConsumerWidget {
               child: InkWell(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (_)=>ReservationDetails(reservationModel: controller.reservations[i],)));
+                      builder: (_)=>ReservationDetails(order: controller.orders[i],)));
                 },
                 child: Container(
                   height: height*0.22,
@@ -84,12 +84,13 @@ class Reservations extends ConsumerWidget {
                                 ),
                               ),
                               SizedBox(width: 10,),
-                              Text(controller.reservations[i].clientName!,style: TextStyle(
+                              if(controller.orders[i].client!=null)
+                              Text(controller.orders[i].client!.name!,style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: height*0.02
                               ),),
                               Spacer(),
-                              Text(controller.reservations[i].totalPayment! + ' EGP',
+                              Text(controller.orders[i].total.toString() + ' EGP',
                                 style: TextStyle(color: Colors.black45),)
                             ],
                           ),
@@ -100,7 +101,7 @@ class Reservations extends ConsumerWidget {
                             SizedBox(width: 50,),
                             Icon(Icons.confirmation_num ,color: Colors.black45,),
                             SizedBox(width: 10,),
-                            Text('#'+controller.reservations[i].orderNumber.toString(),style: TextStyle(
+                            Text('#'+controller.orders[i].uuid.toString(),style: TextStyle(
                               color: Colors.black45,
                               fontSize: height*0.018
                             ),),
@@ -114,7 +115,7 @@ class Reservations extends ConsumerWidget {
                               SizedBox(width: 40,),
                               Icon(Icons.calendar_month_outlined ,color: Colors.black45,),
                               SizedBox(width: 10,),
-                              Text(controller.reservations[i].createdAt.toString(),style: TextStyle(
+                              Text(controller.orders[i].createdAt.toString(),style: TextStyle(
                                   color: Colors.black45,
                                   fontSize: height*0.018
                               ),),
@@ -124,7 +125,8 @@ class Reservations extends ConsumerWidget {
                                   fontSize: height*0.018
                               ),),
                               SizedBox(width: 10,),
-                              Text(controller.reservations[i].services!.length.toString(),style: TextStyle(
+                              if(controller.orders[i].details!=null)
+                              Text(controller.orders[i].details!.length.toString(),style: TextStyle(
                                   color: Colors.black45,
                                   fontSize: height*0.018
                               ),),
@@ -136,51 +138,34 @@ class Reservations extends ConsumerWidget {
                        Container(height: 1,
                        width: width,
                        color: Colors.black12,),
-                        Row(
-                          children: [
-                             Expanded(
-                               child: Container(
-                                height: height*0.06,
 
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10)
-                                  )
-                                ),
-                                 child: Center(
-                                   child: Text(
-                                     'Reject',
-                                     style: TextStyle(
-                                         fontSize: height*0.02),
-                                   ),
-                                 ),
-                            ),
 
-                             ),
-                            Expanded(
-                               child: Container(
-                                height: height*0.06,
+                  InkWell(
+                    onTap: (){
+                      controller.cancelOrder(controller.orders[i].id!);
+                    },
+                    child: Container(
+                                  height: height*0.06,
+                                  width: width,
 
-                                decoration: BoxDecoration(
-                                  color: Constants.mainColor2,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
                                     borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(10)
+                                      bottomLeft: Radius.circular(10)
                                     )
-                                ),
-                                 child: Center(
-                                   child: Text(
-                                     'Accept',
-                                     style: TextStyle(color: Colors.white,
-                                     fontSize: height*0.02),
+                                  ),
+                                   child: Center(
+                                     child: Text(
+                                       'Reject',
+                                       style: TextStyle(
+                                           fontSize: height*0.02),
+                                     ),
                                    ),
-                                 ),
-                            ),
-                             ),
+                              ),
+                  ),
 
-                          ],
-                        ),
-                      ],
+
+                    ]
                     ),
                   ),
                 ),

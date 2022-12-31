@@ -1,5 +1,7 @@
 
 import 'package:beauty_center/view/ui/choose_tybe.dart';
+import 'package:beauty_center/view/ui/home_screen.dart';
+import 'package:beauty_center/view/widgets/bottom_nav.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,7 +37,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'ZCOOLXiaoWei',
       ),
-      home:  const ChooseTypeScreen(),
+      home:  LocalStorage.getData(key: 'token')==null?
+      ChooseTypeScreen():BottomNavBar(),
     );
   }
 }

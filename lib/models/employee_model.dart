@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:beauty_center/models/reservation_model.dart';
+import 'package:beauty_center/models/order_model.dart';
+
 import 'package:flutter/material.dart';
 
 import 'categories0_model.dart';
@@ -19,7 +20,7 @@ class EmployeeModel{
   List<CategoriesModel0>? categories;
   List<String> ? services;
   List<String> ?holidays;
-  List<ReservationModel>? reservations;
+  List<OrderModel>? orders;
   List<EmployeeTime>? times;
   bool? workOut;
   int? imageLength;
@@ -28,7 +29,7 @@ class EmployeeModel{
 
 
   EmployeeModel({this.name,this.phone,this.availableTo,this.availableFrom,
-  this.categories,this.canWorkInHome,this.holidays,this.photo,this.workImages,this.reservations,
+  this.categories,this.canWorkInHome,this.holidays,this.photo,this.workImages,this.orders,
     this.image,this.times,this.services,this.workOut,this.imageLength,this.servicesModel,this.stored});
 
   Map<String, dynamic> toJson() {

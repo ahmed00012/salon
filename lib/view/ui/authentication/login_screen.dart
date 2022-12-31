@@ -40,14 +40,14 @@ class LoginScreen extends ConsumerWidget {
         backgroundColor: Colors.black.withOpacity(0.6),
         body: StatefulBuilder(
           builder: (context,setState) {
-            Future.delayed(Duration(milliseconds: 500), () {
+            Future.delayed(Duration(milliseconds: 300), () {
               setState(() {
-                animatedHeight = height * 0.08;
-                animatedHeightContainer = height * 0.6;
+                animatedHeight = height * 0.05;
+                animatedHeightContainer = height * 0.65;
               });
             });
 
-            Future.delayed(Duration(seconds: 2), () {
+            Future.delayed(Duration(seconds: 1), () {
               setState(() {
                 widget = Image.asset(
                   'assets/images/FullLogo-removebg-preview.png',
@@ -66,7 +66,7 @@ class LoginScreen extends ConsumerWidget {
                         topRight: Radius.circular(40),
                         topLeft: Radius.circular(40),
                       )),
-                  duration: Duration(seconds: 2),
+                  duration: Duration(seconds: 1),
                   curve:Curves.easeIn,
                   child: Column(
                     children: [
@@ -84,11 +84,35 @@ class LoginScreen extends ConsumerWidget {
                       SizedBox(
                         height: 40,
                       ),
-                      DefaultTextField(label: 'Phone',icon: Icons.phone,number: true),
+                      DefaultTextField(
+                          controller: controller.phoneController,
+                          label: 'Phone',
+                          validator: (value){
+                            if(value!.length<6){
+                              return 'wrong phone';
+                            }
+                            if(value.isEmpty){
+                              return 'Field Required';
+                            }
+                          },
+
+                          icon: Icons.phone,number: true),
                       SizedBox(
                         height: 25,
                       ),
-                      DefaultTextField(label: 'Password',icon: Icons.security),
+                      DefaultTextField(
+                          controller: controller.passwordController,
+                          password: true,
+                          validator: (value){
+                            if(value!.length<6){
+                              return 'wrong password';
+                            }
+                            if(value.isEmpty){
+                              return 'Field Required';
+                            }
+                          },
+                          label: 'Password',
+                          icon: Icons.security),
                       SizedBox(
                         height: 35,
                       ),
@@ -112,8 +136,9 @@ class LoginScreen extends ConsumerWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => CenterInfo()));
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (_) => CenterInfo()));
+                          controller.login(context);
                         },
                         child: Container(
                           height: height*0.07,

@@ -1,5 +1,6 @@
 
 import 'package:beauty_center/constants.dart';
+import 'package:beauty_center/local_storage.dart';
 import 'package:beauty_center/provider/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,56 +24,68 @@ class HomeScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Text(
-                'Salon Magdy',
-                style: TextStyle(
-                    fontSize: height * 0.035, fontWeight: FontWeight.bold),
+        Container(
+          height: height*0.2,
+          width: width,
+          color: Constants.mainColor2,
+          child: Column(
+            children: [
+               Align(
+                 alignment: Alignment.centerLeft,
+                 child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Text(
+                    'Salon '+ LocalStorage.getData(key: 'titleEn'),
+                    style: TextStyle(
+                        fontSize: height * 0.035, fontWeight: FontWeight.bold,color: Colors.white),
+                  ),
               ),
-            ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-           children: [
-             InkWell(
-                 onTap: (){
-                   controller.setDate(DateTime(controller.dateTime.year,controller.dateTime.month,controller.dateTime.day-1));
-                 },
-                 child: Icon(Icons.arrow_back_ios,size: 30,)),
-             InkWell(
-               onTap: (){
-                 showDatePicker(context: context,
-                   initialDate: DateTime.now(),
-                   firstDate: DateTime(DateTime.now().year, 1, 1),
-                   lastDate: DateTime(DateTime.now().year+5, 12, 31),
-                   builder: (context, child) {
-                     return Theme(
-                       data: Theme.of(context).copyWith(
-                         colorScheme: ColorScheme.light(
-                           primary: Constants.mainColor2,
-                         ),
-                       ),
-                       child: child!,
-                     );
-                   },
-                 ).then((value) {
-                   if(value!=null){
-                     controller.setDate(value);
-                   }
-                 });
-               },
-               child: Text(controller.date,
-                 style: TextStyle(
-                     fontSize: height * 0.035, fontWeight: FontWeight.bold),
                ),
-             ),
-             InkWell(
-                 onTap: (){
-                   controller.setDate(DateTime(controller.dateTime.year,controller.dateTime.month,controller.dateTime.day-1));
-                 },
-                 child: Icon(Icons.arrow_forward_ios,size: 30,)),
-           ],
-         ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                      onTap: (){
+                        controller.setDate(DateTime(controller.dateTime.year,controller.dateTime.month,controller.dateTime.day-1));
+                      },
+                      child: Icon(Icons.arrow_back_ios,size: 30,color: Colors.white,)),
+                  InkWell(
+                    onTap: (){
+                      showDatePicker(context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(DateTime.now().year, 1, 1),
+                        lastDate: DateTime(DateTime.now().year+5, 12, 31),
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: Constants.mainColor2,
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
+                      ).then((value) {
+                        if(value!=null){
+                          controller.setDate(value);
+                        }
+                      });
+                    },
+                    child: Text(controller.date,
+                      style: TextStyle(
+                          fontSize: height * 0.035, fontWeight: FontWeight.bold,color: Colors.white,),
+                    ),
+                  ),
+                  InkWell(
+                      onTap: (){
+                        controller.setDate(DateTime(controller.dateTime.year,controller.dateTime.month,controller.dateTime.day-1));
+                      },
+                      child: Icon(Icons.arrow_forward_ios,size: 30,color: Colors.white,)),
+                ],
+              ),
+            ],
+          ),
+        ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
@@ -80,19 +93,19 @@ class HomeScreen extends ConsumerWidget {
                 width: width,
                 child: Center(
                   child: ListView.builder(
-                      itemCount: controller.employees.length+1,
+                      itemCount: controller.employeeSchedule.length+1,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, i) {
                         return Container(
                           width: width * 0.2,
                           child: ListView.builder(
-                              itemCount: controller.timeOpening.length,
+                              itemCount: controller.timeOpening.length+1,
                               physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, j) {
                                 return Container(
                                   width: width * 0.1,
-                                  height: j==0?height * 0.1:height*0.05,
+                                  height: j==0?height * 0.15:height*0.05,
                                   decoration: BoxDecoration(
                                       border:
                                           Border.all(color: Colors.black12)),
@@ -102,35 +115,40 @@ class HomeScreen extends ConsumerWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Container(
-                                              height: 50,
-                                              width: 50,
+                                              height: 60,
+                                              width: 60,
                                               decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: Colors.lightGreen,
-                                                      width: 3),
+
                                                   image: DecorationImage(
                                                       fit: BoxFit.fill,
-                                                      image: AssetImage(
+                                                      image: NetworkImage(
                                                           controller
-                                                              .employees[i-1]
+                                                              .employeeSchedule[i-1]
                                                               .image!))),
                                             ),
-                                            Text(controller.employees[i-1].name!),
+                                            SizedBox(height: 5,),
+                                            Text(controller.employeeSchedule[i-1].name!,style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: height*0.02
+                                            ),),
                                           ],
                                         )
                                  : Center(
                                    child: i==0?
-                                   Text(localizations.formatTimeOfDay(controller.timeOpening[j]),
+                                   Text(controller.timeOpening[j-1],
                                    style: TextStyle(
                                      color:
-                                     controller.timeOpening[j].hour==DateTime.now().hour?
+                                     controller.timeOpening[j-1]=='${DateTime.now().hour} : ${DateTime.now().minute}'?
                                      Constants.mainColor2:Colors.black
                                    ) ,):
-                                   controller.employees[i-1].times![j].free!?
+                                   !controller.employeeSchedule[i-1].timeWorking!.contains(controller.timeOpening[j-1])?
+                                   Container(color: Colors.grey[200],):
+                                   controller.employeeSchedule[i-1].availableTimes!.contains(controller.timeOpening[j-1])?
                                        InkWell(
                                          onTap: (){
-                                           controller.makeReservation(context,i-1,j);
+                                           // controller.makeReservation(context,i-1,j);
+
 
                                          },
                                            child: Container(color: Colors.white,)):

@@ -73,10 +73,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       physics: const BouncingScrollPhysics(),
                       controller: _controller,
                       onPageChanged: (value) => setState(() => _currentPage = value),
-                      itemCount: controller.onBoardingContent.intro!.length,
+                      itemCount: controller.intro.length,
                       itemBuilder: (context, i) {
                         return Image.network(
-                          controller.onBoardingContent.intro![i].image!,
+                          controller.intro[i].image!,
                           width: width,
                           height: height * .6,
                           fit: BoxFit.cover,
@@ -109,7 +109,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: (height >= 840) ? 60 : 30,
                       ),
                       Text(
-                        controller.onBoardingContent.intro![_currentPage].title!.en!,
+                        controller.intro[_currentPage].title!.en!,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                         //  fontFamily: "Mulish",
@@ -119,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       const SizedBox(height: 15),
                       Text(
-                        controller.onBoardingContent.intro![_currentPage].description!.en!,
+                        controller.intro[_currentPage].description!.en!,
                         style: TextStyle(
                         //  fontFamily: "Mulish",
                           //fontWeight: FontWeight.w100,
@@ -131,13 +131,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                        controller.onBoardingContent.intro!.length,
+                        controller.intro.length,
                               (int index) => _buildDots(
                             index: index,
                           ),
                         ),
                       ),
-                      _currentPage + 1 == controller.onBoardingContent.intro!.length
+                      _currentPage + 1 == controller.intro.length
                           ? Padding(
                         padding: const EdgeInsets.all(30),
                         child: InkWell(
