@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:beauty_center/constants.dart';
+import 'package:beauty_center/local_storage.dart';
 import 'package:beauty_center/models/salon_info_confirm.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
@@ -15,6 +16,7 @@ abstract class SalonInfoRepository{
   Future getCities(int country);
   Future getAreas(int city);
   uploadImageToServer(SalonInfoRegistration salonInfo);
+  Future getProviderInfo();
 }
 
 class SalonInfoRepo extends SalonInfoRepository{
@@ -171,5 +173,22 @@ if(salonInfo.workImages!=null)
 
 
   }
+
+  @override
+  Future getProviderInfo() async{
+
+    var response = await http.get(Constants.POVIDERDATA,headers: {
+      'Authorization':LocalStorage.getData(key: 'token')
+    });
+    print(response.body);
+    if(response.statusCode==200){
+      var data = json.decode(response.body);
+      return data['data'];
+    }
+    else{
+      return false;
+    }
+  }
+
 
 }

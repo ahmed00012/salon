@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.beauty_center">
+    package="com.onStream.salon">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 

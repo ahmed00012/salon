@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 
 abstract class AuthRepository{
   Future login(Map userData);
+  verify(Map otp);
+  forgetPassword(Map phone);
 
 }
 
@@ -30,6 +32,37 @@ class AuthRepo extends AuthRepository{
       return false;
     }
 
+  }
+
+  @override
+  Future verify(Map otp) async {
+    try{
+      var response = await http.post(Constants.VERIFY,body: otp);
+      var data =json.decode(response.body);
+      if(response.statusCode==200)
+      {
+        return data['data'];}
+      else return data['msg'];
+    }
+    catch(e){
+      return throw e.toString();
+    }
+  }
+
+  @override
+  Future forgetPassword(Map phone) async {
+    try{
+      var response = await http.post(Constants.FORGETPASSWORD,body: phone);
+      var data =json.decode(response.body);
+      print(data);
+      if(response.statusCode==200)
+      {
+        return data['data'];}
+      else return 'not valid';
+    }
+    catch(e){
+      return throw false;
+    }
   }
 
 }

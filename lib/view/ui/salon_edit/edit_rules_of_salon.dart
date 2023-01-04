@@ -1,13 +1,21 @@
 import 'package:beauty_center/constants.dart';
 import 'package:beauty_center/provider/package_provider.dart';
+import 'package:beauty_center/view/ui/salon_registeration/good_job.dart';
+import 'package:beauty_center/view/widgets/default_text_field.dart';
+import 'package:beauty_center/view/widgets/employee_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../provider/center_registration_provider2.dart';
+import '../../../provider/employee_provider.dart';
+import '../../widgets/add_works_picture.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/horizontal_progress.dart';
+import '../../widgets/time_picker_theme.dart';
 import '../../widgets/vertical_progress.dart';
 
-class RulesOfSalon extends ConsumerWidget {
-  RulesOfSalon({Key? key}) : super(key: key);
+class EditRulesOfSalon extends ConsumerWidget {
+  EditRulesOfSalon({Key? key}) : super(key: key);
 
 
 

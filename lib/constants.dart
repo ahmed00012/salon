@@ -27,6 +27,9 @@ class Constants{
  static Uri GETORDERS = Uri.parse(BASE +'provider/orders');
  static Uri SCHEDULE = Uri.parse(BASE +'getEmployeesAvailableTimes');
  static Uri LOGIN = Uri.parse(BASE +'auth/login');
+ static Uri VERIFY = Uri.parse(BASE +'auth/verify');
+ static Uri FORGETPASSWORD = Uri.parse(BASE +'auth/forgetPassword');
+ static Uri POVIDERDATA = Uri.parse(BASE +'providerData');
 
 
 

@@ -11,7 +11,9 @@ import '../../../constants.dart';
 import '../../../provider./auth_provider.dart';
 
 class OTPScreen extends ConsumerWidget {
-   OTPScreen({Key? key,this.gender}) : super(key: key);
+   OTPScreen({Key? key,this.phoneNumber,this.forgetPassword}) : super(key: key);
+   String? phoneNumber;
+   bool? forgetPassword;
 
   int? gender;
 
@@ -26,7 +28,7 @@ class OTPScreen extends ConsumerWidget {
       height: height,
       decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(gender == 1
+            image: AssetImage(controller.getGender() == 'woman'
                 ? 'assets/images/beauty-portrait-ginger-woman-with-long-hair-posing-with-green-leaf.jpg'
                 : 'assets/images/handsome-man-barbershop-shaving-beard.jpg'),
             fit: BoxFit.cover,
@@ -116,8 +118,9 @@ class OTPScreen extends ConsumerWidget {
 
                     InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (_)=>ResetPassword()));
-
+                        // Navigator.push(context, MaterialPageRoute(builder: (_)=>ResetPassword()));
+                        if(forgetPassword!)
+                        controller.finishOtpRegister(context,phoneNumber!);
                       },
                       child: Container(
                         height:height*0.07,

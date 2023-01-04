@@ -1,4 +1,4 @@
-package com.example.beauty_center
+package com.onStream.salon
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -98,6 +98,7 @@ class ReservationDetails extends StatelessWidget {
                               style: TextStyle(fontSize: height * 0.02),
                             ),
                             Spacer(),
+                            if(order!.client!=null)
                             Text(
                               order!.client!.name!,
                               style: TextStyle(
@@ -119,6 +120,7 @@ class ReservationDetails extends StatelessWidget {
                               style: TextStyle(fontSize: height * 0.02),
                             ),
                             Spacer(),
+                            if(order!.client!=null)
                             Text(
                               order!.client!.phone!,
                               style: TextStyle(
@@ -197,6 +199,7 @@ class ReservationDetails extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             ),
                             Spacer(),
+                            if(order!.details!=null)
                             Text(
                               order!.details!.length.toString(),
                               style: TextStyle(
@@ -208,6 +211,7 @@ class ReservationDetails extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
+                        if(order!.details!=null)
                         ListView.builder(
                             itemCount: order!.details!.length,
                             physics: NeverScrollableScrollPhysics(),

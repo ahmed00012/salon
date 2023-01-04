@@ -3,6 +3,9 @@
 import 'package:beauty_center/constants.dart';
 import 'package:beauty_center/provider/reservation_provider.dart';
 import 'package:beauty_center/provider/side_menu_provider.dart';
+import 'package:beauty_center/repository/salon_info_repository.dart';
+import 'package:beauty_center/view/ui/salon_edit/center_info_edit.dart';
+import 'package:beauty_center/view/ui/salon_registeration/center_info.dart';
 import 'package:beauty_center/view/widgets/side_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,8 +57,14 @@ class SideMenu extends ConsumerWidget {
          ),
          children: [
 
-           SideMenuItem(title: 'Salon Info',icon: 'assets/images/resume.png',),
+           InkWell(
+               onTap: (){
+                 Navigator.push(context,MaterialPageRoute(builder: (_)=>CenterInfoEdit()));
+               },
+               child: SideMenuItem(title: 'Salon Info',icon: 'assets/images/resume.png',)),
            SideMenuItem(title: 'Working Hours',icon: 'assets/images/chronometer.png',),
+           SideMenuItem(title: 'Certifications',icon: 'assets/images/certification.png',),
+           SideMenuItem(title: 'Work Samples',icon: 'assets/images/add-image.png',),
            SideMenuItem(title: 'Services',icon: 'assets/images/comb.png',),
            SideMenuItem(title: 'Employees',icon: 'assets/images/skills.png',),
            SideMenuItem(title: 'Packages',icon: 'assets/images/gift-card.png',),

@@ -31,7 +31,7 @@ class LoginScreen extends ConsumerWidget {
       height: height,
       decoration: BoxDecoration(
           image: DecorationImage(
-        image: AssetImage(gender == 1
+        image: AssetImage(controller.getGender() == 'woman'
             ? 'assets/images/beauty-portrait-ginger-woman-with-long-hair-posing-with-green-leaf.jpg'
             : 'assets/images/handsome-man-barbershop-shaving-beard.jpg'),
         fit: BoxFit.cover,
@@ -163,9 +163,7 @@ class LoginScreen extends ConsumerWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => SignUpScreen(
-                                        gender: gender,
-                                      )));
+                                  builder: (_) => CenterInfo()));
                         },
                         child: Text(
                           'Create New Account',

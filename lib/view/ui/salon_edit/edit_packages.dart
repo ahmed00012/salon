@@ -8,8 +8,8 @@ import '../../widgets/app_bar.dart';
 import '../../widgets/horizontal_progress.dart';
 import '../../widgets/vertical_progress.dart';
 
-class Packages extends ConsumerWidget {
-  Packages({Key? key}) : super(key: key);
+class PackagesEdit extends ConsumerWidget {
+  PackagesEdit({Key? key}) : super(key: key);
 
 
 
@@ -77,10 +77,10 @@ class Packages extends ConsumerWidget {
                                     onTap: (){
                                       if(!controller.packages.last.saved!)
                                         controller.storePackage(controller.packages.last).then((value) {
-                                          Navigator.push(context, MaterialPageRoute(builder: (_)=>RulesOfSalon()));
+                                          Navigator.pop(context);
                                         });
                                       else
-                                        Navigator.push(context, MaterialPageRoute(builder: (_)=>RulesOfSalon()));
+                                        Navigator.pop(context);
                                     },
                                     child: Container(
                                       height: height*0.06,

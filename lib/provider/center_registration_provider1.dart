@@ -21,6 +21,7 @@ import '../main.dart';
 import '../models/areas_model.dart';
 import '../models/countries_model.dart';
 import '../models/opening_day_model.dart';
+import '../models/provider_info_model.dart';
 import '../repository/auth_repository.dart';
 import '../view/ui/salon_registeration/choose_categories.dart';
 import '../view/widgets/time_picker_theme.dart';
@@ -66,12 +67,13 @@ TimeOfDay close = TimeOfDay(hour: 21, minute: 0);
   TextEditingController descriptionArController = TextEditingController();
   TextEditingController descriptionEnController = TextEditingController();
   TextEditingController yearOfExperience = TextEditingController();
+  ProviderInfoModel providerInfoModel = ProviderInfoModel();
 
 
   RegisterProvider(){
     addMarker(LatLng(30.044611387091066, 31.231687873506743));
-    getOpeningTimes();
     getCountries();
+    getProviderInfo();
 
   }
 
@@ -207,46 +209,7 @@ setOpenAndCloseHours(TimeOfDay time,bool opening){
 
 }
 
-getOpeningTimes(){
-    days = [
-      OpeningDayModel(
-        id: 1,
-        day: 'Sat',
-        choosed: false
-      ),
-      OpeningDayModel(
-          id: 2,
-          day: 'Sun',
-          choosed: false
-      ),
-      OpeningDayModel(
-          id: 3,
-          day: 'Mon',
-          choosed: false
-      ),
-      OpeningDayModel(
-          id: 4,
-          day: 'Tue',
-          choosed: false
-      ),
-      OpeningDayModel(
-          id: 5,
-          day: 'Wed',
-          choosed: false
-      ),
-      OpeningDayModel(
-          id: 6,
-          day: 'Thu',
-          choosed: false
-      ),
-      OpeningDayModel(
-          id: 7,
-          day: 'Fri',
-          choosed: false
-      ),
-    ];
-    notifyListeners();
-}
+
 
 
 
@@ -422,6 +385,17 @@ if(data!=false) {
     }
 
       notifyListeners();
+  }
+  
+  
+ Future getProviderInfo()async{
+    if(LocalStorage.getData(key: 'token')!=null){
+      var data = await salonInfoRepo.getProviderInfo();
+      if(data!=false){
+        providerInfoModel = ProviderInfoModel.fromJson(data);
+      }
+
+    }
   }
 
 

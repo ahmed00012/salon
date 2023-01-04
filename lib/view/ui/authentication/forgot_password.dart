@@ -11,21 +11,22 @@ import '../../../provider./auth_provider.dart';
 import '../../widgets/default_text_field.dart';
 
 class ForgotPasswordScreen extends ConsumerWidget {
-   ForgotPasswordScreen({Key? key,this.gender}) : super(key: key);
-
-  int? gender;
+   ForgotPasswordScreen({Key? key}) : super(key: key);
+   final _formKey = GlobalKey<FormState>();
+   FocusNode myFocusNode = new FocusNode();
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     double height = MediaQuery.of(context).size.height<600?800:MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     final controller = ref.watch(authFuture);
+
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(gender == 1
+            image: AssetImage(controller.getGender() == 'woman'
                 ? 'assets/images/beauty-portrait-ginger-woman-with-long-hair-posing-with-green-leaf.jpg'
                 : 'assets/images/handsome-man-barbershop-shaving-beard.jpg'),
             fit: BoxFit.cover,
@@ -76,7 +77,49 @@ class ForgotPasswordScreen extends ConsumerWidget {
                     SizedBox(
                       height: 50,
                     ),
-                    DefaultTextField(label: 'Phone',icon: Icons.phone),
+                    Form(
+                      key: _formKey,
+                      child: Container(
+                        width: width*0.8,
+                        child: TextFormField(
+                          controller: controller.phoneForgetPasswordController,
+                          cursorColor: Constants.mainColor2,
+                          keyboardType:TextInputType.number,
+                          focusNode: myFocusNode,
+                          decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(8)),
+                                borderSide: BorderSide(
+                                    width: 1, color: Colors.black),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(8)),
+                                borderSide: BorderSide(
+                                    width: 1, color: Constants.mainColor2),
+                              ),
+
+
+                              labelText: 'Phone',
+                              labelStyle: TextStyle(color:myFocusNode.hasFocus ?
+                              Constants.mainColor2:Colors.black45,
+
+                                  fontWeight: FontWeight.bold,fontSize: 14),
+
+                              prefixIcon: Icon(Icons.phone,
+                                  color: Constants.mainColor2)
+                          ),
+
+                          validator: (value){
+                            if(value!.isEmpty)
+                              return 'Please Enter Phone Number';
+                          },
+                        ),
+                      )
+                    ),
                     SizedBox(
                       height: 70,
                     ),
@@ -85,8 +128,11 @@ class ForgotPasswordScreen extends ConsumerWidget {
 
                     InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => OTPScreen()));
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (_) => OTPScreen()));
+                        if(_formKey.currentState!.validate()){
+                          controller.forgetPassword(context);
+                        }
                       },
                       child: Container(
                         height: height*0.07,

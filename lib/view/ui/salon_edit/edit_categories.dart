@@ -1,20 +1,13 @@
 import 'package:beauty_center/constants.dart';
-import 'package:beauty_center/models/another_category_model.dart';
-import 'package:beauty_center/view/widgets/another_category.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../provider/center_registration_provider2.dart';
-
-import '../../widgets/add_works_picture.dart';
 import '../../widgets/app_bar.dart';
-import '../../widgets/default_text_field.dart';
 import '../../widgets/horizontal_progress.dart';
-import '../../widgets/time_picker_theme.dart';
 import '../../widgets/vertical_progress.dart';
 
-class ChooseCategories extends ConsumerWidget {
-  const ChooseCategories({Key? key}) : super(key: key);
+class EditCategories extends ConsumerWidget {
+  const EditCategories({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
