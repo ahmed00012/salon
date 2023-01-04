@@ -61,7 +61,6 @@ class EditProvider extends ChangeNotifier {
   TextEditingController titleEnController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController anotherPhoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   TextEditingController streetController = TextEditingController();
   TextEditingController descriptionArController = TextEditingController();
   TextEditingController descriptionEnController = TextEditingController();
@@ -307,9 +306,21 @@ class EditProvider extends ChangeNotifier {
       var data = await salonInfoRepo.getProviderInfo();
       if(data!=false){
         providerInfoModel = ProviderInfoModel.fromJson(data);
+        titleArController = TextEditingController(text:  providerInfoModel.title!.ar);
+        titleEnController = TextEditingController(text:  providerInfoModel.title!.en);
+        phoneController = TextEditingController(text:  providerInfoModel.phone);
+        anotherPhoneController = TextEditingController(text:  providerInfoModel.phone2);
+        streetController = TextEditingController(text:  providerInfoModel.streetName);
+        descriptionArController = TextEditingController(text:  providerInfoModel.description!.ar);
+        descriptionEnController = TextEditingController(text:  providerInfoModel.description!.en);
+        addMarker(LatLng(double.parse(providerInfoModel.lat!), double.parse(providerInfoModel.lng!)));
+        countryValue = providerInfoModel.countryId;
+        cityValue = providerInfoModel.cityId;
+        areaValue = providerInfoModel.areaId;
       }
 
     }
+    notifyListeners();
   }
 
 

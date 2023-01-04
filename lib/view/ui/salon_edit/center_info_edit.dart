@@ -21,11 +21,9 @@ class CenterInfoEdit extends ConsumerWidget {
   FocusNode titleArabicFocusNode = new FocusNode();
   FocusNode phone1FocusNode = new FocusNode();
   FocusNode phone2FocusNode = new FocusNode();
-  FocusNode passwordFocusNode = new FocusNode();
   FocusNode streetFocusNode = new FocusNode();
   FocusNode desArFocusNode = new FocusNode();
   FocusNode desEnFocusNode = new FocusNode();
-  bool seePassword= false;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -206,66 +204,21 @@ class CenterInfoEdit extends ConsumerWidget {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: width*0.9,
-                        child: TextFormField(
-                          controller: controller.passwordController,
-                          focusNode: passwordFocusNode,
-                          cursorColor: Constants.mainColor2,
-                          obscureText: !seePassword,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            border:const OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(
-                                  width: 1, color: Colors.black),
-                            ),
-                            focusedBorder:const OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(
-                                  width: 1, color: Constants.mainColor2),
-                            ),
-                            labelText: 'Password',
-                            labelStyle: TextStyle(color:passwordFocusNode.hasFocus ?
-                            Constants.mainColor2:Colors.black45,
-                                fontWeight: FontWeight.bold,fontSize: 14),
-                              suffixIcon: InkWell(
-                                onTap: (){
-                                  setState(() {
-                                    seePassword=!seePassword;
-                                  });
-                                },
-                                child: Icon(
-                                  seePassword?
-                                  Icons.visibility_off:
-                                  Icons.remove_red_eye,
-                                  color: Colors.black38,
-                                ),
-                              ),
-                            prefixIcon:Icon(Icons.security,
-                                color: Constants.mainColor2),
-                          ),
 
-                          validator: (val){
-                            if (val!.length<6)
-                              return 'Short Password';
-                          },
-                        ),
-                      ),
                       SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        'COUNTRY',
-                        style: TextStyle(
-                            color: Colors.black26,
-                            fontWeight: FontWeight.bold),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            'COUNTRY',
+                            style: TextStyle(
+                                color: Colors.black26,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -328,11 +281,17 @@ class CenterInfoEdit extends ConsumerWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        'CITY',
-                        style: TextStyle(
-                            color: Colors.black26,
-                            fontWeight: FontWeight.bold),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            'CITY',
+                            style: TextStyle(
+                                color: Colors.black26,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -390,11 +349,17 @@ class CenterInfoEdit extends ConsumerWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        'AREA',
-                        style: TextStyle(
-                            color: Colors.black26,
-                            fontWeight: FontWeight.bold),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            'AREA',
+                            style: TextStyle(
+                                color: Colors.black26,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: 10,
