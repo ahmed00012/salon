@@ -1,8 +1,6 @@
 
 import 'dart:async';
 import 'dart:io';
-
-import 'package:beauty_center/models/salon_info_confirm.dart';
 import 'package:beauty_center/repository/salon_info_repository.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,17 +11,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
-
 import '../constants.dart';
 import '../local_storage.dart';
 import '../main.dart';
 import '../models/areas_model.dart';
+import '../models/categories_model.dart';
 import '../models/countries_model.dart';
 import '../models/opening_day_model.dart';
 import '../models/provider_info_model.dart';
-import '../view/ui/salon_registeration/choose_categories.dart';
+import '../models/provider_update_model.dart';
 import '../view/widgets/time_picker_theme.dart';
+
 
 
 final editInfoFuture =
@@ -52,6 +50,9 @@ class EditProvider extends ChangeNotifier {
   File? certification;
   List<File> images = [];
   int imageLength = 1;
+  String? currentSalonLogo;
+  String? currentCertification;
+  String? currentLicence;
 
   List<OpeningDayModel> days = [];
   List<String> holidays = [];
@@ -302,6 +303,7 @@ class EditProvider extends ChangeNotifier {
 
 
   Future getProviderInfo()async{
+
     if(LocalStorage.getData(key: 'token')!=null){
       var data = await salonInfoRepo.getProviderInfo();
       if(data!=false){
@@ -317,12 +319,67 @@ class EditProvider extends ChangeNotifier {
         countryValue = providerInfoModel.countryId;
         cityValue = providerInfoModel.cityId;
         areaValue = providerInfoModel.areaId;
+        currentSalonLogo = providerInfoModel.image;
+        open = TimeOfDay(hour: int.parse(providerInfoModel.openAt!.substring(0,2)),
+            minute: int.parse(providerInfoModel.openAt!.substring(3,4)));
+        close = TimeOfDay(hour: int.parse(providerInfoModel.closeAt!.substring(0,2)),
+            minute: int.parse(providerInfoModel.closeAt!.substring(3,4)));
+        currentCertification = providerInfoModel.certificateImage;
+        currentLicence = providerInfoModel.licenseImage;
+
+       if( providerInfoModel.holidays!=null){
+         providerInfoModel.holidays!.forEach((element) { 
+           holidays.add(element.replaceAll(' ', ''));
+         });
+
+       }
+
       }
 
     }
     notifyListeners();
   }
 
+  Future updateProviderInfo(BuildContext context)async{
+    if(pickedSalonLogo!=null){
+      salonImage = await getImageFileFromAssets(pickedSalonLogo!);
+    }
+    ProviderInfoUpdateModel provider = ProviderInfoUpdateModel(
+    title: TitleModel(
+      en: titleEnController.text,
+      ar: titleArController.text
+    ),
+    phone: phoneController.text,
+    phone2:  anotherPhoneController.text,
+    streetName: streetController.text,
+    description: TitleModel(
+      ar: descriptionArController.text,
+      en: descriptionEnController.text
+    ),
+    lat:markers[0].position.latitude.toString(),
+    lng:markers[0].position.longitude.toString(),
+    startExperience: '1997',
+    countryId: countryValue.toString(),
+    cityId: cityValue.toString(),
+    areaId: areaValue.toString(),
+    open: providerInfoModel.openAt,
+    close: providerInfoModel.closeAt,
+    type:  LocalStorage.getData(key: 'gender')=='woman'?'2':'1',
+    image: salonImage,
+    holidays: holidays,
+    certification: certification,
+    licence: licence
+
+  );
+      var data = await salonInfoRepo.updateProviderInfo(provider);
+      if(data!=false){
+     Navigator.pop(context);
+     displayToastMessage('Your Information Updated Successfully',false,context);
+      }
+
+
+    notifyListeners();
+  }
 
   void displayToastMessage(var toastMessage, bool alert,BuildContext context) {
     showTopSnackBar(
@@ -335,6 +392,7 @@ class EditProvider extends ChangeNotifier {
       CustomSnackBar.success(
         message:
         toastMessage,
+        backgroundColor: Constants.mainColor,
       ),
     );
   }

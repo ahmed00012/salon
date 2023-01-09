@@ -2,7 +2,7 @@
 
 class CategoriesModel {
   String? id;
-  Title? title;
+  TitleModel? title;
   int? isActive;
 
   int? order;
@@ -28,7 +28,7 @@ class CategoriesModel {
 
   CategoriesModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'] != null ? new Title.fromJson(json['title']) : null;
+    title = json['title'] != null ? new TitleModel.fromJson(json['title']) : null;
     isActive = json['is_active'];
 
     order = json['order'];
@@ -65,13 +65,13 @@ class CategoriesModel {
   }
 }
 
-class Title {
+class TitleModel {
   String? en;
   String? ar;
 
-  Title({this.en, this.ar});
+  TitleModel({this.en, this.ar});
 
-  Title.fromJson(Map<String, dynamic> json) {
+  TitleModel.fromJson(Map<String, dynamic> json) {
     en = json['en'];
     ar = json['ar'];
   }
@@ -86,7 +86,7 @@ class Title {
 
 class Services {
   String? id;
-  Title? title;
+  TitleModel? title;
   int? isActive;
   int? order;
   int? priceFrom;
@@ -113,7 +113,7 @@ class Services {
 
   Services.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'] != null ? new Title.fromJson(json['title']) : null;
+    title = json['title'] != null ? new TitleModel.fromJson(json['title']) : null;
     isActive = json['is_active'];
     order = json['order'];
     priceFrom = json['price_from'];

@@ -320,7 +320,7 @@ if(pickedSalonLogo!=null){
     );
 
 
-var data = await salonInfoRepo.uploadImageToServer(salon);
+var data = await salonInfoRepo.registerInfo(salon);
 
 print(data);
 if(data!=false) {

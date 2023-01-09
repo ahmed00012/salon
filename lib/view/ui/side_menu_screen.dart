@@ -5,6 +5,12 @@ import 'package:beauty_center/provider/reservation_provider.dart';
 import 'package:beauty_center/provider/side_menu_provider.dart';
 import 'package:beauty_center/repository/salon_info_repository.dart';
 import 'package:beauty_center/view/ui/salon_edit/center_info_edit.dart';
+import 'package:beauty_center/view/ui/salon_edit/documentations.dart';
+import 'package:beauty_center/view/ui/salon_edit/edit_categories.dart';
+import 'package:beauty_center/view/ui/salon_edit/edit_employees.dart';
+import 'package:beauty_center/view/ui/salon_edit/edit_packages.dart';
+import 'package:beauty_center/view/ui/salon_edit/edit_work_images.dart';
+import 'package:beauty_center/view/ui/salon_edit/time_opening_edit.dart';
 import 'package:beauty_center/view/ui/salon_registeration/center_info.dart';
 import 'package:beauty_center/view/widgets/side_menu_item.dart';
 import 'package:flutter/material.dart';
@@ -62,12 +68,44 @@ class SideMenu extends ConsumerWidget {
                  Navigator.push(context,MaterialPageRoute(builder: (_)=>CenterInfoEdit()));
                },
                child: SideMenuItem(title: 'Salon Info',icon: 'assets/images/resume.png',)),
-           SideMenuItem(title: 'Working Hours',icon: 'assets/images/chronometer.png',),
-           SideMenuItem(title: 'Certifications',icon: 'assets/images/certification.png',),
-           SideMenuItem(title: 'Work Samples',icon: 'assets/images/add-image.png',),
-           SideMenuItem(title: 'Services',icon: 'assets/images/comb.png',),
-           SideMenuItem(title: 'Employees',icon: 'assets/images/skills.png',),
-           SideMenuItem(title: 'Packages',icon: 'assets/images/gift-card.png',),
+           InkWell(
+               onTap: (){
+                 Navigator.push(context,MaterialPageRoute(builder: (_)=>TimeOpeningEdit()));
+               },
+               child: SideMenuItem(title: 'Working Hours',icon: 'assets/images/chronometer.png',)),
+
+
+           InkWell(
+               onTap: (){
+                 Navigator.push(context,MaterialPageRoute(builder: (_)=>EditDocumentations()));
+               },
+               child: SideMenuItem(title: 'Certifications',icon: 'assets/images/certification.png',)),
+           InkWell(
+               onTap: (){
+                 Navigator.push(context,MaterialPageRoute(builder: (_)=>EditWorkImages()));
+               },
+               child: SideMenuItem(title: 'Work Images',icon: 'assets/images/add-image.png',)),
+           // InkWell(
+           //     onTap: (){
+           //       Navigator.push(context,MaterialPageRoute(builder: (_)=>EditDocumentations()));
+           //     },
+           //     child: SideMenuItem(title: 'Work Samples',icon: 'assets/images/add-image.png',)),
+           InkWell(
+               onTap: (){
+                 Navigator.push(context,MaterialPageRoute(builder: (_)=>EditCategories()));
+               },
+               child: SideMenuItem(title: 'Services',icon: 'assets/images/comb.png',)),
+           InkWell(
+               onTap: (){
+                 Navigator.push(context,MaterialPageRoute(builder: (_)=>EmployeesEdit()));
+               },
+               child: SideMenuItem(title: 'Employees',icon: 'assets/images/skills.png',)),
+           InkWell(
+               onTap: (){
+                 Navigator.push(context,MaterialPageRoute(builder: (_)=>PackagesEdit()));
+               },
+               child: SideMenuItem(title: 'Packages',icon: 'assets/images/gift-card.png',)),
+
            SideMenuItem(title: 'Settings',icon: 'assets/images/gear.png',),
            SideMenuItem(title: 'Call us',icon: 'assets/images/customer-service.png',),
            SideMenuItem(title: 'Privacy',icon: 'assets/images/shield.png',),

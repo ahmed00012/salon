@@ -13,6 +13,7 @@ abstract class EmployeeRepository{
 
   Future storeEmployee(EmployeeModel employee);
   Future getServices();
+  Future getEmployees();
 
 }
 
@@ -111,4 +112,20 @@ class EmployeeRepo extends EmployeeRepository{
     else return false;
   }
 
+
+  @override
+  Future getEmployees() async{
+    var response = await http.get(Constants.GETEMPLOYEES,
+        headers: {
+          'Authorization':LocalStorage.getData(key: 'token'),
+        });
+
+    print(response.body);
+
+    if(response.statusCode==200){
+      var data =json.decode(response.body);
+      return data['data'];
+    }
+    else return false;
+  }
 }

@@ -95,7 +95,7 @@ class MakeReservation extends ConsumerWidget {
                   child: DefaultTextField(icon: Icons.phone,label: 'Client Phone',number: true,))),
           SizedBox(height: 20,),
           ListView.builder(
-              itemCount: controller.categories.length,
+              itemCount: 2,
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context,i){
@@ -113,18 +113,18 @@ class MakeReservation extends ConsumerWidget {
                           width: 1),
                     ),
                     child: ExpansionTile(
-                      title: Text(controller.categories[i].name!),
+                      title: Text(''),
                       iconColor: Constants.mainColor2,
                       textColor: Constants.mainColor2,
                       children: [
                         ListView.builder(
-                            itemCount: controller.categories[i].subcategory!.length,
+                            itemCount: 2,
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context,j){
                               return InkWell(
                                 onTap: (){
-                                  controller.chooseCategory(i,j);
+
                                 },
                                 child: Container(
                                     height: height*0.06,
@@ -134,16 +134,14 @@ class MakeReservation extends ConsumerWidget {
                                           padding:
                                           const EdgeInsets.only(left: 30),
                                           child: Checkbox(
-                                              value: controller.categories[i]
-                                                  .subcategory![j].choose,
+                                              value: true,
                                               activeColor:
                                               Constants.mainColor2,
                                               onChanged: (value) {
-                                                controller.chooseCategory(i,j);
+                                                // controller.chooseCategory(i,j);
                                               }),
                                         ),
-                                        Text(controller.categories[i]
-                                            .subcategory![j].name!,style: TextStyle(
+                                        Text('',style: TextStyle(
                                             fontSize: height*0.02
                                         ),),
                                       ],

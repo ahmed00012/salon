@@ -30,6 +30,11 @@ class Constants{
  static Uri VERIFY = Uri.parse(BASE +'auth/verify');
  static Uri FORGETPASSWORD = Uri.parse(BASE +'auth/forgetPassword');
  static Uri POVIDERDATA = Uri.parse(BASE +'providerData');
+ static Uri UPDATEPOVIDERDATA = Uri.parse(BASE +'provider/update');
+ static Uri GetWORKINGIMAGES = Uri.parse(BASE +'provider/images');
+ static Uri GetPROVIDERSERVICES = Uri.parse(BASE +'provider/services');
+ static Uri UPDATEWORKINGIMAGES = Uri.parse(BASE +'provider/saveWorkImages');
+ static Uri GETEMPLOYEES = Uri.parse(BASE +'provider/employees');
 
 
 

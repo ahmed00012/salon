@@ -8,12 +8,10 @@ import 'package:beauty_center/repository/employee_repository.dart';
 import 'package:beauty_center/view/ui/salon_registeration/employees_register.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import '../models/categories0_model.dart';
 import '../models/categories_model.dart';
 import '../models/employee_model.dart';
 
@@ -25,21 +23,11 @@ class EmployeeProvider extends ChangeNotifier {
 
   EmployeeRepo employeeRepo = EmployeeRepo();
 List<EmployeeModel> employees = [];
-List<PackagesModel> packages = [];
 final ImagePicker _picker = ImagePicker();
 
 List<Services> services=[];
 
 
-bool pets = false;
-bool food = false;
-bool children = false;
-bool smoke = false;
-bool material = false;
-bool wifi = false;
-bool photographer = false;
-bool cafeShop = false;
-bool bride = false;
 
 
 

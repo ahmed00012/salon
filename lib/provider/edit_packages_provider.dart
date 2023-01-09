@@ -14,15 +14,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../models/categories_model.dart';
-import '../models/employee_model.dart';
 import '../models/roles_employee.dart';
 import '../repository/package_repository.dart';
 
 
 
-final packageFuture =
-ChangeNotifierProvider.autoDispose<PackageProvider>((ref) => PackageProvider());
-class PackageProvider extends ChangeNotifier {
+final editPackageFuture =
+ChangeNotifierProvider.autoDispose<EditPackageProvider>((ref) => EditPackageProvider());
+class EditPackageProvider extends ChangeNotifier {
 
   PackageRepo packageRepo = PackageRepo();
 
@@ -35,10 +34,12 @@ class PackageProvider extends ChangeNotifier {
 
 
 
-  PackageProvider(){
+
+
+  EditPackageProvider(){
 
     getServices();
-     setPackage();
+    setPackage();
     getRules();
 
   }
@@ -56,10 +57,10 @@ class PackageProvider extends ChangeNotifier {
             services: [],
             servicesModel: services,
             saved: false,
-           isPride: false,
-           type: LocalStorage.getData(key: 'gender')=='man'?1:2,
-           price: '',
-           newPrice: ''
+            isPride: false,
+            type: LocalStorage.getData(key: 'gender')=='man'?1:2,
+            price: '',
+            newPrice: ''
 
         ));
 
@@ -68,7 +69,7 @@ class PackageProvider extends ChangeNotifier {
 
   setPackageTitle(String value,int i,bool ar){
     if(ar)
-    packages[i].titleAr = value;
+      packages[i].titleAr = value;
     else
       packages[i].titleEn = value;
     notifyListeners();

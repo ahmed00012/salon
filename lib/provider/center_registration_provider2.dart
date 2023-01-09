@@ -14,14 +14,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-
-import '../constants.dart';
-import '../local_storage.dart';
-import '../models/categories0_model.dart';
 import '../models/categories_model.dart';
-import '../models/opening_day_model.dart';
-import '../repository/auth_repository.dart';
-import '../view/widgets/time_picker_theme.dart';
 
 
 final registerFuture2 =
@@ -30,8 +23,8 @@ class RegisterProvider2 extends ChangeNotifier {
 
   ServicesRepo servicesRepo = ServicesRepo();
 
-  List<CategoriesModel0> categories=[];
-  List<CategoriesModel> categories2=[];
+
+  List<CategoriesModel> categories=[];
   List<String> anotherCategories=[];
  List <AnotherCategoryModel>chosenAnotherCategories =[];
  int anotherCategoriesLength = 1;
@@ -55,8 +48,8 @@ class RegisterProvider2 extends ChangeNotifier {
     var data = await servicesRepo.getCategories();
     
     if(data!=false){
-      categories2 = List<CategoriesModel>.from(data.map((e)=>CategoriesModel.fromJson(e)));
-      categories2.forEach((element) {
+      categories = List<CategoriesModel>.from(data.map((e)=>CategoriesModel.fromJson(e)));
+      categories.forEach((element) {
         element.services!.forEach((service) {
           service.priceFrom = 0;
           service.priceTo = 100;
@@ -70,15 +63,15 @@ notifyListeners();
 
 chooseCategory(bool choose , int i,int  j){
     if(choose) {
-        categories2[i].services![j].choose = true;
-        categories2[i].services!.forEach((element) {
+        categories[i].services![j].choose = true;
+        categories[i].services!.forEach((element) {
         });
 
     }
     else{
 
-        categories2[i].services![j].choose = false;
-        categories2[i].services!.forEach((element) {
+        categories[i].services![j].choose = false;
+        categories[i].services!.forEach((element) {
 
         });
     }
@@ -91,13 +84,6 @@ if(anotherCategoriesLength<6)
     notifyListeners();
 }
 
-markHomeSalon(int i,int j,{bool ?inHome,bool? inSalon}){
-    if(inHome!=null)
-    categories[i].subcategory![j].inHome = inHome;
-    if(inSalon!=null)
-      categories[i].subcategory![j].inSalon = inSalon;
-    notifyListeners();
-}
 
 markHaveEmployees(){
     haveEmployees = !haveEmployees;
@@ -106,9 +92,9 @@ markHaveEmployees(){
 
 setPrice(bool from, String value, int i , int j){
     if(from)
-      categories2[i].services![j].priceFrom = int.parse(value);
+      categories[i].services![j].priceFrom = int.parse(value);
     else
-      categories2[i].services![j].priceTo = int.parse(value);
+      categories[i].services![j].priceTo = int.parse(value);
 
     notifyListeners();
 }
@@ -116,11 +102,11 @@ setPrice(bool from, String value, int i , int j){
 
 setDuration(bool plus, int i , int j){
     if(plus){
-      categories2[i].services![j].duration = categories2[i].services![j].duration! + 30;
+      categories[i].services![j].duration = categories[i].services![j].duration! + 30;
     }
     else{
-      if(categories2[i].services![j].duration! > 30)
-      categories2[i].services![j].duration = categories2[i].services![j].duration! - 30;
+      if(categories[i].services![j].duration! > 30)
+      categories[i].services![j].duration = categories[i].services![j].duration! - 30;
     }
     notifyListeners();
 }
@@ -131,7 +117,7 @@ storeServices(BuildContext context)async{
     services: []
   );
 
-   categories2.forEach((element) {
+   categories.forEach((element) {
      element.services!.forEach((service) {
        if(service.choose!) {
           ServiceJsonModel serviceJson = ServiceJsonModel(

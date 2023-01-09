@@ -1,8 +1,10 @@
 
 
+import 'categories_model.dart';
+
 class Country {
   int? id;
-  Title? title;
+  TitleModel? title;
   int? order;
   int? isActive;
   String? createdAt;
@@ -20,7 +22,7 @@ class Country {
 
   Country.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'] != null ? new Title.fromJson(json['title']) : null;
+    title = json['title'] != null ? new TitleModel.fromJson(json['title']) : null;
     order = json['order'];
     isActive = json['is_active'];
     createdAt = json['created_at'];
@@ -50,28 +52,11 @@ class Country {
   }
 }
 
-class Title {
-  String? en;
-  String? ar;
 
-  Title({this.en, this.ar});
-
-  Title.fromJson(Map<String, dynamic> json) {
-    en = json['en'];
-    ar = json['ar'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['en'] = this.en;
-    data['ar'] = this.ar;
-    return data;
-  }
-}
 
 class Cities {
   int? id;
-  Title? title;
+  TitleModel? title;
   String? lat;
   String? lng;
   int? isActive;
@@ -91,7 +76,7 @@ class Cities {
 
   Cities.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'] != null ? new Title.fromJson(json['title']) : null;
+    title = json['title'] != null ? new TitleModel.fromJson(json['title']) : null;
     lat = json['lat'];
     lng = json['lng'];
     isActive = json['is_active'];

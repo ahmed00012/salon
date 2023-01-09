@@ -10,13 +10,16 @@ import 'package:async/async.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 
+import '../models/provider_update_model.dart';
+
 
 abstract class SalonInfoRepository{
   Future getCountries();
   Future getCities(int country);
   Future getAreas(int city);
-  uploadImageToServer(SalonInfoRegistration salonInfo);
+  registerInfo(SalonInfoRegistration salonInfo);
   Future getProviderInfo();
+  Future updateProviderInfo(ProviderInfoUpdateModel salonInfo);
 }
 
 class SalonInfoRepo extends SalonInfoRepository{
@@ -60,7 +63,7 @@ class SalonInfoRepo extends SalonInfoRepository{
   }
 
   @override
-  Future uploadImageToServer(SalonInfoRegistration salonInfo) async {
+  Future registerInfo(SalonInfoRegistration salonInfo) async {
     var multipartFileLicense;
     var streamLicense;
     var lengthLicense;
@@ -191,4 +194,61 @@ if(salonInfo.workImages!=null)
   }
 
 
+
+  @override
+  Future updateProviderInfo(ProviderInfoUpdateModel salonInfo) async {
+
+    var multipartFileLogo;
+    var streamLogo;
+    var lengthLogo;
+
+
+    http.MultipartRequest request = new http.MultipartRequest('POST', Constants.UPDATEPOVIDERDATA);
+
+    request.fields['title_ar'] = salonInfo.title!.ar.toString();
+    request.fields['title_en'] = salonInfo.title!.en.toString();
+    request.fields['phone'] =  salonInfo.phone.toString();
+    request.fields['phone2'] = salonInfo.phone2.toString();
+    request.fields['country_id'] = salonInfo.countryId.toString();
+    request.fields['city_id'] = salonInfo.cityId.toString();
+    request.fields['area_id'] = '1';
+    request.fields['street_name'] =salonInfo.streetName.toString();
+    request.fields['lat'] = salonInfo.lat.toString();
+    request.fields['lng'] = salonInfo.lng.toString();
+    request.fields['description_ar'] = salonInfo.description!.ar.toString();
+    request.fields['description_en'] = salonInfo.description!.en.toString();
+    request.fields['type'] = salonInfo.type.toString();
+    request.fields['start_experience'] = '2019';
+    request.fields['open_at'] = salonInfo.open!;
+    request.fields['close_at'] = salonInfo.close!;
+    request.fields['holidays'] = salonInfo.holidays.toString();
+    request.headers["Authorization"]=LocalStorage.getData(key: 'token');
+    request.headers["Accept"]='application/json';
+
+
+    if (salonInfo.image != null) {
+
+      streamLogo =
+      new http.ByteStream(DelegatingStream.typed(salonInfo.image!.openRead()));
+      lengthLogo = await salonInfo.image!.length();
+      multipartFileLogo = new http.MultipartFile('image', streamLogo , lengthLogo ,
+          filename: basename(salonInfo.image!.path));
+      request.files.add(multipartFileLogo);
+    }
+    var response = await request.send();
+    http.Response response2 = await http.Response.fromStream(response);
+    print("Result: ${response2.statusCode}");
+    print("Result: ${response2.body}");
+    if (response.statusCode == 200) {
+      var data = json.decode(response2.body);
+      return data['data'];
+    } else {
+
+      return false;
+
+    }
+
+
+
+  }
 }

@@ -47,7 +47,7 @@ class ChooseCategories extends ConsumerWidget {
 
                            ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
-                                itemCount: controller.categories2.length,
+                                itemCount: controller.categories.length,
 
                                shrinkWrap: true,
                                 itemBuilder: (context, i) {
@@ -66,7 +66,7 @@ class ChooseCategories extends ConsumerWidget {
                                          ),
                                          child:  Center(
                                            child: Text(
-                                             controller.categories2[i].title!.en!,
+                                             controller.categories[i].title!.en!,
                                              style: TextStyle(
                                                fontWeight: FontWeight.bold,
                                                fontSize: height * 0.025,
@@ -79,7 +79,7 @@ class ChooseCategories extends ConsumerWidget {
 
                                       ListView.builder(
                                           itemCount: controller
-                                              .categories2[i].services!.length,
+                                              .categories[i].services!.length,
                                           physics: NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemBuilder: (context, j) {
@@ -92,7 +92,7 @@ class ChooseCategories extends ConsumerWidget {
                                                       padding:
                                                       const EdgeInsets.only(left: 20),
                                                       child: Checkbox(
-                                                          value: controller.categories2[i]
+                                                          value: controller.categories[i]
                                                               .services![j].choose,
                                                           activeColor:
                                                           Constants.mainColor2,
@@ -101,7 +101,7 @@ class ChooseCategories extends ConsumerWidget {
                                                           }),
                                                     ),
                                                     Text(controller
-                                                        .categories2[i].services![j].title!.en!,style: TextStyle(
+                                                        .categories[i].services![j].title!.en!,style: TextStyle(
                                                         fontSize: height*0.02
                                                     ),),
 
@@ -111,7 +111,7 @@ class ChooseCategories extends ConsumerWidget {
                                                   ],
                                                 ),
                                                 Visibility(
-                                                  visible: controller.categories2[i].services![j].choose!,
+                                                  visible: controller.categories[i].services![j].choose!,
                                                   child:Row(
                                                     mainAxisAlignment: MainAxisAlignment.start,
 
@@ -135,7 +135,7 @@ class ChooseCategories extends ConsumerWidget {
                                                         child: TextFormField(
                                                           cursorColor: Constants.mainColor2,
                                                           keyboardType: TextInputType.number,
-                                                          initialValue: controller.categories2[i].services![j].priceFrom.toString(),
+                                                          initialValue: controller.categories[i].services![j].priceFrom.toString(),
 
                                                           decoration: const InputDecoration(
                                                             border: OutlineInputBorder(
@@ -176,7 +176,7 @@ class ChooseCategories extends ConsumerWidget {
                                                         ),
                                                         child: TextFormField(
                                                           cursorColor: Constants.mainColor2,
-                                                          initialValue: controller.categories2[i].services![j].priceTo.toString(),
+                                                          initialValue: controller.categories[i].services![j].priceTo.toString(),
                                                           keyboardType: TextInputType.number,
 
                                                           decoration:const InputDecoration(
@@ -212,7 +212,7 @@ class ChooseCategories extends ConsumerWidget {
                                                 ),
                                                 SizedBox(height: 20,),
                                                 Visibility(
-                                                  visible: controller.categories2[i].services![j].choose!,
+                                                  visible: controller.categories[i].services![j].choose!,
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
@@ -255,7 +255,7 @@ class ChooseCategories extends ConsumerWidget {
 
                                                         child: Center(
                                                             child: Text(
-                                                                '${controller.categories2[i].services![j].duration} Minute'
+                                                                '${controller.categories[i].services![j].duration} Minute'
                                                             )),
                                                       ),
 
@@ -285,10 +285,10 @@ class ChooseCategories extends ConsumerWidget {
                                                   ),
                                                 ),
                                                 Visibility(
-                                                    visible: controller.categories2[i].services![j].choose!,
+                                                    visible: controller.categories[i].services![j].choose!,
                                                     child: SizedBox(height: 20,)),
                                                 Visibility(
-                                                    visible: controller.categories2[i].services![j].choose!,
+                                                    visible: controller.categories[i].services![j].choose!,
                                                     child: Divider())
                                               ],
                                             );

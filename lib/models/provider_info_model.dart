@@ -1,11 +1,15 @@
 
 
+import 'dart:convert';
+
+import 'categories_model.dart';
+
 class ProviderInfoModel {
   String? id;
-  Title? title;
-  Title? description;
+  TitleModel? title;
+  TitleModel? description;
   String? phone;
-  int? type;
+  String? type;
   String? phone2;
   String? image;
   String? licenseImage;
@@ -17,7 +21,7 @@ class ProviderInfoModel {
   String? lat;
   String? lng;
   String? startExperience;
-  String? holidays;
+ List <String>? holidays;
   String? openAt;
   String? closeAt;
   int? isActive;
@@ -54,36 +58,36 @@ class ProviderInfoModel {
         this.inFavourite,
         this.employees});
 
-  ProviderInfoModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'] != null ? new Title.fromJson(json['title']) : null;
-    description = json['description'] != null
-        ? new Title.fromJson(json['description'])
+  ProviderInfoModel.fromJson(Map<String, dynamic> data) {
+    id = data['id'];
+    title = data['title'] != null ? new TitleModel.fromJson(data['title']) : null;
+    description = data['description'] != null
+        ? new TitleModel.fromJson(data['description'])
         : null;
-    phone = json['phone'];
-    type = json['type'];
-    phone2 = json['phone2'];
-    image = json['image'];
-    licenseImage = json['license_image'];
-    certificateImage = json['certificate_image'];
-    countryId = json['country_id'];
-    cityId = json['city_id'];
-    areaId = json['area_id'];
-    streetName = json['street_name'];
-    lat = json['lat'];
-    lng = json['lng'];
-    startExperience = json['start_experience'];
-    holidays = json['holidays'];
-    openAt = json['open_at'];
-    closeAt = json['close_at'];
-    isActive = json['is_active'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    rate = json['rate'];
-    inFavourite = json['in_favourite'];
-    if (json['employees'] != null) {
+    phone = data['phone'];
+    type = data['type'].toString();
+    phone2 = data['phone2'];
+    image = data['image'];
+    licenseImage = data['license_image'];
+    certificateImage = data['certificate_image'];
+    countryId = data['country_id'];
+    cityId = data['city_id'];
+    areaId = data['area_id'];
+    streetName = data['street_name'];
+    lat = data['lat'];
+    lng = data['lng'];
+    startExperience = data['start_experience'];
+    holidays = data['holidays'].toString().replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',');
+    openAt = data['open_at'];
+    closeAt = data['close_at'];
+    isActive = data['is_active'];
+    createdAt = data['created_at'];
+    updatedAt = data['updated_at'];
+    rate = data['rate'];
+    inFavourite = data['in_favourite'];
+    if (data['employees'] != null) {
       employees = <Employees>[];
-      json['employees'].forEach((v) {
+      data['employees'].forEach((v) {
         employees!.add(new Employees.fromJson(v));
       });
     }
@@ -91,13 +95,10 @@ class ProviderInfoModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.title != null) {
-      data['title'] = this.title!.toJson();
-    }
-    if (this.description != null) {
-      data['description'] = this.description!.toJson();
-    }
+   data['title_ar'] = this.title!.ar;
+   data['title_en'] = this.title!.en;
+   data['description_ar'] = this.description!.ar;
+   data['description_en'] = this.description!.en;
     data['phone'] = this.phone;
     data['type'] = this.type;
     data['phone2'] = this.phone2;
@@ -126,24 +127,7 @@ class ProviderInfoModel {
   }
 }
 
-class Title {
-  String? en;
-  String? ar;
 
-  Title({this.en, this.ar});
-
-  Title.fromJson(Map<String, dynamic> json) {
-    en = json['en'];
-    ar = json['ar'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['en'] = this.en;
-    data['ar'] = this.ar;
-    return data;
-  }
-}
 
 class Employees {
   String? id;

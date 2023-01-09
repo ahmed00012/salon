@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 abstract class ServicesRepository{
   Future getCategories();
+  Future getProviderServices();
   Future storeServices(Map serviceJson);
   
 }
@@ -42,6 +43,22 @@ class ServicesRepo extends ServicesRepository{
       return data['data'];
     }
     else return false;
+  }
+
+
+  @override
+  Future getProviderServices() async{
+    var response = await http.get(Constants.GetPROVIDERSERVICES,
+    headers: {
+      'Authorization':LocalStorage.getData(key: 'token')
+    });
+
+    if(response.statusCode==200){
+      var data =json.decode(response.body);
+      return data['data'];
+    }
+    else return false;
+
   }
   
 }
