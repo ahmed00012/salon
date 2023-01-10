@@ -1,5 +1,6 @@
 
 
+import 'package:beauty_center/view/ui/authentication/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -17,7 +18,7 @@ class _GoodJobState extends State<GoodJob> {
   @override
   void initState() {
    Future.delayed(Duration(seconds: 3),(){
-     Navigator.push(context, MaterialPageRoute(builder: (_)=>BottomNavBar()));
+     Navigator.push(context, MaterialPageRoute(builder: (_)=>LoginScreen()));
    });
     super.initState();
   }

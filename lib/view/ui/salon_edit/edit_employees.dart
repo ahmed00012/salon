@@ -33,67 +33,76 @@ class EmployeesEdit extends ConsumerWidget {
 
           Expanded(
             child: StatefulBuilder(builder: (context, setState) {
-              return ListView(
-                children: [
-                  ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: controller.employees.length,
-                      itemBuilder: (context,i){
-                        return Container(
-                          color: Colors.black38,
-                        );
-                      }),
-                  SizedBox(height: 40,),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: width*0.25),
-                    child: InkWell(
-                      onTap: (){
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+
+                  children: [
+                     GridView.builder(
+
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1.1
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        shrinkWrap: true,
+                        itemCount: controller.employees.length,
+                        itemBuilder: (context,i){
+                          return Container(
+
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Column(
+                              children: [
+                                AspectRatio(
+                                    aspectRatio: 1.35,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(10),
+                                        topLeft: Radius.circular(10),
+                                      ),
+                                      child: Image.network(controller.employees[i].image!,
+                                      fit: BoxFit.fill,),
+                                    )),
+                                SizedBox(height: 5,),
+                                Text(controller.employees[i].name!,
+                                style: TextStyle(
+                                  fontSize: height*0.02,
+
+                                ),)
+                              ],
+                            ),
+                          );
+                        }),
+
+                    Align(
+                      alignment: Alignment.bottomRight,
+                       child: Padding(
+                         padding: const EdgeInsets.only(right: 30,bottom: 30),
+                         child: InkWell(
+                          onTap: (){
 
 
-                      },
-                      child: Container(
-                        height: height*0.065,
-                        decoration: BoxDecoration(
-                            color: Constants.mainColor2,
-                            borderRadius: BorderRadius.circular(15)
-                        ),
-                        child: Center(
-                          child: Text('Add Another Employee',style: TextStyle(color: Colors.white,
-                              fontSize: height*0.02),),
-                        ),
+                          },
+                          child: Container(
+                            height: height*0.07,
+                            width: height*0.07,
+                            decoration: BoxDecoration(
+                                color: Constants.mainColor2,
+                                shape: BoxShape.circle
+                            ),
+                            child: Center(
+                              child:Icon(Icons.add,color: Colors.white,)
+                            ),
+                          ),
                       ),
+                       ),
                     ),
-                  ),
-                  SizedBox(height: 50,),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: width*0.2),
-                    child: InkWell(
-                      onTap: (){
 
-                        // if(!controller.employees.last.stored!)
-                        //   controller.storeEmployee(controller.employees.last).then((value) {
-                        //     Navigator.pop(context);
-                        //   });
-                        // else
-                        //   Navigator.pop(context);
-
-                      },
-                      child: Container(
-                        height: height*0.06,
-                        width: width*0.25,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Constants.mainColor2
-                        ),
-                        child: Center(
-                          child: Text('Done',style: TextStyle(color: Colors.white),),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 40,),
-                ],
+                  ],
+                ),
               );
             }),
           )

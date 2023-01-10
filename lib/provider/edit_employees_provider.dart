@@ -148,7 +148,7 @@ class EditEmployeeProvider extends ChangeNotifier {
 
   Future getEmployees()async{
     var data = await employeeRepo.getEmployees();
-    employees = List.from(data.map((e)=>ProviderEmployeesModel.fromJson(e)));
+    employees = List.from(data['data'].map((e)=>ProviderEmployeesModel.fromJson(e)));
     notifyListeners();
   }
 
