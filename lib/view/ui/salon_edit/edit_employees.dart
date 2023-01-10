@@ -38,42 +38,65 @@ class EmployeesEdit extends ConsumerWidget {
                 child: Stack(
 
                   children: [
-                     GridView.builder(
-
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1.1
-                        ),
+                     ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         shrinkWrap: true,
                         itemCount: controller.employees.length,
                         itemBuilder: (context,i){
-                          return Container(
+                          return Stack(
+                            children: [
+                              Container(
+                                height: height*0.1,
 
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)
-                            ),
-                            child: Column(
-                              children: [
-                                AspectRatio(
-                                    aspectRatio: 1.35,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(10),
-                                        topLeft: Radius.circular(10),
-                                      ),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(width: 10,),
+
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
                                       child: Image.network(controller.employees[i].image!,
-                                      fit: BoxFit.fill,),
-                                    )),
-                                SizedBox(height: 5,),
-                                Text(controller.employees[i].name!,
-                                style: TextStyle(
-                                  fontSize: height*0.02,
+                                        height: height*0.08,
+                                        width: height*0.08,),
+                                    ),
+                                     Padding(
+                                       padding: const EdgeInsets.only(top: 10,left: 10),
+                                       child: Column(
+                                         children: [
+                                           Text(controller.employees[i].name!,
+                                             style: TextStyle(
+                                                 fontSize: height*0.02,
+                                                 color: Colors.black
 
-                                ),)
-                              ],
-                            ),
+                                             ),),
+                                           SizedBox(height: 15,),
+                                           Text(controller.employees[i].workFrom!.substring(0,5) +
+                                               ' - ' + controller.employees[i].workTo!.substring(0,5),
+                                             style: TextStyle(
+                                                 fontSize: height*0.02,
+                                                 color: Colors.black38
+
+                                             ),),
+                                         ],
+                                       )
+                                     ),
+
+
+
+
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                top:0,
+                                right: 0,
+                                child: Icon(Icons.delete_forever,size:25,),
+                              )
+                            ],
                           );
                         }),
 
